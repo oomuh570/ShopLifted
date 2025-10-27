@@ -1,5 +1,5 @@
 # 🧵 Tailwind Threads  
-*A Single-Page Fashion Storefront built with HTML, Tailwind CSS, and Vanilla JavaScript.*
+*A Single-Page Fashion Storefront built with HTML, Tailwind CSS, and JavaScript.*
 
 ---
 
