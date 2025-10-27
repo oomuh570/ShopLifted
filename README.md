@@ -1,32 +1,62 @@
 # 🧵 Tailwind Threads  
-*A modern single-page fashion storefront built with HTML, CSS, and JavaScript.*
+*A Single-Page Fashion Storefront built with HTML, Tailwind CSS, and Vanilla JavaScript.*
 
 ---
 
-## 📖 Overview
-**Tailwind Threads** is a Single-Page Application (SPA) that allows users to browse fashion products, view details, and manage a shopping cart — all on one page.  
-It demonstrates front-end proficiency in **JavaScript**, **DOM manipulation**, and **localStorage persistence** while showcasing responsive UI through **Tailwind CSS**.
+## 📖 Project Overview
+**Tailwind Threads** is a fully responsive **Single-Page Application (SPA)** that enables users to browse fashion products, view product details, and manage a persistent shopping cart — all within one HTML page.  
+This project was developed as part of **COMP 3612 (Assignment 2)** to demonstrate front-end programming, design, and documentation skills.
+
+The app emphasizes:
+- Dynamic **view switching** without page reloads  
+- **Asynchronous JSON data fetching**  
+- **Persistent localStorage** for shopping-cart data  
+- Modular, well-documented **JavaScript**
 
 ---
 
-## 🧩 Features
-- 🧭 **Single-Page Navigation** — Switch between Home, Men/Women, Browse, Product, and Cart views dynamically.  
-- 📦 **Persistent Shopping Cart** — Maintains cart data using the `localStorage` API.  
-- 🌐 **Dynamic Data Fetching** — Loads product data from a JSON file asynchronously.  
-- 💬 **About Us Popup** — Displays project information and credits.  
-- 🎨 **Responsive Design** — Built with Tailwind CSS for desktop and mobile devices.  
-- 🧠 **Pure JavaScript** — No frameworks or external JS libraries.
+## 🧩 Application Features
+### 🏠 Home View  
+- Displays a landing section introducing the brand and quick links to Men’s / Women’s collections.
+
+### 👕 Men / Women Views  
+- Category pages that showcase gender-specific product types.  
+- Clicking a category routes users to the **Browse View** for that selection.
+
+### 🛍️ Browse View  
+- Core product-browsing interface.  
+- Filters and displays items by category, price, or other criteria.  
+- Products are loaded dynamically from a compact **JSON data file** using the `fetch()` API.
+
+### 🧥 Single Product View  
+- Displays detailed information for a selected item (image, price, description, etc.).  
+- Includes an “Add to Cart” button that updates the local cart.
+
+### 🛒 Shopping Cart View  
+- Shows items currently in the cart.  
+- Supports item removal and quantity updates.  
+- **Cart data persists** via the `localStorage` API.
+
+### ℹ️ About Us Dialog / Popup  
+- Modal window providing project details, author information, and asset credits.  
+- Contains a link to the GitHub repository and deployed site.
 
 ---
 
 ## 🛠️ Technologies Used
 | Technology | Purpose |
 |-------------|----------|
-| HTML5 | Structure and semantic layout |
-| Tailwind CSS | Styling and responsive design |
-| JavaScript (ES6) | Logic, interactivity, and routing |
-| JSON | Product data source |
-| localStorage API | Persistent shopping cart |
-| GitHub Pages | Deployment and hosting |
+| **HTML5** | Semantic structure and view containers |
+| **Tailwind CSS** | Responsive and modern styling |
+| **JavaScript (ES6+)** | Interactivity, routing, and DOM manipulation |
+| **JSON** | External product-data source |
+| **localStorage API** | Client-side cart persistence |
+| **GitHub Pages** | Static hosting and deployment |
+
+---
+
+## 📦 Data Handling
+- Product data is fetched asynchronously from a provided JSON file using the `fetch()` API.  
+- This approach mirrors how a real SPA would consume a web API while keeping deployment simple.  
 
 ---
