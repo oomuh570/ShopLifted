@@ -6,9 +6,65 @@
     <script src="https://cdn.tailwindcss.com"></script>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <script src="app.js"></script>
+
 </head>
+
 <body>
-    <h1>This is a Test</h1>
+
+   
+        
+        <!-- HEADER -->
+        <header class="bg-white shadow-md p-4 flex items-center justify-between">
+
+        <!-- Left: Logo -->
+        <h1 id="nav-logo" class="text-2xl font-bold text-gray-800 cursor-pointer">
+            Tailwind Threads
+        </h1>
+
+        <!-- Center: Navigation -->
+        <nav class="hidden md:flex space-x-6 text-lg font-medium ml-[-100px]">
+            <button id="nav-home2" class="hover:text-blue-500 transition">Home</button>
+            <button id="nav-men" class="hover:text-blue-500 transition">Men</button>
+            <button id="nav-women" class="hover:text-blue-500 transition">Women</button>
+            <button id="nav-browse" class="hover:text-blue-500 transition">Browse</button>
+            <button id="nav-about" class="hover:text-blue-500 transition">About</button>
+        </nav>
+
+
+        <!-- Right: Cart -->
+        <div class="flex space-x-4">
+            <button id="nav-cart" class="relative hover:text-blue-500 transition">
+            Cart 
+            <span id="cart-count"
+                class="ml-1 bg-red-500 text-white text-xs rounded-full px-2 py-0.5">
+                0
+            </span>
+            </button>
+        </div>
+
+        </header>
+
+
+
+         <!-- Footer -->
+        <footer class="bg-gray-100 text-center py-4 mt-10 border-t">
+            <p class="text-sm text-gray-500">
+                © 2025 Tailwind Threads — Built for COMP 3612 Assignment 2
+            </p>
+        </footer>
+
+ 
+
+
+
+
+
+
+
+
+
+   
         
 </body>
+
 </html>
