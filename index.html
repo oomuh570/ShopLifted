@@ -10,11 +10,8 @@
 </head>
 
 <body>
-
-   
-        
-        <!-- HEADER -->
-        <header class="bg-white shadow-md p-4 flex items-center justify-between">
+    <!-- HEADER -->
+    <header class="bg-white shadow-md p-4 flex items-center justify-between">
 
         <!-- Left: Logo -->
         <h1 id="nav-logo" class="text-2xl font-bold text-gray-800 cursor-pointer">
@@ -23,48 +20,42 @@
 
         <!-- Center: Navigation -->
         <nav class="hidden md:flex space-x-6 text-lg font-medium ml-[-100px]">
-            <button id="nav-home2" class="hover:text-blue-500 transition">Home</button>
-            <button id="nav-men" class="hover:text-blue-500 transition">Men</button>
-            <button id="nav-women" class="hover:text-blue-500 transition">Women</button>
-            <button id="nav-browse" class="hover:text-blue-500 transition">Browse</button>
-            <button id="nav-about" class="hover:text-blue-500 transition">About</button>
+            <button id="nav-home" data-view="view-home" class="hover:text-blue-500 transition">Home</button>
+            <button id="nav-men" data-view="view-men" class="hover:text-blue-500 transition">Men</button>
+            <button id="nav-women" data-view="view-women" class="hover:text-blue-500 transition">Women</button>
+            <button id="nav-browse" data-view="view-browse" class="hover:text-blue-500 transition">Browse</button>
+            <button id="nav-about" data-view="view-about" class="hover:text-blue-500 transition">About</button>
         </nav>
 
 
         <!-- Right: Cart -->
         <div class="flex space-x-4">
             <button id="nav-cart" class="relative hover:text-blue-500 transition">
-            Cart 
-            <span id="cart-count"
-                class="ml-1 bg-red-500 text-white text-xs rounded-full px-2 py-0.5">
-                0
-            </span>
+                Cart 
+                <span id="cart-count"
+                    class="ml-1 bg-red-500 text-white text-xs rounded-full px-2 py-0.5">
+                    0
+                </span>
             </button>
         </div>
 
-        </header>
+    </header>
 
+    <main>
 
+        <section id="view-home" class="view"> Home content </section>
+        <section id="view-men" class="view hidden"> Men's clothing </section>
+        <section id="view-women" class="view hidden"> Women's clothing </section>
+        <section id="view-browse" class="view hidden"> Browse </section>
+        <section id="view-about" class="view hidden"> About </section>
 
-         <!-- Footer -->
-        <footer class="bg-gray-100 text-center py-4 mt-10 border-t">
-            <p class="text-sm text-gray-500">
-                © 2025 Tailwind Threads — Built for COMP 3612 Assignment 2
-            </p>
-        </footer>
+    </main>
 
- 
-
-
-
-
-
-
-
-
-
-   
-        
+    <!-- Footer -->
+    <footer class="bg-gray-100 text-center py-4 mt-10 border-t">
+        <p class="text-sm text-gray-500">
+            © 2025 Tailwind Threads — Built for COMP 3612 Assignment 2
+        </p>
+    </footer>
 </body>
-
 </html>
