@@ -2,7 +2,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
     let currentView = document.querySelector("#view-home");
 
-    const navBtn = document.querySelectorAll("nav button");
+    const navBtn = document.querySelectorAll("[data-view]");
 
     navBtn.forEach(button => {
         button.addEventListener("click", () => {
