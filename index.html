@@ -45,10 +45,11 @@
 
         <article id="view-home" class="view"> Home content </article>
         
-        <article id="view-men" class="view hidden p-6">
+        <article id="view-men" class="view hidden p-5">
+
             <!-- Hero -->
             <div class="relative w-full h-64 md:h-80 lg:h-96 mb-10">
-                <img src = "https://static.photos/people/1200x630/4" alt="Men's Fashion Hero" class="w-full h-full object-cover rounded-xl shadow">
+                <img src="https://static.photos/people/1200x630/4" alt="Men's Fashion Hero" class="w-full h-full object-cover rounded-xl shadow">
                 <div class="absolute inset-0 bg-black bg-opacity-40 rounded-xl"></div>
                 <div class="absolute inset-0 flex items-center justify-center">
                     <h1 class="text-white text-4xl md:text-5xl font-extrabold drop-shadow-lg tracking-wide">
@@ -57,8 +58,8 @@
                 </div>
             </div>
             
-            <!-- Category Grid -->
-            <div class="grid grid-cols-2 md:grid-cols-3 gap-6">
+            <!-- Card Grid -->
+            <div class="card-grid grid grid-cols-2 md:grid-cols-3 gap-6">
 
                 <!-- Tops -->
                 <button class="category-card bg-white border rounded-xl shadow hover:shadow-lg p-6 flex flex-col items-center justify-center transition cursor-pointer">
@@ -77,11 +78,45 @@
                     <img src="https://static.photos/retail/1200x630/11" alt="Men Accessories" class="w-25 h-25 mb-4 rounded">
                     <span class="text-lg font-semibold text-gray-700">Accessories</span>
                 </button>
+
             </div>
         </article>
 
-        <article id="view-women" class="view hidden"> Women's clothing 
+        <article id="view-women" class="view hidden p-5">
+
+             <!-- Hero -->
+            <div class="relative w-full h-64 md:h-80 lg:h-96 mb-10">
+                <img src="https://static.photos/people/1200x630/0" alt="Women's Fashion Hero" class="w-full h-full object-cover rounded-xl shadow">
+                <div class="absolute inset-0 bg-black bg-opacity-40 rounded-xl"></div>
+                <div class="absolute inset-0 flex items-center justify-center">
+                    <h1 class="text-white text-4xl md:text-5xl font-extrabold drop-shadow-lg tracking-wide">
+                        Women's Clothing
+                    </h1>
+                </div>
+            </div>
             
+            <!-- Card Grid -->
+            <div class="card-grid grid grid-cols-2 md:grid-cols-3 gap-6">
+
+                <!-- Tops -->
+                <button class="category-card bg-white border rounded-xl shadow hover:shadow-lg p-6 flex flex-col items-center justify-center transition cursor-pointer">
+                <img src="https://static.photos/retail/1200x630/129" alt="Women Tops" class="w-25 h-25 rounded mb-4">                   
+                <span class="text-lg font-semibold text-gray-700">Tops</span>
+                </button>
+
+                <!-- Bottoms -->
+                <button class="category-card bg-white border rounded-xl shadow hover:shadow-lg p-6 flex flex-col items-center justify-center transition cursor-pointer">
+                    <img src="https://static.photos/retail/1200x630/84" alt="Women Bottoms" class="w-25 h-25 mb-4 rounded">
+                    <span class="text-lg font-semibold text-gray-700">Bottoms</span>
+                </button>
+
+                <!-- Accessories -->
+                <button class="category-card bg-white border rounded-xl shadow hover:shadow-lg p-6 flex flex-col items-center justify-center transition cursor-pointer">
+                    <img src="https://static.photos/retail/1200x630/181" alt="Women Accessories" class="w-25 h-25 mb-4 rounded">
+                    <span class="text-lg font-semibold text-gray-700">Accessories</span>
+                </button>
+
+            </div>
         </article>
 
         <article id="view-browse" class="view hidden"> Browse </article>
