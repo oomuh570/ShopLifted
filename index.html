@@ -11,15 +11,17 @@
 
 <body>
     <!-- HEADER -->
-    <header class="bg-white shadow-md p-4 flex items-center justify-between">
+    <header class="bg-white shadow-md p-4 flex items-center">
 
         <!-- Left: Logo -->
-        <h1 id="nav-logo" data-view="view-home" class="text-2xl font-bold text-gray-800 cursor-pointer">
-            Tailwind Threads
-        </h1>
-
+        <div class="flex-1">
+            <h1 id="nav-logo" data-view="view-home" class="text-2xl font-bold text-gray-800 cursor-pointer">
+                Tailwind Threads
+            </h1>
+        </div>
+        
         <!-- Center: Navigation -->
-        <nav class="hidden md:flex space-x-6 text-lg font-medium ml-[-100px]">
+        <nav class="hidden md:flex space-x-6 text-lg font-medium ">
             <button id="nav-home" data-view="view-home" class="hover:text-blue-500 transition">Home</button>
             <button id="nav-men" data-view="view-men" class="hover:text-blue-500 transition">Men</button>
             <button id="nav-women" data-view="view-women" class="hover:text-blue-500 transition">Women</button>
@@ -29,7 +31,7 @@
 
 
         <!-- Right: Cart -->
-        <div class="flex space-x-4">
+        <div class="flex-1 flex justify-end space-x-4">
             <button id="nav-cart" data-view="view-cart" class="relative hover:text-blue-500 transition">
                 Cart 
                 <span id="cart-count"
