@@ -1,29 +1,31 @@
-<!DOCTYPE html>
-<html lang = "en">
-<head>
-    <meta charset="utf-8">
-    <title> Assignment 2 </title>
-    <script src="https://cdn.tailwindcss.com"></script>
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <script src="app.js"></script>
+        <!DOCTYPE html>
+        <html lang = "en">
+        <head>
+            <meta charset="utf-8">
+            <title> Assignment 2 </title>
+            <script src="https://cdn.tailwindcss.com"></script>
+            <meta name="viewport" content="width=device-width, initial-scale=1.0">
+            <script src="app.js"></script>
 
-</head>
+        </head>
 
-<body>
+        <body>
 
    
         
         <!-- HEADER -->
-        <header class="bg-white shadow-md p-4 flex items-center justify-between">
+        <header class="bg-white shadow-md p-4 flex items-center">
 
         <!-- Left: Logo -->
-        <h1 id="nav-logo" class="text-2xl font-bold text-gray-800 cursor-pointer">
-            Tailwind Threads
-        </h1>
+         <div class="flex-1">
+            <h1 id="nav-logo" class="text-2xl font-bold text-gray-800 cursor-pointer">
+                Tailwind Threads
+            </h1>
+        </div>
 
         <!-- Center: Navigation -->
-        <nav class="hidden md:flex space-x-6 text-lg font-medium ml-[-100px]">
-            <button id="nav-home2" class="hover:text-blue-500 transition">Home</button>
+        <nav class="hidden md:flex space-x-6 text-lg font-medium"> 
+            <button id="nav-home" class="hover:text-blue-500 transition">Home</button>
             <button id="nav-men" class="hover:text-blue-500 transition">Men</button>
             <button id="nav-women" class="hover:text-blue-500 transition">Women</button>
             <button id="nav-browse" class="hover:text-blue-500 transition">Browse</button>
@@ -32,7 +34,7 @@
 
 
         <!-- Right: Cart -->
-        <div class="flex space-x-4">
+        <div class="flex-1 flex justify-end space-x-4">
             <button id="nav-cart" class="relative hover:text-blue-500 transition">
             Cart 
             <span id="cart-count"
