@@ -11,7 +11,6 @@
 <body>
     <!-- HEADER -->
     <header class="bg-white shadow-md p-4 flex items-center">
-
         <!-- Left: Logo -->
         <div class="flex-1">
             <h1 id="nav-logo" data-view="view-home" class="text-2xl font-bold text-gray-800 cursor-pointer">
@@ -28,13 +27,11 @@
             <button id="nav-about" data-view="view-about" class="hover:text-blue-500 transition">About</button>
         </nav>
 
-
         <!-- Right: Cart -->
         <div class="flex-1 flex justify-end space-x-4">
             <button id="nav-cart" data-view="view-cart" class="relative hover:text-blue-500 transition">
-                Cart 
-                <span id="cart-count"
-                    class="ml-1 bg-red-500 text-white text-xs rounded-full px-2 py-0.5">
+                🛒Cart 
+                <span id="cart-count" class="ml-1 bg-red-500 text-white text-xs rounded-full px-2 py-0.5">
                     0
                 </span>
             </button>
@@ -42,11 +39,9 @@
     </header>
 
     <main>
-
         <article id="view-home" class="view"> Home content </article>
         
         <article id="view-men" class="view hidden p-5">
-
             <!-- Hero -->
             <div class="relative w-full h-64 md:h-80 lg:h-96 mb-10">
                 <img src="https://static.photos/people/1200x630/4" alt="Men's Fashion Hero" class="w-full h-full object-cover rounded-xl shadow">
@@ -60,7 +55,6 @@
             
             <!-- Card Grid -->
             <div class="card-grid grid grid-cols-2 md:grid-cols-3 gap-6">
-
                 <!-- Tops -->
                 <button class="category-card bg-white border rounded-xl shadow hover:shadow-lg p-6 flex flex-col items-center justify-center transition cursor-pointer">
                 <img src="https://static.photos/retail/1200x630/171" alt="Men Tops" class="w-25 h-25 rounded mb-4">                   
@@ -78,12 +72,10 @@
                     <img src="https://static.photos/retail/1200x630/11" alt="Men Accessories" class="w-25 h-25 mb-4 rounded">
                     <span class="text-lg font-semibold text-gray-700">Accessories</span>
                 </button>
-
             </div>
         </article>
 
         <article id="view-women" class="view hidden p-5">
-
              <!-- Hero -->
             <div class="relative w-full h-64 md:h-80 lg:h-96 mb-10">
                 <img src="https://static.photos/people/1200x630/0" alt="Women's Fashion Hero" class="w-full h-full object-cover rounded-xl shadow">
@@ -97,7 +89,6 @@
             
             <!-- Card Grid -->
             <div class="card-grid grid grid-cols-2 md:grid-cols-3 gap-6">
-
                 <!-- Tops -->
                 <button class="category-card bg-white border rounded-xl shadow hover:shadow-lg p-6 flex flex-col items-center justify-center transition cursor-pointer">
                 <img src="https://static.photos/retail/1200x630/129" alt="Women Tops" class="w-25 h-25 rounded mb-4">                   
@@ -115,20 +106,18 @@
                     <img src="https://static.photos/retail/1200x630/181" alt="Women Accessories" class="w-25 h-25 mb-4 rounded">
                     <span class="text-lg font-semibold text-gray-700">Accessories</span>
                 </button>
-
             </div>
         </article>
 
         <article id="view-browse" class="view hidden"> Browse </article>
         <article id="view-about" class="view hidden"> About </article>
         <article id="view-cart" class="view hidden"> Cart </article>
-
     </main>
 
     <!-- Footer -->
     <footer class="bg-gray-100 text-center py-4 mt-10 border-t">
         <p class="text-sm text-gray-500">
-            © 2025 Tailwind Threads — Built for COMP 3612 Assignment 2
+            &copy; 2025 Tailwind Threads — Built for COMP 3612 Assignment 2
         </p>
     </footer>
 </body>
