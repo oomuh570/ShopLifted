@@ -1,4 +1,7 @@
 document.addEventListener("DOMContentLoaded", () => {
+
+    /******************** Navigation ********************/
+
     // Mobile menu elements
     const menuToggle = document.querySelector("#mobile-menu-toggle");
     const mobileMenu = document.querySelector("#mobile-menu");
@@ -6,7 +9,7 @@ document.addEventListener("DOMContentLoaded", () => {
     const middleLine = document.querySelector(".middle-line");
     const bottomLine = document.querySelector(".bottom-line");
 
-    // Navigation system
+    // Nav elements
     let currentView = document.querySelector("#home-view");
     const navBtns = document.querySelectorAll("[data-view]");
     
@@ -42,6 +45,45 @@ document.addEventListener("DOMContentLoaded", () => {
         }
     });
 
+
+
+
+
+
+
+    /******************** About ********************/
+
+    const aboutBtn = document.querySelector("#nav-about");
+    const mobileAboutBtn = document.querySelector("#mobile-nav-about");
+    const aboutDialog = document.querySelector("#about-dialog");
+    const closeDialog = document.querySelector("#close-dialog");
+    const closeDialogBottomBtn = document.querySelector("#close-dialog-btn");
+
+    // Open dialog
+    aboutBtn.addEventListener("click", () => {
+        aboutDialog.showModal();
+    });
+    mobileAboutBtn.addEventListener("click", () => {
+        aboutDialog.showModal();
+        closeMobileMenu(mobileMenu, topLine, middleLine, bottomLine);
+    });
+
+    // Close dialog (x)
+    closeDialog.addEventListener("click", () => {
+        aboutDialog.close();
+    });
+
+    // Close dialog (close)
+    closeDialogBottomBtn.addEventListener("click", () => {
+        aboutDialog.close();
+    });
+
+    // Close dialog (user clicked outside dialog box)
+    aboutDialog.addEventListener("click", (e) => {
+        if (e.target === aboutDialog) {
+            aboutDialog.close();
+        }
+    });
 
 });
 
