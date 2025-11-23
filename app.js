@@ -56,6 +56,7 @@ document.addEventListener("DOMContentLoaded", () => {
     const aboutBtn = document.querySelector("#nav-about");
     const mobileAboutBtn = document.querySelector("#mobile-nav-about");
     const aboutDialog = document.querySelector("#about-dialog");
+    const footerAboutBtn = document.querySelector("#footer-about");
     const closeDialog = document.querySelector("#close-dialog");
     const closeDialogBottomBtn = document.querySelector("#close-dialog-btn");
 
@@ -66,6 +67,9 @@ document.addEventListener("DOMContentLoaded", () => {
     mobileAboutBtn.addEventListener("click", () => {
         aboutDialog.showModal();
         closeMobileMenu(mobileMenu, topLine, middleLine, bottomLine);
+    });
+    footerAboutBtn.addEventListener("click", () => {
+        aboutDialog.showModal();
     });
 
     // Close dialog (x)
