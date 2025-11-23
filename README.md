@@ -1,10 +1,10 @@
-# 🧵 Tailwind Threads  
+# 🛍️ ShopLifted 
 *A Single-Page Fashion Storefront built with HTML, Tailwind CSS, and JavaScript.*
 
 ---
 
 ## 📖 Project Overview
-**Tailwind Threads** is a fully responsive **Single-Page Application (SPA)** that enables users to browse fashion products, view product details, and manage a persistent shopping cart — all within one HTML page.  
+**ShopLifted** is a fully responsive **Single-Page Application (SPA)** that enables users to browse fashion products, view product details, and manage a persistent shopping cart — all within one HTML page.  
 This project was developed as part of **COMP 3612 (Assignment 2)** to demonstrate front-end programming, design, and documentation skills.
 
 The app emphasizes:
