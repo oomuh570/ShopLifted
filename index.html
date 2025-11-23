@@ -1,13 +1,13 @@
-    <!DOCTYPE html>
-    <html lang="en">
-    <head>
-        <meta charset="utf-8">
-        <title>ShopLifted</title>
-        <script src="https://cdn.tailwindcss.com"></script>
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    </head>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>ShopLifted</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+</head>
 
-    <body class="min-h-screen flex flex-col bg-white">
+<body class="min-h-screen flex flex-col bg-white">
 
     <!-- Header-->
     <header class="sticky top-0 z-50 bg-white border-b border-gray-200">
@@ -76,8 +76,7 @@
     <main id="main-content" class="flex-grow">
         
         <!-- Home View -->
-        <div id="home-view">
-
+        <article id="home-view">
             <!-- Hero Section -->
             <section class="relative h-screen max-h-[800px] flex items-center justify-center bg-gray-50">
                 <div class="absolute inset-0 bg-cover bg-center" 
@@ -109,7 +108,6 @@
                 </div>
                 
                 <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-
                     <!-- Men's Category -->
                     <div id="category-men" class="relative group overflow-hidden cursor-pointer aspect-[3/4]"
                         style="background-image: url('images/patrick-t-kindt-KIcQzWym6O0-unsplash.jpg'); background-size: cover; background-position: center;">
@@ -129,16 +127,12 @@
                             <div class="w-0 h-px bg-white group-hover:w-16 transition-all duration-500"></div>
                         </div>
                     </div>
-
                 </div>
-
             </section>
-
-           
-        </div>
+        </article>
 
         <!-- Men's View -->
-        <div id="men-view" class="hidden">
+        <article id="men-view" class="hidden">
             <!-- Hero Section - Men -->
             <section class="relative h-96 md:h-[500px] bg-gray-50">
                 <div class="absolute inset-0 bg-cover bg-center" 
@@ -219,10 +213,10 @@
                 </div>
 
             </section>
-        </div>
+        </article>
 
         <!-- Women's View -->
-        <div id="women-view" class="hidden">
+        <article id="women-view" class="hidden">
             <!-- Hero Section - Women -->
             <section class="relative h-96 md:h-[500px] bg-gray-50">
                 <div class="absolute inset-0 bg-cover bg-center" 
@@ -300,12 +294,11 @@
                         </div>
                         <h3 class="text-sm uppercase tracking-wider text-center font-light">Handbags</h3>
                     </div>
-
                 </div>
-
             </section>
-            
-        </div>
+        </article>
+
+
 
     </main>
 
