@@ -9,7 +9,7 @@ document.addEventListener("DOMContentLoaded", () => {
             const view = button.dataset.view;
             const newView = document.querySelector("#" + view);
 
-            if (newView && (newView !== currentView)) {
+            if (newView !== currentView) {
                 currentView.classList.add("hidden");
                 newView.classList.remove("hidden");
 
@@ -18,7 +18,7 @@ document.addEventListener("DOMContentLoaded", () => {
         });
     });
     
-
+    
 
 
 });
