@@ -2,77 +2,6 @@
 // GLOBAL PRODUCT DATA (PHASE 1 SUBSET)
 // ======================================
 
-let products = [
-  {
-    id: "P001",
-    name: "Silk Wrap Blouse",
-    gender: "womens",
-    category: "Tops",
-    price: 89.99,
-    description: "A soft silk blouse with elegant wrap styling.",
-    colors: [
-      { name: "Ivory", hex: "#FFFFF0" },
-      { name: "Black", hex: "#000000" },
-    ],
-    sizes: ["XS", "S", "M", "L"],
-    material: "100% Silk",
-    image: "https://images.unsplash.com/photo-1541099649105-f69ad21f3246?w=800",
-  },
-  {
-    id: "P002",
-    name: "Floral Summer Dress",
-    gender: "womens",
-    category: "Dresses",
-    price: 129.99,
-    description: "Lightweight floral dress perfect for warm days.",
-    colors: [{ name: "Blue", hex: "#1E3A8A" }],
-    sizes: ["S", "M", "L"],
-    material: "Cotton Blend",
-    image: "https://images.unsplash.com/photo-1595777457583-95e059d581b8?w=800",
-  },
-  {
-    id: "P003",
-    name: "Men’s Wool Overcoat",
-    gender: "mens",
-    category: "Outerwear",
-    price: 249.99,
-    description: "Classic wool overcoat for winter layering.",
-    colors: [
-      { name: "Beige", hex: "#F5F5DC" },
-      { name: "Black", hex: "#000000" },
-    ],
-    sizes: ["M", "L", "XL"],
-    material: "100% Wool",
-    image: "https://images.unsplash.com/photo-1551028719-00167b16eac5?w=800",
-  },
-  {
-    id: "P004",
-    name: "Tailored Denim Jeans",
-    gender: "mens",
-    category: "Bottoms",
-    price: 79.99,
-    description: "Slim-fit jeans with a clean modern silhouette.",
-    colors: [{ name: "Blue", hex: "#1E40AF" }],
-    sizes: ["S", "M", "L", "XL"],
-    material: "100% Cotton",
-    image: "https://images.unsplash.com/photo-1624378439575-d8705ad7ae80?w=800",
-  },
-  {
-    id: "P005",
-    name: "Unisex Leather Sneakers",
-    gender: "mens",
-    category: "Shoes",
-    price: 139.99,
-    description: "Minimalist leather sneakers designed for comfort.",
-    colors: [
-      { name: "White", hex: "#FFFFFF" },
-      { name: "Black", hex: "#000000" },
-    ],
-    sizes: ["7", "8", "9", "10", "11"],
-    material: "Genuine Leather",
-    image: "https://images.unsplash.com/photo-1549298916-b41d501d3772?w=800",
-  },
-];
 
 
 document.addEventListener("DOMContentLoaded", () => {
@@ -120,6 +49,15 @@ document.addEventListener("DOMContentLoaded", () => {
       bottomLine.style.transform = "none";
     }
   });
+
+
+
+  /*const url = https://gist.githubusercontent.com/rconnolly/d37a491b50203d66d043c26f33dbd798/raw/37b5b68c527ddbe824eaed12073d266d5455432a/clothing-compact.json/
+
+  fetch(url);
+
+
+
 
   /******************** About ********************/
 
@@ -181,7 +119,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
 
 
-  
+
   // Browse view
   initBrowse();
 });
