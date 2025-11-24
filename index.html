@@ -43,7 +43,7 @@
                 <button id="nav-men" data-view="men-view" class="hover:text-black  transition-colors">MEN</button>
                 <button id="nav-women" data-view="women-view" class="hover:text-black transition-colors">WOMEN</button>
                 <button id="nav-browse" data-view="browse-view" class="hover:text-black transition-colors">BROWSE</button>
-                <button id="nav-about" data-view="about-view"class="hover:text-black transition-colors">ABOUT</button>
+                <button id="nav-about" class="hover:text-black transition-colors">ABOUT</button>
             </nav>
 
             <!-- Cart & Mobile Menu -->
@@ -71,7 +71,7 @@
                 <button id="mobile-nav-men" data-view="men-view" class="block w-full text-left py-2 text-sm uppercase tracking-wider text-gray-700 hover:text-black">Men</button>
                 <button id="mobile-nav-women" data-view="women-view" class="block w-full text-left py-2 text-sm uppercase tracking-wider text-gray-700 hover:text-black">Women</button>
                 <button id="mobile-nav-browse" data-view="browse-view" class="block w-full text-left py-2 text-sm uppercase tracking-wider text-gray-700 hover:text-black">Browse</button>
-                <button id="mobile-nav-about" data-view="about-view" class="block w-full text-left py-2 text-sm uppercase tracking-wider text-gray-700 hover:text-black">About</button>
+                <button id="mobile-nav-about" class="block w-full text-left py-2 text-sm uppercase tracking-wider text-gray-700 hover:text-black">About</button>
             </div>
         </nav>
     </header>
@@ -96,7 +96,7 @@
                     <p class="text-sm md:text-base font-light tracking-wide mb-10 uppercase">
                         A Curated Selection for the Discerning Individual
                     </p>
-                    <button class="px-10 py-3 bg-white text-black text-xs uppercase tracking-widest font-light border border-white hover:bg-transparent hover:text-white transition-all duration-300">
+                    <button data-view="browse-view" class="px-10 py-3 bg-white text-black text-xs uppercase tracking-widest font-light border border-white hover:bg-transparent hover:text-white transition-all duration-300">
                         Discover
                     </button>
                 </div>
@@ -290,7 +290,7 @@
             </section>
         </article>
 
-        
+
          <!-- Cart View -->
         <article id="cart-view" class="hidden px-6 py-12 max-w-7xl mx-auto">
             <h1 class="text-3xl font-light mb-8 text-center">Shopping Cart</h1>
@@ -510,9 +510,97 @@
             </section>
         </article>
 
+        <!-- About Dialog -->
+        <dialog id="about-dialog" class="backdrop:bg-black/50 backdrop:backdrop-blur-sm rounded-none shadow-2xl max-w-2xl w-full p-0 border border-gray-200">
+            <!-- Dialog Header -->
+            <div class="flex items-center justify-between px-8 py-6 border-b border-gray-200">
+                <h2 class="text-2xl font-light tracking-wider uppercase">About ShopLifted</h2>
+                <button id="close-dialog" class="text-gray-400 hover:text-black transition-colors text-2xl leading-none">
+                    x
+                </button>
+            </div>
+        
+            <!-- Dialog Content -->
+            <div class="px-8 py-8 space-y-6">
+                <!-- Project Description -->
+                <section>
+                    <h3 class="text-lg font-light tracking-wide uppercase mb-3 text-black">Project Overview</h3>
+                    <p class="text-gray-600 leading-relaxed">
+                        ShopLifted is an e-commerce website showcasing our ability to work with JavaScript. 
+                        This was built as part of our COMP 3612 Assignment 2, where we were tasked to build a 
+                        Single-Page Application to view products. This website demonstrates responsive design, 
+                        dynamic content rendering, and seamless navigation.
+                    </p>
+                </section>
 
+                <!-- Technologies Used -->
+                <section>
+                    <h3 class="text-lg font-light tracking-wide uppercase mb-3 text-black">Technologies</h3>
+                    <div class="flex flex-wrap gap-3">
+                        <span class="px-4 py-2 bg-gray-100 text-gray-700 text-sm uppercase tracking-wider">HTML5</span>
+                        <span class="px-4 py-2 bg-gray-100 text-gray-700 text-sm uppercase tracking-wider">Tailwind CSS</span>
+                        <span class="px-4 py-2 bg-gray-100 text-gray-700 text-sm uppercase tracking-wider">JavaScript</span>
+                        <span class="px-4 py-2 bg-gray-100 text-gray-700 text-sm uppercase tracking-wider">JSON</span>
+                        <span class="px-4 py-2 bg-gray-100 text-gray-700 text-sm uppercase tracking-wider">localStorage API</span>
+                        <span class="px-4 py-2 bg-gray-100 text-gray-700 text-sm uppercase tracking-wider">GitHub Pages</span>
+                    </div>
+                </section>
 
-      
+                <!-- Team Members -->
+                <section>
+                    <h3 class="text-lg font-light tracking-wide uppercase mb-3 text-black">Team</h3>
+                    <div class="space-y-2">
+                        <div class="flex items-center">
+                            <p class="text-gray-600">Ochihai Omuha</p>
+                            <a href="https://github.com/oomuh570" 
+                            target="_blank"
+                            class="text-gray-600 hover:text-black transition-colors pl-2">
+                                <!-- From: https://simpleicons.org/?q=github -->
+                                <svg class="w-5 h-5" fill="currentColor" role="img" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                                    <title>GitHub</title>
+                                    <path d="M12 .297c-6.63 0-12 5.373-12 12 0 5.303 3.438 9.8 8.205 11.385.6.113.82-.258.82-.577 0-.285-.01-1.04-.015-2.04-3.338.724-4.042-1.61-4.042-1.61C4.422 18.07 3.633 17.7 3.633 17.7c-1.087-.744.084-.729.084-.729 1.205.084 1.838 1.236 1.838 1.236 1.07 1.835 2.809 1.305 3.495.998.108-.776.417-1.305.76-1.605-2.665-.3-5.466-1.332-5.466-5.93 0-1.31.465-2.38 1.235-3.22-.135-.303-.54-1.523.105-3.176 0 0 1.005-.322 3.3 1.23.96-.267 1.98-.399 3-.405 1.02.006 2.04.138 3 .405 2.28-1.552 3.285-1.23 3.285-1.23.645 1.653.24 2.873.12 3.176.765.84 1.23 1.91 1.23 3.22 0 4.61-2.805 5.625-5.475 5.92.42.36.81 1.096.81 2.22 0 1.606-.015 2.896-.015 3.286 0 .315.21.69.825.57C20.565 22.092 24 17.592 24 12.297c0-6.627-5.373-12-12-12"/>
+                                </svg>
+                            </a>
+                        </div>
+        
+                        <div class="flex items-center">
+                            <p class="text-gray-600">Tarun Jaswal</p>
+                            <a href="https://github.com/tjasw549" 
+                            target="_blank"
+                            class="text-gray-600 hover:text-black transition-colors pl-2">
+                                <!-- From: https://simpleicons.org/?q=github -->
+                                <svg class="w-5 h-5" fill="currentColor" role="img" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                                    <title>GitHub</title>
+                                    <path d="M12 .297c-6.63 0-12 5.373-12 12 0 5.303 3.438 9.8 8.205 11.385.6.113.82-.258.82-.577 0-.285-.01-1.04-.015-2.04-3.338.724-4.042-1.61-4.042-1.61C4.422 18.07 3.633 17.7 3.633 17.7c-1.087-.744.084-.729.084-.729 1.205.084 1.838 1.236 1.838 1.236 1.07 1.835 2.809 1.305 3.495.998.108-.776.417-1.305.76-1.605-2.665-.3-5.466-1.332-5.466-5.93 0-1.31.465-2.38 1.235-3.22-.135-.303-.54-1.523.105-3.176 0 0 1.005-.322 3.3 1.23.96-.267 1.98-.399 3-.405 1.02.006 2.04.138 3 .405 2.28-1.552 3.285-1.23 3.285-1.23.645 1.653.24 2.873.12 3.176.765.84 1.23 1.91 1.23 3.22 0 4.61-2.805 5.625-5.475 5.92.42.36.81 1.096.81 2.22 0 1.606-.015 2.896-.015 3.286 0 .315.21.69.825.57C20.565 22.092 24 17.592 24 12.297c0-6.627-5.373-12-12-12"/>
+                                </svg>
+                            </a>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- GitHub Repo -->
+                <section>
+                    <h3 class="text-lg font-light tracking-wide uppercase mb-3 text-black">Repository</h3>
+                    <a href="https://github.com/oomuh570/Tailwind_Threads.git" 
+                    target="_blank"
+                    class="inline-flex items-center gap-2 text-gray-600 hover:text-black transition-colors">
+                        <!-- From: https://simpleicons.org/?q=github -->
+                        <svg class="w-5 h-5" fill="currentColor" role="img" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                            <title>GitHub</title>
+                            <path d="M12 .297c-6.63 0-12 5.373-12 12 0 5.303 3.438 9.8 8.205 11.385.6.113.82-.258.82-.577 0-.285-.01-1.04-.015-2.04-3.338.724-4.042-1.61-4.042-1.61C4.422 18.07 3.633 17.7 3.633 17.7c-1.087-.744.084-.729.084-.729 1.205.084 1.838 1.236 1.838 1.236 1.07 1.835 2.809 1.305 3.495.998.108-.776.417-1.305.76-1.605-2.665-.3-5.466-1.332-5.466-5.93 0-1.31.465-2.38 1.235-3.22-.135-.303-.54-1.523.105-3.176 0 0 1.005-.322 3.3 1.23.96-.267 1.98-.399 3-.405 1.02.006 2.04.138 3 .405 2.28-1.552 3.285-1.23 3.285-1.23.645 1.653.24 2.873.12 3.176.765.84 1.23 1.91 1.23 3.22 0 4.61-2.805 5.625-5.475 5.92.42.36.81 1.096.81 2.22 0 1.606-.015 2.896-.015 3.286 0 .315.21.69.825.57C20.565 22.092 24 17.592 24 12.297c0-6.627-5.373-12-12-12"/>
+                        </svg>
+                        View on GitHub
+                    </a>
+                </section>
+            </div>
+
+            <!-- Close Button -->
+            <div class="pt-4">
+                <button id="close-dialog-btn" class="w-full px-6 py-3 bg-black text-white text-xs uppercase tracking-widest font-light hover:bg-gray-800 transition-colors">
+                    Close
+                </button>
+            </div>       
+        </dialog>
 
     </main>
 
@@ -911,16 +999,7 @@
             renderBrowseResults();
         }
 
-        // ---------- TOAST ----------
-
-        function showToast(message = 'Item added to bag') {
-            const toast = document.getElementById('toast');
-            toast.querySelector('p').textContent = message;
-            toast.classList.remove('translate-x-full');
-            setTimeout(() => {
-                toast.classList.add('translate-x-full');
-            }, 2000);
-        }
+       
 
         // ---------- NAV LISTENERS ----------
 
@@ -938,11 +1017,7 @@
             renderCart();
         });
 
-        document.getElementById('mobile-nav-home').addEventListener('click', () => { showView('home-view'); toggleMobileMenu(); });
-        document.getElementById('mobile-nav-men').addEventListener('click', () => { showView('men-view'); toggleMobileMenu(); });
-        document.getElementById('mobile-nav-women').addEventListener('click', () => { showView('women-view'); toggleMobileMenu(); });
-        document.getElementById('mobile-nav-browse').addEventListener('click', () => { showView('browse-view'); renderBrowseResults(); toggleMobileMenu(); });
-
+       
         // Category cards
         document.getElementById('category-men').addEventListener('click', () => showView('men-view'));
         document.getElementById('category-women').addEventListener('click', () => showView('women-view'));
@@ -988,28 +1063,7 @@
             showToast('Item added to bag');
         });
 
-        // Mobile menu
-        const menuToggle = document.getElementById('mobile-menu-toggle');
-        const mobileMenu = document.getElementById('mobile-menu');
-        const topLine = document.querySelector('.top-line');
-        const middleLine = document.querySelector('.middle-line');
-        const bottomLine = document.querySelector('.bottom-line');
-
-        function toggleMobileMenu() {
-            mobileMenu.classList.toggle('hidden');
-            if (!mobileMenu.classList.contains('hidden')) {
-                topLine.style.transform = 'rotate(45deg) translateY(4px)';
-                middleLine.style.opacity = '0';
-                bottomLine.style.transform = 'rotate(-45deg) translateY(-4px)';
-            } else {
-                topLine.style.transform = 'none';
-                middleLine.style.opacity = '1';
-                bottomLine.style.transform = 'none';
-            }
-        }
-
-        menuToggle.addEventListener('click', toggleMobileMenu);
-
+       
         // Breadcrumbs
         document.getElementById('breadcrumb-home').addEventListener('click', () => showView('home-view'));
         document.getElementById('breadcrumb-gender').addEventListener('click', () => {
