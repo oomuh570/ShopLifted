@@ -1,3 +1,11 @@
+let allProducts = [];
+let filteredProducts = [];
+let activeFilters = {
+    gender: "",
+    category: "",
+    color: "",
+};
+
 document.addEventListener("DOMContentLoaded", () => {
 
     /******************** Navigation ********************/
@@ -45,11 +53,16 @@ document.addEventListener("DOMContentLoaded", () => {
         }
     });
 
+    /******************** Browse ********************/
 
+    const url = "https://gist.githubusercontent.com/rconnolly/d37a491b50203d66d043c26f33dbd798/raw/37b5b68c527ddbe824eaed12073d266d5455432a/clothing-compact.json";
 
-
-
-
+    fetch(url)
+        .then(resp => resp.json())
+        .then(data => {
+            
+        })
+        .catch(err => console.error("Fetch error:", err));
 
     /******************** About ********************/
 
