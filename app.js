@@ -169,9 +169,14 @@ function displayProducts(products){
         price.textContent = '$' + product.price.toFixed(2);
 
         // Add to cart button
-        const cartBtn = document.createElement("button");
-        cartBtn.classList.add("text-sm", "font-light", "text-center");
-        cartBtn.textContent = "Add to Cart";
+        const bagBtn = document.createElement("button");
+        bagBtn.classList.add("text-sm", "font-light");
+        bagBtn.textContent = "Add to Bag";
+        // Switches to cart view
+        bagBtn.addEventListener("click", (e) => {
+            e.stopPropagation();
+            document.querySelector("#nav-bag").click();
+        });
 
         infoDiv.appendChild(name);
         infoDiv.appendChild(category);
@@ -180,7 +185,7 @@ function displayProducts(products){
 
         card.appendChild(imageDiv);
         card.appendChild(infoDiv);
-        card.appendChild(cartBtn);
+        card.appendChild(bagBtn);
 
         resultsGrid.appendChild(card);
     });

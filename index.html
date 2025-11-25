@@ -4,7 +4,7 @@
         <meta charset="utf-8">
         <title>ShopLifted</title>
         <script src="https://cdn.tailwindcss.com"></script>
-        <script defer src="app.js"></script>
+        <script src="app.js"></script>
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
     </head>
 
@@ -46,11 +46,11 @@
                 <button id="nav-about" class="hover:text-black transition-colors">ABOUT</button>
             </nav>
 
-            <!-- Cart & Mobile Menu -->
+            <!-- Bag & Mobile Menu -->
             <div class="flex-1 flex justify-end items-center space-x-6">
-                <button id="nav-cart" data-view="cart-view" class="relative text-xs font-light uppercase tracking-wider text-gray-700 hover:text-black transition-colors">
+                <button id="nav-bag" data-view="bag-view" class="relative text-xs font-light uppercase tracking-wider text-gray-700 hover:text-black transition-colors">
                     Bag
-                    <span id="cart-count" class="ml-2 text-xs font-light">
+                    <span id="bag-count" class="ml-2 text-xs font-light">
                         (0)
                     </span>
                 </button>
@@ -378,6 +378,10 @@
             </div>
         </article>
 
+        <!-- Bag View -->
+        <article id="bag-view" class="hidden">
+            <p> Bag View </p>
+        </article>
 
         
 
