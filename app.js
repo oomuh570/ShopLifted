@@ -5,6 +5,52 @@ let allProducts = [];
 let currentView;
 let COLOR_MAP = {}; // global map for colorName → hex
 
+// -------------------------------
+// CART SYSTEM (GLOBAL)
+// -------------------------------
+let cart = [];
+
+function loadCart() {
+  const saved = localStorage.getItem("cart");
+  cart = saved ? JSON.parse(saved) : [];
+}
+
+function updateBagCount() {
+  const badge = document.querySelector("#bag-count");
+  const totalQty = cart.reduce((sum, item) => sum + item.qty, 0);
+
+  if (totalQty > 0) {
+    badge.textContent = totalQty;
+    badge.classList.remove("hidden");
+  } else {
+    badge.classList.add("hidden");
+  }
+}
+
+function showToast(message) {
+  const toast = document.querySelector("#toast");
+  toast.querySelector("p").textContent = message;
+
+  // Slide in
+  toast.classList.remove("translate-x-full");
+
+  // Slide out after 1.5s
+  setTimeout(() => {
+    toast.classList.add("translate-x-full");
+  }, 1500);
+}
+
+
+function saveCart() {
+  localStorage.setItem("cart", JSON.stringify(cart));
+}
+
+
+loadCart();
+updateBagCount();
+
+
+
 /************************************************************
  * DOM READY
  ************************************************************/
@@ -121,6 +167,31 @@ document.addEventListener("DOMContentLoaded", () => {
       openBrowseWithFilters(gender, category);
     });
   });
+
+   document.querySelector("#shipping-type").addEventListener("change", renderCart);
+   document.querySelector("#shipping-destination").addEventListener("change", renderCart);
+
+     
+   document.querySelector("#checkout-btn").onclick = () => {
+  const shipType = document.querySelector("#shipping-type").value;
+  const shipDest = document.querySelector("#shipping-destination").value;
+
+  // Validate shipping
+  if (!shipType || !shipDest) {
+    showToast("Please select shipping type and destination");
+    return;
+  }
+
+  showToast("Order placed!");
+
+  cart = [];
+  saveCart();
+  updateBagCount();
+  renderCart();
+
+  switchView("home-view");
+};
+
 });
 
 /************************************************************
@@ -137,6 +208,7 @@ function switchView(id) {
   window.scrollTo(0, 0);
 
   if (id === "browse-view") applyBrowseFilters();
+  if (id === "cart-view") renderCart();
 }
 
 function closeMobileMenu(menu, a, b, c) {
@@ -290,6 +362,34 @@ function applyBrowseFilters() {
   updateActiveFiltersUI();
 }
 
+// ---------------------------------
+// ADD TO CART (minimal format)
+// ---------------------------------
+function addToCart(productId, qty, size, colorHex) {
+  qty = Number(qty);
+
+  const existing = cart.find(
+    (item) => item.id === productId && item.size === size && item.color === colorHex
+  );
+
+  if (existing) {
+    existing.qty += qty;
+  } else {
+    cart.push({
+      id: productId,
+      qty: qty,
+      size: size,
+      color: colorHex
+    });
+  }
+
+  saveCart();
+  updateBagCount();
+  showToast("Added to bag");
+
+}
+
+
 /************************************************************
  * FILTER CHIPS
  ************************************************************/
@@ -422,9 +522,17 @@ function displayProducts(products) {
     bagBtn.innerText = "Add to Bag";
     bagBtn.className = "mt-2 w-full py-1.5 text-sm border border-gray-300 rounded-md hover:bg-gray-100 transition";
     bagBtn.addEventListener("click", (e) => {
-      e.stopPropagation();
-      document.querySelector("#nav-cart").click();
+    e.stopPropagation(); // prevent opening product page
+
+    // Default add-to-cart settings
+    const qty = 1;
+    const size = product.sizes[0]; // first available size
+    const colorHex = product.color[0].hex; // first color
+
+    addToCart(product.id, qty, size, colorHex);
+    showToast("Added to bag");
     });
+
 
     infoDiv.appendChild(name);
     infoDiv.appendChild(category);
@@ -530,8 +638,46 @@ function showProduct(productId) {
 
   // Add to Cart Handler
   document.querySelector("#add-to-cart-btn").onclick = () => {
-    alert("Added to cart (cart system can be added next)");
+    const qty = document.querySelector("#product-qty").value;
+
+    const selectedSizeBtn = document.querySelector("#product-sizes .bg-black");
+    const size = selectedSizeBtn ? selectedSizeBtn.dataset.size : null;
+
+    const selectedColor = document.querySelector("#product-colors .ring-2");
+    const colorHex = selectedColor
+      ? selectedColor.style.backgroundColor
+      : product.color[0].hex;
+
+    document.querySelector("#add-to-cart-btn").onclick = () => {
+      const qty = document.querySelector("#product-qty").value;
+
+      // SIZE validation
+      const selectedSizeBtn = document.querySelector(
+        "#product-sizes .bg-black"
+      );
+      const size = selectedSizeBtn ? selectedSizeBtn.dataset.size : null;
+
+      if (!size) {
+        showToast("Please choose a size");
+        return;
+      }
+
+      // COLOR validation
+      const selectedColor = document.querySelector("#product-colors .ring-2");
+      const colorHex = selectedColor
+        ? selectedColor.style.backgroundColor
+        : null;
+
+      if (!colorHex) {
+        showToast("Please choose a color");
+        return;
+      }
+
+      addToCart(product.id, qty, size, colorHex);
+      showToast("Added to bag");
+    };
   };
+
 
   // Load related products
   showRelatedProducts(product);
@@ -620,6 +766,109 @@ function showRelatedProducts(currentProduct) {
     card.addEventListener("click", () => showProduct(product.id));
 
     grid.appendChild(card);
+  });
+}
+
+// ------------------------------------
+// CART RENDERER
+// ------------------------------------
+
+function renderCart() {
+  const container = document.querySelector("#cart-items-container");
+  const emptyMsg = document.querySelector("#empty-cart-msg");
+  const shippingSection = document.querySelector("#shipping-section");
+
+  const sumMerch = document.querySelector("#summary-merch");
+  const sumShip = document.querySelector("#summary-shipping");
+  const sumTax = document.querySelector("#summary-tax");
+  const sumTotal = document.querySelector("#summary-total");
+
+  const shipType = document.querySelector("#shipping-type");
+  const shipDest = document.querySelector("#shipping-destination");
+
+  container.innerHTML = "";
+
+  if (cart.length === 0) {
+    emptyMsg.classList.remove("hidden");
+    shippingSection.classList.add("hidden");
+    return;
+  }
+
+  emptyMsg.classList.add("hidden");
+  shippingSection.classList.remove("hidden");
+
+  let merchandiseTotal = 0;
+
+  // Render each item in cart
+  cart.forEach((item, index) => {
+    const product = allProducts.find((p) => p.id === item.id);
+    if (!product) return;
+
+    const subtotal = product.price * item.qty;
+    merchandiseTotal += subtotal;
+
+    const row = document.createElement("div");
+    row.className = "flex items-center justify-between border-b py-4";
+
+      row.innerHTML = `
+        <div class="flex items-center gap-4 flex-1">
+            <div class="w-16 h-16 rounded border" style="background:${item.color}"></div>
+            <div>
+            <p class="font-medium text-sm">${product.name}</p>
+            <p class="text-xs text-gray-500">Size: ${item.size}</p>
+            <p class="text-xs text-gray-500">Qty: ${item.qty}</p>
+            </div>
+        </div>
+
+        <div class="flex flex-col items-end gap-2 w-28">
+            <p class="text-sm font-medium">$${subtotal.toFixed(2)}</p>
+            <button class="px-3 py-1 border rounded hover:bg-gray-200" data-remove="${index}">
+            Remove
+            </button>
+        </div>
+    `;
+
+
+    container.appendChild(row);
+  });
+
+  /**************** SHIPPING + TAX ****************/
+
+  let shippingCost = 0;
+
+  if (shipDest.value && shipType.value) {
+    const shipTable = {
+      CA: { standard: 10, express: 25, priority: 35 },
+      US: { standard: 15, express: 25, priority: 50 },
+      INT: { standard: 20, express: 30, priority: 50 },
+    };
+    shippingCost = shipTable[shipDest.value][shipType.value];
+  }
+
+  const tax = shipDest.value === "CA" ? merchandiseTotal * 0.05 : 0;
+
+  sumMerch.textContent = "$" + merchandiseTotal.toFixed(2);
+  sumShip.textContent = "$" + shippingCost.toFixed(2);
+  sumTax.textContent = "$" + tax.toFixed(2);
+  sumTotal.textContent =
+    "$" + (merchandiseTotal + shippingCost + tax).toFixed(2);
+
+  // REMOVE BUTTONS (safe version)
+  document.querySelectorAll("[data-remove]").forEach((btn) => {
+    btn.addEventListener("click", () => {
+      const index = Number(btn.dataset.remove);
+      const item = cart[index];
+
+      // Remove ONLY the matching item
+      cart = cart.filter(
+        (c) =>
+          !(c.id === item.id && c.size === item.size && c.color === item.color)
+      );
+
+      saveCart();
+      updateBagCount();
+      renderCart();
+    });
   });
 }
 

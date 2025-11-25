@@ -108,12 +108,15 @@
         <!-- Cart & Mobile Menu -->
         <div class="flex-1 flex justify-end items-center space-x-6">
           <button
-            id="nav-cart"
-            data-view="cart-view"
-            class="relative text-xs font-light uppercase tracking-wider text-gray-700 hover:text-black transition-colors"
-          >
-            Bag
-            <span id="cart-count" class="ml-2 text-xs font-light"> (0) </span>
+                id="nav-cart"
+                data-view="cart-view"
+                class="relative text-xs font-light uppercase tracking-wider text-gray-700 hover:text-black transition-colors"
+                >
+                Bag
+                <span id="bag-count"
+                        class="absolute -top-2 -right-3 bg-black text-white text-[10px] rounded-full px-1.5 py-0.5 hidden">
+                    0
+                </span>
           </button>
 
           <!-- Hamburger -->
@@ -177,6 +180,7 @@
 
     <!-- Main Content -->
     <main id="main-content" class="flex-grow">
+
       <!-- Home View -->
       <article id="home-view">
         <!-- Hero Section -->
@@ -186,7 +190,7 @@
           <div
             class="absolute inset-0 bg-cover bg-center"
             style="
-              background-image: url('https://images.unsplash.com/photo-1490578474895-699cd4e2cf59?w=1600&q=80');
+              background-image: url('images/hero_img.png');
               filter: brightness(0.95);
             "
           >
@@ -232,7 +236,7 @@
               data-view="men-view"
               class="relative group overflow-hidden cursor-pointer aspect-[3/4]"
               style="
-                background-image: url('https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=800&q=80');
+                background-image: url('images/patrick-t-kindt-KIcQzWym6O0-unsplash.jpg');
                 background-size: cover;
                 background-position: center;
               "
@@ -257,7 +261,7 @@
               data-view="women-view"
               class="relative group overflow-hidden cursor-pointer aspect-[3/4]"
               style="
-                background-image: url('https://images.unsplash.com/photo-1531123897727-8f129e1688ce?w=800&q=80');
+                background-image: url('images/dom-hill-nimElTcTNyY-unsplash.jpg');
                 background-size: cover;
                 background-position: center;
               "
@@ -495,7 +499,7 @@
 
 
       <!-- Cart View -->
-      <article id="cart-view" class="hidden px-6 py-12 max-w-7xl mx-auto">
+      <article id="cart-view" data-view="cart-view" class="hidden px-6 py-12 max-w-7xl mx-auto">
         <h1 class="text-3xl font-light mb-8 text-center">Shopping Cart</h1>
 
         <!-- Cart Items -->
@@ -588,7 +592,7 @@
           <div
             class="absolute inset-0 bg-cover bg-center"
             style="
-              background-image: url('https://images.unsplash.com/photo-1617127365659-c47fa864d8bc?w=1600&q=80');
+              background-image: url('images/johannes-andersson-zSnpWh_GaQ8-unsplash.jpg');
             "
           ></div>
           <div class="absolute inset-0 bg-black/30"></div>
@@ -758,7 +762,7 @@
           <div
             class="absolute inset-0 bg-cover bg-center"
             style="
-              background-image: url('https://images.unsplash.com/photo-1483985988355-763728e1935b?w=1600&q=80');
+              background-image: url('images/mitchell-luo-2cPSXuwrmow-unsplash.jpg');
             "
           ></div>
           <div class="absolute inset-0 bg-rose-900/30"></div>
