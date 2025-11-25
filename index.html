@@ -310,12 +310,13 @@
                 <h1 class="text-3xl font-light tracking-tight mb-6">Browse</h1>
 
                 <!-- Filters Section -->
-                <section id="filter" class="grid grid-cols-1 md:grid-cols-4 gap-6">
+                <section id="filter" class="mb-8">
+                    <div class="grid grid-cols-1 md:grid-cols-4 gap-6">
 
                     <!-- Gender Filter -->
                     <div>
                         <p class="text-xs uppercase tracking-wider text-gray-500 mb-2">Gender</p>
-                        <select id="filter-gender" class="w-full border border-gray-300 px-3 py-2 text-sm">
+                        <select id="filter-gender" class="w-full border border-gray-300 px-3 py-2 text-sm focus:outline-none focus:border-black">
                             <option value="">All</option>
                             <option value="mens">Men</option>
                             <option value="womens">Women</option>
@@ -325,42 +326,58 @@
                     <!-- Category Filter -->
                     <div>
                         <p class="text-xs uppercase tracking-wider text-gray-500 mb-2">Category</p>
-                        <select id="filter-category" class="w-full border border-gray-300 px-3 py-2 text-sm">
+                        <select id="filter-category" class="w-full border border-gray-300 px-3 py-2 text-sm focus:outline-none focus:border-black">
                             <option value="">All</option>
-                            <option value="Tops">Tops</option>
-                            <option value="Dresses">Dresses</option>
-                            <option value="Outerwear">Outerwear</option>
-                            <option value="Bottoms">Bottoms</option>
-                            <option value="Shoes">Shoes</option>
                         </select>
                     </div>
 
                     <!-- Color Filter -->
                     <div>
                         <p class="text-xs uppercase tracking-wider text-gray-500 mb-2">Color</p>
-                        <select id="filter-color" class="w-full border border-gray-300 px-3 py-2 text-sm">
-                            <option value="">All</option>
-                            <option value="Black">Black</option>
-                            <option value="White">White</option>
-                            <option value="Blue">Blue</option>
-                            <option value="Beige">Beige</option>
-                        </select>
+                        <div id="filter-color-container" class="border border-gray-300 px-3 py-2 max-h-32 overflow-y-auto bg-white">
+                            <!-- Populated dynamically with checkboxes -->
+                        </div>
+                    </div>
+
+                    <!-- Size Filter -->
+                    <div>
+                        <p class="text-xs uppercase tracking-wider text-gray-500 mb-2">Size</p>
+                        <div id="filter-sizes" class="flex flex-wrap gap-2">
+                            <label class="flex items-center space-x-1">
+                                <input type="checkbox" value="XS">
+                                <span class="text-xs">XS</span>
+                            </label>
+                            <label class="flex items-center space-x-1">
+                                <input type="checkbox" value="S">
+                                <span class="text-xs">S</span>
+                            </label>
+                            <label class="flex items-center space-x-1">
+                                <input type="checkbox" value="M">
+                                <span class="text-xs">M</span>
+                            </label>
+                            <label class="flex items-center space-x-1">
+                                <input type="checkbox" value="L">
+                                <span class="text-xs">L</span>
+                            </label>
+                            <label class="flex items-center space-x-1">
+                                <input type="checkbox" value="XL">
+                                <span class="text-xs">XL</span>
+                            </label>
+                        </div>
                     </div>
 
                     <!-- Sort Options -->
-                    <div>
-                        <p class="text-xs uppercase tracking-wider text-gray-500 mb-2">Sort</p>
-                        <select id="sort" class="w-full border border-gray-300 px-3 py-2 text-sm">
-                            <option value="az">A → Z</option>
+                    <div class="mt-6">
+                        <p class="text-xs uppercase tracking-wider text-gray-500 mb-2">Sort By</p>
+                        <select id="sort" class="border border-gray-300 px-3 py-2 text-sm focus:outline-none focus:border-black">
+                            <option value="az">Name: A → Z</option>
                             <option value="priceLow">Price: Low to High</option>
                             <option value="priceHigh">Price: High to Low</option>
                         </select>
                     </div>
 
                     <!-- Active Filters -->
-                    <div id="active-filters-container" class="py-3 px-4 bg-gray-50 border border-gray-200">
-                        <p class="text-xs text-gray-500">No active filters</p>
-                    </div>
+                    <div id="active-filters-container"></div>
 
                 </section>
 
@@ -370,10 +387,10 @@
                     <!-- Results Grid -->
                     <div id="browse-results" class="grid grid-cols-2 md:grid-cols-4 gap-6"></div>
 
-                        <!-- No Results -->
-                        <p id="browse-empty" class="hidden text-gray-500 text-center mt-10">
-                            No products match your filters.
-                        </p>
+                    <!-- No Results -->
+                    <p id="browse-empty" class="hidden text-gray-500 text-center mt-10">
+                        No products match your filters.
+                    </p>
                 </section>
             </div>
         </article>
@@ -571,7 +588,7 @@
         </div>
     </footer>
 
-    <!-- Loader from https://flowbite.com/docs/components/spinner/ -
+    <!-- Loader from https://flowbite.com/docs/components/spinner/ -->
     <div id="loader" class="fixed text-center flex items-center justify-center z-50">
         <div role="status">
             <svg aria-hidden="true" class="w-8 h-8 text-neutral-tertiary animate-spin fill-brand" viewBox="0 0 100 101" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -581,7 +598,7 @@
             <span class="sr-only">Loading...</span>
         </div>
     </div>
--->
+-
 
 </body>
 </html>

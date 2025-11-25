@@ -1,10 +1,10 @@
 let allProducts = [];
-let filteredProducts = [];
+let filteredProds = [];
 let activeFilters = {
     gender: "",
-    category: "",
-    color: "",
+    category: ""
 };
+
 let bagCount = 0;
 
 document.addEventListener("DOMContentLoaded", () => {
@@ -58,16 +58,19 @@ document.addEventListener("DOMContentLoaded", () => {
 
     const url = "https://gist.githubusercontent.com/rconnolly/d37a491b50203d66d043c26f33dbd798/raw/37b5b68c527ddbe824eaed12073d266d5455432a/clothing-compact.json";
 
-    //document.querySelector("#loader").style.display = "block";
+    document.querySelector("#loader").style.display = "block";
     fetch(url)
         .then(resp => resp.json())
         .then(data => {
-            //document.querySelector("#loader").style.display = "none";
+            document.querySelector("#loader").style.display = "none";
             allProducts = data;
+            filteredProds = data;
             displayProducts(data);
+            setupFilters();
+            updateCategoryOptions();
         })
         .catch(err => {
-            //document.querySelector("#loader").style.display = "none";
+            document.querySelector("#loader").style.display = "none";
             console.error("Fetch error:", err)
         });
 
@@ -110,6 +113,9 @@ document.addEventListener("DOMContentLoaded", () => {
     });
 
 });
+
+
+/******************** Functions ********************/
 
 function closeMobileMenu(mobileMenu, topLine, middleLine, bottomLine) {
     mobileMenu.classList.add("hidden");
@@ -175,7 +181,7 @@ function displayProducts(products){
         bagBtn.textContent = "Add to Bag";
         //bagBtn.dataset.productId = product.id;
 
-        // Switches to bag view
+        // Adds item to bag
         bagBtn.addEventListener("click", (e) => {
             e.stopPropagation();
             showToast();
@@ -208,3 +214,117 @@ function updateBagCount() {
     bagCount++;
     document.querySelector("#bag-count").textContent = `(${bagCount})`;
 }
+
+function setupFilters() {
+    const genderSelect = document.querySelector("#filter-gender");
+    const categorySelect = document.querySelector("#filter-category");
+
+    // Gender Filter
+    genderSelect.addEventListener("change", () => {
+        activeFilters.gender = genderSelect.value;
+        updateCategoryOptions();
+        applyFilters();
+    });
+
+    // Category Filter
+    categorySelect.addEventListener("change", () => {
+        activeFilters.category = categorySelect.value;
+        applyFilters();
+    });
+}
+
+function applyFilters() {
+    let results = allProducts;
+
+    // Gender filter
+    if (activeFilters.gender !== "") {
+        results = results.filter(product => product.gender === activeFilters.gender);
+    }
+
+    // Category filter
+    if (activeFilters.category !== "") {
+        results = results.filter(product => product.category === activeFilters.category);
+    }
+
+    filteredProds = results;
+    displayProducts(results);
+
+    renderFilters();
+}
+
+function renderFilters() {
+    const container = document.querySelector("#active-filters-container");
+    container.innerHTML = "";
+
+    let gender;
+    if(activeFilters.gender === "mens"){
+        gender = "Men";
+    }
+    if(activeFilters.gender === "womens"){
+        gender = "Women";
+    }
+
+    container.classList.add("mt-6", "py-3", "px-4", "bg-gray-50", "border", "border-gray-200");
+
+    if (activeFilters.gender) {
+        const pGender = document.createElement("p");
+        pGender.classList.add("text-xs", "text-gray-500");
+        pGender.textContent = gender;
+        container.appendChild(pGender);
+    }
+
+    if (activeFilters.category) {
+        const pCategory = document.createElement("p");
+        pCategory.classList.add("text-xs", "text-gray-500");
+        pCategory.textContent = activeFilters.category;
+        container.appendChild(pCategory);
+    }
+
+}
+
+function filterCategoriesByGender() {
+    const gender = activeFilters.gender;
+    
+    const allCards = document.querySelectorAll(".product-card");
+
+    allCards.forEach(card => {
+        const product = card.dataset.product; 
+
+        if (!gender) {
+            card.classList.remove("hidden");
+        } else if (product.startsWith(gender)) {
+            card.classList.remove("hidden");
+        } else {
+            card.classList.add("hidden");
+        }
+    });
+
+}
+
+function updateCategoryOptions() {
+    const categorySelect = document.querySelector("#filter-category");
+    categorySelect.innerHTML = ""; 
+
+    const optionAll = document.createElement("option");
+    optionAll.value = "";
+    optionAll.textContent = "All";
+    categorySelect.appendChild(optionAll);
+
+    const categorySet = new Set();
+    allProducts.forEach(p => {
+        if (!activeFilters.gender || p.gender === activeFilters.gender) {
+            categorySet.add(p.category);
+        }
+    });
+    const categories = Array.from(categorySet);
+
+    categories.forEach(cat => {
+        const opt = document.createElement("option");
+        opt.value = cat;               
+        opt.textContent = cat;          
+        categorySelect.appendChild(opt);
+    });
+    activeFilters.category = "";
+}
+
+
