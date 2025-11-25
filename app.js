@@ -5,6 +5,7 @@ let activeFilters = {
     category: "",
     color: "",
 };
+let bagCount = 0;
 
 document.addEventListener("DOMContentLoaded", () => {
 
@@ -138,7 +139,7 @@ function displayProducts(products){
         card.classList.add("group", "cursor-pointer");
         card.dataset.productId = product.id;
 
-        // Image placeholder
+        // Placeholder for the image
         const imageDiv = document.createElement("div");
         imageDiv.classList.add("aspect-square", "bg-gray-100", "mb-3", "overflow-hidden", "flex", "items-center", "justify-center");
         const primaryColor = product.color[0];
@@ -168,26 +169,42 @@ function displayProducts(products){
         price.classList.add("text-sm", "font-light");
         price.textContent = '$' + product.price.toFixed(2);
 
-        // Add to cart button
+        // Add to bag button
         const bagBtn = document.createElement("button");
-        bagBtn.classList.add("text-sm", "font-light");
+        bagBtn.classList.add("w-full", "px-4", "py-2", "bg-black", "text-white", "text-xs", "uppercase", "tracking-wider", "hover:bg-gray-800", "transition-colors", "mt-4");
         bagBtn.textContent = "Add to Bag";
-        // Switches to cart view
+        //bagBtn.dataset.productId = product.id;
+
+        // Switches to bag view
         bagBtn.addEventListener("click", (e) => {
             e.stopPropagation();
-            document.querySelector("#nav-bag").click();
+            showToast();
+            updateBagCount();
         });
 
         infoDiv.appendChild(name);
         infoDiv.appendChild(category);
         infoDiv.appendChild(price);
-        //infoDiv.appendChild(cartBtn);
+        infoDiv.appendChild(bagBtn);
 
         card.appendChild(imageDiv);
         card.appendChild(infoDiv);
-        card.appendChild(bagBtn);
 
         resultsGrid.appendChild(card);
     });
+}
 
+function showToast() {
+    const toast = document.querySelector("#toast");
+    
+    toast.classList.remove("translate-x-full");
+
+    setTimeout(() => {
+        toast.classList.add("translate-x-full");
+    }, 3000);
+}
+
+function updateBagCount() {
+    bagCount++;
+    document.querySelector("#bag-count").textContent = `(${bagCount})`;
 }
