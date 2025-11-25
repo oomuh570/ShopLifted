@@ -1,62 +1,106 @@
-# 🛍️ ShopLifted 
+# ShopLifted
 *A Single-Page Fashion Storefront built with HTML, Tailwind CSS, and JavaScript.*
 
 ---
 
-## 📖 Project Overview
-**ShopLifted** is a fully responsive **Single-Page Application (SPA)** that enables users to browse fashion products, view product details, and manage a persistent shopping cart — all within one HTML page.  
-This project was developed as part of **COMP 3612 (Assignment 2)** to demonstrate front-end programming, design, and documentation skills.
+## Live Project Link
 
-The app emphasizes:
-- Dynamic **view switching** without page reloads  
-- **Asynchronous JSON data fetching**  
-- **Persistent localStorage** for shopping-cart data  
-- Modular, well-documented **JavaScript**
+Click to view the final project: **[ShopLifted](https://oomuh570.github.io/ShopLifted/)**
 
 ---
 
-## 🧩 Application Features
-### 🏠 Home View  
-- Displays a landing section introducing the brand and quick links to Men’s / Women’s collections.
+## Project Overview
+**ShopLifted** is a fully responsive **Single-Page Application (SPA)** that allows users to browse fashion products, view detailed information, and manage a persistent shopping cart — all without leaving a single HTML page.
 
-### 👕 Men / Women Views  
-- Category pages that showcase gender-specific product types.  
-- Clicking a category routes users to the **Browse View** for that selection.
-
-### 🛍️ Browse View  
-- Core product-browsing interface.  
-- Filters and displays items by category, price, or other criteria.  
-- Products are loaded dynamically from a compact **JSON data file** using the `fetch()` API.
-
-### 🧥 Single Product View  
-- Displays detailed information for a selected item (image, price, description, etc.).  
-- Includes an “Add to Cart” button that updates the local cart.
-
-### 🛒 Shopping Cart View  
-- Shows items currently in the cart.  
-- Supports item removal and quantity updates.  
-- **Cart data persists** via the `localStorage` API.
-
-### ℹ️ About Us Dialog / Popup  
-- Modal window providing project details, author information, and asset credits.  
-- Contains a link to the GitHub repository and deployed site.
+Developed as part of **COMP 3612 (Assignment 2)**, this project demonstrates:
+- Modular JavaScript development  
+- Dynamic DOM manipulation  
+- JSON data integration  
+- SPA-style view switching  
+- Persistent client-side storage  
+- Clean UI design using TailwindCSS  
 
 ---
 
-## 🛠️ Technologies Used
-| Technology | Purpose |
-|-------------|----------|
-| **HTML5** | Semantic structure and view containers |
-| **Tailwind CSS** | Responsive and modern styling |
-| **JavaScript (ES6+)** | Interactivity, routing, and DOM manipulation |
-| **JSON** | External product-data source |
-| **localStorage API** | Client-side cart persistence |
-| **GitHub Pages** | Static hosting and deployment |
+## Application Features
+
+### Home View
+- Clean landing page introducing the brand
+- Direct links to Men’s and Women’s sections
+
+### Men / Women Views
+- Gender-specific introductory pages
+- Clicking a tile auto-applies filters in Browse View
+
+### Browse View
+- Dynamic grid of product results
+- Filters by gender, category, color, and size
+- Sorting options (A–Z, Z–A, price, category)
+- “Add to Bag” button on each product card
+- Real-time filter chips
+
+### Single Product View
+- Displays main product details:
+  - Image / placeholder color
+  - Name, price, and description
+  - Sizes and colors
+- Related products (by name similarity)
+- Breadcrumb navigation
+- Add-to-cart functionality
+
+### Shopping Cart View
+- Displays current bag contents  
+- Item removal  
+- Shipping type + destination selection  
+- Tax, subtotal, and total calculation  
+- Checkout:
+  - Shows toast message
+  - Clears cart
+  - Returns user to Home View  
+- Persisted using **localStorage**
+
+### About Dialog
+- Modal with project summary
+- Team members (with GitHub links)
+- Repository link
+- Image credits  
 
 ---
 
-## 📦 Data Handling
-- Product data is fetched asynchronously from a provided JSON file using the `fetch()` API.  
-- This approach mirrors how a real SPA would consume a web API while keeping deployment simple.  
+## Technologies Used
+
+| Technology       | Purpose |
+|------------------|---------|
+| **HTML5**        | SPA structure & view containers |
+| **Tailwind CSS** | Utility-based, responsive UI styling |
+| **JavaScript (ES6)** | View switching, filtering logic, rendering |
+| **JSON**         | Product data source |
+| **localStorage** | Persistent shopping cart |
+| **GitHub Pages** | Hosting & deployment |
+
+---
+
+## Data Handling
+
+Product data is fetched via:
+
+```js
+fetch("products.json")
+  .then(response => response.json())
+  .then(data => {
+    // dynamic rendering logic
+  });
+```
+---
+
+## Partners
+
+This project was completed collaboratively by:
+
+### Ochihai Omuha  
+GitHub: https://github.com/oomuh570  
+
+### Tarun Jaswal  
+GitHub: https://github.com/tjasw549
 
 ---
