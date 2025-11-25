@@ -1,22 +1,16 @@
-/************************************************************
- * GLOBALS
- ************************************************************/
+/********** Globals **********/
+
 let allProducts = [];
 let currentView;
-let COLOR_MAP = {}; // global map for colorName → hex
+let COLOR_MAP = {}; // global map for colorName to hex
 
-// -------------------------------
-// CART SYSTEM (GLOBAL)
-// -------------------------------
 let cart = [];
 
-// loadCart: main function block
 function loadCart() {
   const saved = localStorage.getItem("cart");
   cart = saved ? JSON.parse(saved) : [];
 }
 
-// updateBagCount: main function block
 function updateBagCount() {
   const badge = document.querySelector("#bag-count");
   const totalQty = cart.reduce((sum, item) => sum + item.qty, 0);
@@ -29,7 +23,6 @@ function updateBagCount() {
   }
 }
 
-// showToast: main function block
 function showToast(message) {
   const toast = document.querySelector("#toast");
   toast.querySelector("p").textContent = message;
@@ -43,7 +36,6 @@ function showToast(message) {
   }, 1500);
 }
 
-// saveCart: main function block
 function saveCart() {
   localStorage.setItem("cart", JSON.stringify(cart));
 }
@@ -51,12 +43,11 @@ function saveCart() {
 loadCart();
 updateBagCount();
 
-/************************************************************
- * DOM READY
- ************************************************************/
-// DOMContentLoaded: initial setup
+
 document.addEventListener("DOMContentLoaded", () => {
+
   /******************** NAVIGATION ********************/
+
   const menuToggle = document.querySelector("#mobile-menu-toggle");
   const mobileMenu = document.querySelector("#mobile-menu");
   const topLine = document.querySelector(".top-line");
@@ -92,34 +83,30 @@ document.addEventListener("DOMContentLoaded", () => {
       buildColorMap(allProducts);
       buildDynamicFilters(allProducts);
       
-      // Add event listeners to gender checkboxes (they're static in HTML)
+      // Add event listeners to gender checkboxes
       document.querySelectorAll(".gender-checkbox").forEach((cb) => {
         cb.addEventListener("change", applyBrowseFilters);
       });
       
       applyBrowseFilters();
-      initCollapsibleFilters(); // <--- NEW interactive filters
+      initCollapsibleFilters();
     })
     .catch((err) => console.error(err));
 
   /******************** ABOUT DIALOG ********************/
+  
   const aboutDialog = document.querySelector("#about-dialog");
   ["nav-about", "mobile-nav-about", "footer-about"].forEach((id) => {
-    document
-      .querySelector(`#${id}`)
-      .addEventListener("click", () => aboutDialog.showModal());
+    document.querySelector(`#${id}`).addEventListener("click", () => aboutDialog.showModal())
   });
-  document
-    .querySelector("#close-dialog")
-    .addEventListener("click", () => aboutDialog.close());
-  document
-    .querySelector("#close-dialog-btn")
-    .addEventListener("click", () => aboutDialog.close());
+  document.querySelector("#close-dialog").addEventListener("click", () => aboutDialog.close());
+  document.querySelector("#close-dialog-btn").addEventListener("click", () => aboutDialog.close());
   aboutDialog.addEventListener("click", (e) => {
     if (e.target === aboutDialog) aboutDialog.close();
   });
 
   /******************** BREADCRUMB EVENTS ********************/
+
   const bcHome = document.querySelector("#breadcrumb-home");
   const bcGender = document.querySelector("#breadcrumb-gender");
   const bcCategory = document.querySelector("#breadcrumb-category");
@@ -138,31 +125,26 @@ document.addEventListener("DOMContentLoaded", () => {
 
     switchView("browse-view");
 
-    document
-      .querySelectorAll(".gender-checkbox")
-      .forEach((cb) => (cb.checked = cb.value === gender));
-    document
-      .querySelectorAll(".category-checkbox")
-      .forEach((cb) => (cb.checked = cb.value === category));
+    document.querySelectorAll(".gender-checkbox").forEach((cb) => (cb.checked = cb.value === gender));
+    document.querySelectorAll(".category-checkbox").forEach((cb) => (cb.checked = cb.value === category));
 
     applyBrowseFilters();
   });
 
   /******************** SORT LISTENER ********************/
-  document
-    .querySelector("#sort")
-    .addEventListener("change", applyBrowseFilters);
+
+  document.querySelector("#sort").addEventListener("change", applyBrowseFilters);
 
   /******************** CLEAR ALL ********************/
+
   document.querySelector("#clear-all-btn").addEventListener("click", () => {
-    document
-      .querySelectorAll("input[type=checkbox]")
-      .forEach((cb) => (cb.checked = false));
+    document.querySelectorAll("input[type=checkbox]").forEach((cb) => (cb.checked = false));
     document.querySelector("#sort").value = "nameAZ";
     applyBrowseFilters();
   });
 
   /******************** MEN/WOMEN TILE FILTERING ********************/
+
   document.querySelectorAll(".product-card").forEach((tile) => {
     tile.addEventListener("click", () => {
       const tag = tile.dataset.product;
@@ -175,14 +157,10 @@ document.addEventListener("DOMContentLoaded", () => {
     });
   });
 
-  document
-    .querySelector("#shipping-type")
-    .addEventListener("change", renderCart);
-  document
-    .querySelector("#shipping-destination")
-    .addEventListener("change", renderCart);
+  document.querySelector("#shipping-type").addEventListener("change", renderCart);
+  document.querySelector("#shipping-destination").addEventListener("change", renderCart);
 
- document.querySelector("#checkout-btn").addEventListener("click", () => {
+  document.querySelector("#checkout-btn").addEventListener("click", () => {
     const shipType = document.querySelector("#shipping-type").value;
     const shipDest = document.querySelector("#shipping-destination").value;
 
@@ -192,7 +170,7 @@ document.addEventListener("DOMContentLoaded", () => {
       return;
     }
 
-    // Show success message
+    // Success message
     showToast("Order placed successfully!");
 
     // Clear cart after a small delay to let toast show
@@ -204,9 +182,8 @@ document.addEventListener("DOMContentLoaded", () => {
     }, 300);
   });
 
-/************************************************************
- * VIEW SWITCHING
- ************************************************************/
+/********** VIEW SWITCHING **********/
+
 function switchView(id) {
   const newView = document.querySelector("#" + id);
   if (!newView || currentView === newView) return;
@@ -221,7 +198,6 @@ function switchView(id) {
   if (id === "cart-view") renderCart();
 }
 
-// closeMobileMenu: main function block
 function closeMobileMenu(menu, a, b, c) {
   menu.classList.add("hidden");
   a.style.transform = "none";
@@ -229,9 +205,8 @@ function closeMobileMenu(menu, a, b, c) {
   c.style.transform = "none";
 }
 
-/************************************************************
- * BUILD COLOR MAP
- ************************************************************/
+/********** BUILD COLOR MAP **********/
+
 function buildColorMap(products) {
   COLOR_MAP = {};
   products.forEach((prod) => {
@@ -241,11 +216,10 @@ function buildColorMap(products) {
   });
 }
 
-/************************************************************
- * BUILD FILTERS (Dynamic)
- ************************************************************/
+/********** BUILD FILTERS **********/
+
 function buildDynamicFilters(products) {
-  /******** CATEGORY CHECKBOXES *********/
+  //Category Checkboxes
   const categoryDiv = document.querySelector("#filter-category");
   categoryDiv.innerHTML = "";
 
@@ -265,7 +239,7 @@ function buildDynamicFilters(products) {
     categoryDiv.appendChild(label);
   });
 
-  /******** SIZE CHECKBOXES *********/
+  // Size Checkboxes
   const sizeDiv = document.querySelector("#filter-size");
   sizeDiv.innerHTML = "";
 
@@ -285,7 +259,7 @@ function buildDynamicFilters(products) {
     sizeDiv.appendChild(label);
   });
 
-  /******** COLOR CHECKBOXES WITH HEX *********/
+  // HEX Color Checkboxes
   const colorDiv = document.querySelector("#filter-color");
   colorDiv.innerHTML = "";
 
@@ -312,34 +286,33 @@ function buildDynamicFilters(products) {
   });
 }
 
-/************************************************************
- * APPLY FILTERS + SORTING
- ************************************************************/
+/********** APPLY FILTERS + SORTING **********/
+
 function applyBrowseFilters() {
   let results = [...allProducts];
 
-  /******** GENDER *********/
+  // Gender
   const genderVals = [
     ...document.querySelectorAll(".gender-checkbox:checked"),
   ].map((cb) => cb.value);
   if (genderVals.length > 0)
     results = results.filter((p) => genderVals.includes(p.gender));
 
-  /******** CATEGORY *********/
+  // Category
   const catVals = [
     ...document.querySelectorAll(".category-checkbox:checked"),
   ].map((cb) => cb.value);
   if (catVals.length > 0)
     results = results.filter((p) => catVals.includes(p.category));
 
-  /******** SIZE *********/
+  // Size
   const sizeVals = [...document.querySelectorAll(".size-checkbox:checked")].map(
     (cb) => cb.value
   );
   if (sizeVals.length > 0)
     results = results.filter((p) => p.sizes.some((s) => sizeVals.includes(s)));
 
-  /******** COLORS *********/
+  // Colors
   const colorVals = [
     ...document.querySelectorAll(".color-checkbox:checked"),
   ].map((cb) => cb.value);
@@ -348,7 +321,7 @@ function applyBrowseFilters() {
       prod.color.some((c) => colorVals.includes(c.name))
     );
 
-  /******** SORTING *********/
+  // Sorting
   const sort = document.querySelector("#sort").value;
 
   switch (sort) {
@@ -373,9 +346,8 @@ function applyBrowseFilters() {
   updateActiveFiltersUI();
 }
 
-// ---------------------------------
-// ADD TO CART (minimal format)
-// ---------------------------------
+/********** ADD TO CART **********/
+
 function addToCart(productId, qty, size, colorHex) {
   qty = Number(qty);
 
@@ -400,9 +372,8 @@ function addToCart(productId, qty, size, colorHex) {
   showToast("Added to bag");
 }
 
-/************************************************************
- * FILTER CHIPS
- ************************************************************/
+/********** FILTER CHIPS **********/
+
 function updateActiveFiltersUI() {
   const container = document.querySelector("#active-filters-container");
   container.innerHTML = "";
@@ -435,7 +406,7 @@ function updateActiveFiltersUI() {
     chip.textContent = f.value;
 
     const x = document.createElement("button");
-    x.textContent = "×";
+    x.textContent = "x";
     x.className = "hover:text-black";
 
     x.addEventListener("click", () => {
@@ -467,9 +438,8 @@ function updateActiveFiltersUI() {
   });
 }
 
-/************************************************************
- * PRODUCT GRID
- ************************************************************/
+/********** PRODUCT GRID **********/
+
 // Displays all the products in the browse view
 function displayProducts(products) {
   const resultsGrid = document.querySelector("#browse-results");
@@ -491,7 +461,7 @@ function displayProducts(products) {
     card.classList.add("group", "cursor-pointer");
     card.dataset.productId = product.id;
 
-    // --- COLOR PLACEHOLDER IMAGE ---
+    // Placeholder for image (color)
     const imageDiv = document.createElement("div");
     imageDiv.classList.add(
       "aspect-square",
@@ -530,10 +500,9 @@ function displayProducts(products) {
     // Add to Bag button
     const bagBtn = document.createElement("button");
     bagBtn.innerText = "Add to Bag";
-    bagBtn.className =
-      "mt-2 w-full py-1.5 text-sm border border-gray-300 rounded-md hover:bg-gray-100 transition";
+    bagBtn.className = "mt-2 w-full py-1.5 text-sm border border-gray-300 rounded-md hover:bg-gray-100 transition";
     bagBtn.addEventListener("click", (e) => {
-      e.stopPropagation(); // prevent opening product page
+      e.stopPropagation();
 
       // Default add-to-cart settings
       const qty = 1;
@@ -558,20 +527,16 @@ function displayProducts(products) {
   });
 }
 
-/************************************************************
- * PRODUCT VIEW
- ************************************************************/
-// showProduct: main function block
+/********** PRODUCT VIEW **********/
+
 function showProduct(productId) {
   const product = allProducts.find((p) => p.id == productId);
   if (!product) return;
 
   // Breadcrumbs
-  document.querySelector("#breadcrumb-gender").textContent =
-    product.gender.charAt(0).toUpperCase() + product.gender.slice(1);
+  document.querySelector("#breadcrumb-gender").textContent = product.gender.charAt(0).toUpperCase() + product.gender.slice(1);
 
-  document.querySelector("#breadcrumb-category").textContent =
-    product.category.charAt(0).toUpperCase() + product.category.slice(1);
+  document.querySelector("#breadcrumb-category").textContent = product.category.charAt(0).toUpperCase() + product.category.slice(1);
 
   document.querySelector("#breadcrumb-product").textContent = product.name;
 
@@ -585,7 +550,7 @@ function showProduct(productId) {
   // Material
   document.querySelector("#product-material").textContent = product.material;
 
-  // Main Image Placeholder (color block)
+  // Color Block Placeholder
   const mainImg = document.querySelector("#product-main-image");
   const mainHex = product.color?.[0]?.hex || "#cccccc";
 
@@ -659,7 +624,7 @@ function showProduct(productId) {
     document.querySelector("#add-to-cart-btn").onclick = () => {
       const qty = document.querySelector("#product-qty").value;
 
-      // SIZE validation
+      // Size validation
       const selectedSizeBtn = document.querySelector(
         "#product-sizes .bg-black"
       );
@@ -670,7 +635,7 @@ function showProduct(productId) {
         return;
       }
 
-      // COLOR validation
+      // Color validation
       const selectedColor = document.querySelector("#product-colors .ring-2");
       const colorHex = selectedColor
         ? selectedColor.style.backgroundColor
@@ -693,15 +658,13 @@ function showProduct(productId) {
   switchView("product-view");
 }
 
-/************************************************************
- * RELATED PRODUCTS
- ************************************************************/
-// showRelatedProducts: main function block
+/********** RELATED PRODUCTS **********/
+
 function showRelatedProducts(currentProduct) {
   const grid = document.querySelector("#related-products-grid");
   grid.innerHTML = "";
 
-  // Break product name into words (lowercase, no short useless words)
+  // Break product name into words (in lowercase and no short useless words)
   const nameWords = currentProduct.name
     .toLowerCase()
     .split(" ")
@@ -742,7 +705,7 @@ function showRelatedProducts(currentProduct) {
     card.className =
       "cursor-pointer border border-gray-300 rounded-md p-3 hover:shadow transition";
 
-    // Placeholder image (colored)
+    // Placeholder image
     const img = document.createElement("div");
     img.className = "w-full aspect-square rounded-md mb-3";
 
@@ -776,11 +739,8 @@ function showRelatedProducts(currentProduct) {
   });
 }
 
-// ------------------------------------
-// CART RENDERER
-// ------------------------------------
+/********** CART RENDERER **********/
 
-// renderCart: main function block
 function renderCart() {
   const container = document.querySelector("#cart-items-container");
   const emptyMsg = document.querySelector("#empty-cart-msg");
@@ -867,13 +827,13 @@ function renderCart() {
   sumTotal.textContent =
     "$" + (merchandiseTotal + shippingCost + tax).toFixed(2);
 
-  // REMOVE BUTTONS 
+  // Remove buttons 
   document.querySelectorAll("[data-remove]").forEach((btn) => {
     btn.addEventListener("click", () => {
       const index = Number(btn.dataset.remove);
       const item = cart[index];
 
-      // Remove ONLY the matching item
+      // Remove only the matching item
       cart = cart.filter(
         (c) =>
           !(c.id === item.id && c.size === item.size && c.color === item.color)
@@ -886,10 +846,8 @@ function renderCart() {
   });
 }
 
-/************************************************************
- * CATEGORY TILE → AUTO FILTER
- ************************************************************/
-// openBrowseWithFilters: main function block
+/********** CATEGORY TILE to AUTO FILTER **********/
+
 function openBrowseWithFilters(gender, category) {
   switchView("browse-view");
 
@@ -909,10 +867,8 @@ function openBrowseWithFilters(gender, category) {
   applyBrowseFilters();
 }
 
-/************************************************************
- * COLLAPSIBLE FILTER PANEL 
- ************************************************************/
-// initCollapsibleFilters: main function block
+/********** COLLAPSIBLE FILTER PANEL **********/
+
 function initCollapsibleFilters() {
   document.querySelectorAll(".filter-toggle").forEach((btn) => {
     btn.addEventListener("click", () => {
@@ -930,4 +886,5 @@ function initCollapsibleFilters() {
     });
   });
 }
-})
+
+});
