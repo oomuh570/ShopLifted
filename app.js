@@ -57,13 +57,18 @@ document.addEventListener("DOMContentLoaded", () => {
 
     const url = "https://gist.githubusercontent.com/rconnolly/d37a491b50203d66d043c26f33dbd798/raw/37b5b68c527ddbe824eaed12073d266d5455432a/clothing-compact.json";
 
+    //document.querySelector("#loader").style.display = "block";
     fetch(url)
         .then(resp => resp.json())
         .then(data => {
+            //document.querySelector("#loader").style.display = "none";
             allProducts = data;
             displayProducts(data);
         })
-        .catch(err => {console.error("Fetch error:", err)});
+        .catch(err => {
+            //document.querySelector("#loader").style.display = "none";
+            console.error("Fetch error:", err)
+        });
 
     /******************** About ********************/
 
@@ -163,13 +168,19 @@ function displayProducts(products){
         price.classList.add("text-sm", "font-light");
         price.textContent = '$' + product.price.toFixed(2);
 
-        // Assemble the card
+        // Add to cart button
+        const cartBtn = document.createElement("button");
+        cartBtn.classList.add("text-sm", "font-light", "text-center");
+        cartBtn.textContent = "Add to Cart";
+
         infoDiv.appendChild(name);
         infoDiv.appendChild(category);
         infoDiv.appendChild(price);
+        //infoDiv.appendChild(cartBtn);
 
         card.appendChild(imageDiv);
         card.appendChild(infoDiv);
+        card.appendChild(cartBtn);
 
         resultsGrid.appendChild(card);
     });
