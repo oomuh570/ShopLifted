@@ -60,9 +60,10 @@ document.addEventListener("DOMContentLoaded", () => {
     fetch(url)
         .then(resp => resp.json())
         .then(data => {
-            
+            allProducts = data;
+            displayProducts(data);
         })
-        .catch(err => console.error("Fetch error:", err));
+        .catch(err => {console.error("Fetch error:", err)});
 
     /******************** About ********************/
 
@@ -109,4 +110,68 @@ function closeMobileMenu(mobileMenu, topLine, middleLine, bottomLine) {
     topLine.style.transform = "none";
     middleLine.style.opacity = "1";
     bottomLine.style.transform = "none";
+}
+
+// Displays all the products in the browse view
+function displayProducts(products){
+    const resultsGrid = document.querySelector('#browse-results');
+    const emptyMessage = document.querySelector('#browse-empty');
+
+    // Clear previous results
+    resultsGrid.innerHTML = "";
+
+    if (products.length === 0) {
+        emptyMessage.classList.remove('hidden');
+        return;
+    }
+
+    emptyMessage.classList.add('hidden');
+    
+    products.forEach(product => {
+        // Product card container
+        const card = document.createElement("div");
+        card.classList.add("group", "cursor-pointer");
+        card.dataset.productId = product.id;
+
+        // Image placeholder
+        const imageDiv = document.createElement("div");
+        imageDiv.classList.add("aspect-square", "bg-gray-100", "mb-3", "overflow-hidden", "flex", "items-center", "justify-center");
+        const primaryColor = product.color[0];
+        imageDiv.style.backgroundColor = primaryColor.hex + '20';
+
+        const initial = document.createElement("span");
+        initial.classList.add("text-6xl", "text-gray-400");
+        initial.textContent = product.name.charAt(0);
+        imageDiv.appendChild(initial);
+
+        // Container for product info
+        const infoDiv = document.createElement("div");
+        infoDiv.classList.add("text-center");
+
+        // Product name
+        const name = document.createElement("h3");
+        name.classList.add("text-sm", "font-light", "mb-1");
+        name.textContent = product.name;
+
+        // Product category
+        const category = document.createElement("p");
+        category.classList.add("text-xs", "text-gray-500", "mb-1");
+        category.textContent = product.category;
+
+        // Product price
+        const price = document.createElement("p");
+        price.classList.add("text-sm", "font-light");
+        price.textContent = '$' + product.price.toFixed(2);
+
+        // Assemble the card
+        infoDiv.appendChild(name);
+        infoDiv.appendChild(category);
+        infoDiv.appendChild(price);
+
+        card.appendChild(imageDiv);
+        card.appendChild(infoDiv);
+
+        resultsGrid.appendChild(card);
+    });
+
 }
