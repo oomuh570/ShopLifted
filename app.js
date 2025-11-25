@@ -446,16 +446,11 @@ function displayProducts(products) {
 /************************************************************
  * PRODUCT VIEW
  ************************************************************/
-function showProduct(id) {
-  const product = allProducts.find((p) => p.id === id);
+function showProduct(productId) {
+  const product = allProducts.find((p) => p.id == productId);
   if (!product) return;
 
-  document.querySelector("#product-title").textContent = product.name;
-  document.querySelector("#product-price").textContent =
-    "$" + product.price.toFixed(2);
-  document.querySelector("#product-description").textContent =
-    product.description;
-
+  // Breadcrumbs
   document.querySelector("#breadcrumb-gender").textContent =
     product.gender.charAt(0).toUpperCase() + product.gender.slice(1);
 
@@ -464,18 +459,87 @@ function showProduct(id) {
 
   document.querySelector("#breadcrumb-product").textContent = product.name;
 
-  // ----- Main image placeholder (use product's first color) -----
+  // Title / Price / Description
+  document.querySelector("#product-title").textContent = product.name;
+  document.querySelector("#product-price").textContent =
+    "$" + product.price.toFixed(2);
+  document.querySelector("#product-description").textContent =
+    product.description;
+
+  // Material
+  document.querySelector("#product-material").textContent = product.material;
+
+  // Main Image Placeholder (color block)
   const mainImg = document.querySelector("#product-main-image");
-  const mainHex = product.color[0]?.hex || "#cccccc";
+  const mainHex = product.color?.[0]?.hex || "#cccccc";
 
   mainImg.style.backgroundColor = mainHex;
-  mainImg.style.backgroundSize = "cover";
-  mainImg.style.backgroundPosition = "center";
-  mainImg.textContent = "";
+  mainImg.style.borderRadius = "8px";
+  mainImg.style.boxShadow = "0 4px 10px rgba(0,0,0,0.15)";
+  mainImg.style.border = "1px solid rgba(0,0,0,0.12)";
+  mainImg.style.backgroundImage =
+    "linear-gradient(135deg, rgba(255,255,255,0.18) 25%, transparent 25%), " +
+    "linear-gradient(135deg, transparent 75%, rgba(255,255,255,0.18) 75%)";
+  mainImg.style.backgroundSize = "22px 22px";
+  mainImg.style.backgroundBlendMode = "overlay";
 
-  switchView("product-view");
+  // Sizes
+  const sizesContainer = document.querySelector("#product-sizes");
+  sizesContainer.innerHTML = "";
+  product.sizes.forEach((size) => {
+    const btn = document.createElement("button");
+    btn.textContent = size;
+    btn.className =
+      "px-3 py-1 text-sm border border-gray-400 rounded hover:bg-gray-100";
+    btn.dataset.size = size;
+
+    btn.addEventListener("click", () => {
+      // unselect all
+      document.querySelectorAll("#product-sizes button").forEach((b) => {
+        b.classList.remove("bg-black", "text-white");
+      });
+      // select this size
+      btn.classList.add("bg-black", "text-white");
+    });
+
+    sizesContainer.appendChild(btn);
+  });
+
+  // Colors
+  const colorsContainer = document.querySelector("#product-colors");
+  colorsContainer.innerHTML = "";
+  product.color.forEach((c) => {
+    const swatch = document.createElement("div");
+    swatch.className = "w-6 h-6 rounded border cursor-pointer";
+    swatch.style.backgroundColor = c.hex;
+
+    swatch.addEventListener("click", () => {
+      // unselect all swatches
+      document
+        .querySelectorAll("#product-colors div")
+        .forEach((d) => d.classList.remove("ring-2", "ring-black"));
+
+      swatch.classList.add("ring-2", "ring-black");
+    });
+
+    colorsContainer.appendChild(swatch);
+  });
+
+  // Quantity default
+  document.querySelector("#product-qty").value = 1;
+
+  // Add to Cart Handler
+  document.querySelector("#add-to-cart-btn").onclick = () => {
+    alert("Added to cart (cart system can be added next)");
+  };
+
+  // Load related products
   showRelatedProducts(product);
+
+  // Finally show product view
+  switchView("product-view");
 }
+
 
 /************************************************************
  * RELATED PRODUCTS
@@ -484,43 +548,81 @@ function showRelatedProducts(currentProduct) {
   const grid = document.querySelector("#related-products-grid");
   grid.innerHTML = "";
 
-  const related = allProducts
-    .filter(
-      (p) =>
-        p.category === currentProduct.category && p.id !== currentProduct.id
-    )
-    .slice(0, 4);
+  // Break product name into words (lowercase, no short useless words)
+  const nameWords = currentProduct.name
+    .toLowerCase()
+    .split(" ")
+    .filter((w) => w.length > 2); // ignore: "to", "of", "by", etc.
 
+  // Get all other products
+  let others = allProducts.filter((p) => p.id !== currentProduct.id);
+
+  // Find products whose names contain ANY of the words
+  let matchedByName = others.filter((p) =>
+    nameWords.some((word) => p.name.toLowerCase().includes(word))
+  );
+
+  // If fewer than 4 matches, fill the rest with closest-priced items
+  if (matchedByName.length < 4) {
+    const missing = 4 - matchedByName.length;
+
+    // Sort by closest price
+    const closestByPrice = others
+      .filter((p) => !matchedByName.includes(p))
+      .map((p) => ({
+        product: p,
+        diff: Math.abs(p.price - currentProduct.price),
+      }))
+      .sort((a, b) => a.diff - b.diff)
+      .slice(0, missing)
+      .map((item) => item.product);
+
+    matchedByName = matchedByName.concat(closestByPrice);
+  }
+
+  // Only show 4 final items
+  const related = matchedByName.slice(0, 4);
+
+  // Render related product cards
   related.forEach((product) => {
     const card = document.createElement("div");
     card.className =
-      "border border-gray-300 p-3 hover:shadow-sm transition cursor-pointer";
+      "cursor-pointer border border-gray-300 rounded-md p-3 hover:shadow transition";
 
+    // Placeholder image (colored)
     const img = document.createElement("div");
-    img.className =
-      "w-full aspect-square border border-gray-300 bg-gray-50 flex items-center justify-center mb-3";
-   
-      // color placeholder
-    const hex = product.color[0]?.hex || "#cccccc";
-    img.style.backgroundColor = hex;
-    img.style.backgroundSize = "cover";
-    img.style.backgroundPosition = "center";
-    img.textContent = "";
+    img.className = "w-full aspect-square rounded-md mb-3";
 
+    const hex = product.color?.[0]?.hex || "#cccccc";
+    img.style.backgroundColor = hex;
+    img.style.borderRadius = "6px";
+    img.style.boxShadow = "0 2px 6px rgba(0,0,0,0.12)";
+    img.style.border = "1px solid rgba(0,0,0,0.10)";
+    img.style.backgroundImage =
+      "linear-gradient(135deg, rgba(255,255,255,0.18) 25%, transparent 25%), " +
+      "linear-gradient(135deg, transparent 75%, rgba(255,255,255,0.18) 75%)";
+    img.style.backgroundSize = "20px 20px";
+    img.style.backgroundBlendMode = "overlay";
+
+    // Title + Price
     const title = document.createElement("p");
-    title.className = "text-sm";
+    title.className = "text-sm text-gray-700";
     title.textContent = product.name;
 
     const price = document.createElement("p");
     price.className = "text-sm text-gray-500";
     price.textContent = "$" + product.price.toFixed(2);
 
+    card.appendChild(img);
+    card.appendChild(title);
+    card.appendChild(price);
+
     card.addEventListener("click", () => showProduct(product.id));
 
-    card.append(img, title, price);
-    grid.append(card);
+    grid.appendChild(card);
   });
 }
+
 
 /************************************************************
  * CATEGORY TILE → AUTO FILTER

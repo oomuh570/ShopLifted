@@ -406,66 +406,93 @@
       </article>
 
       <!-- Single Product View -->
-      <article id="product-view" class="hidden">
-        <div class="max-w-4xl mx-auto px-6 py-12">
-          <!-- Breadcrumbs -->
-          <nav class="text-sm text-gray-500 mb-6">
-            <span id="breadcrumb-home" class="cursor-pointer hover:underline"
-              >Home</span
-            >
-            /
-            <span
-              id="breadcrumb-gender"
-              class="cursor-pointer hover:underline"
-            ></span>
-            /
-            <span
-              id="breadcrumb-category"
-              class="cursor-pointer hover:underline"
-            ></span>
-            /
+    <article id="product-view" class="hidden">
+        <div class="max-w-5xl mx-auto px-6 py-12">
+
+            <!-- Breadcrumbs -->
+            <nav class="text-sm text-gray-500 mb-6">
+            <span id="breadcrumb-home" class="cursor-pointer hover:underline">Home</span> /
+            <span id="breadcrumb-gender" class="cursor-pointer hover:underline"></span> /
+            <span id="breadcrumb-category" class="cursor-pointer hover:underline"></span> /
             <span id="breadcrumb-product" class="text-gray-700"></span>
-          </nav>
+            </nav>
 
-          <!-- Main Layout -->
-          <div class="grid grid-cols-1 md:grid-cols-2 gap-10">
-            <!-- Image -->
-            <div id="product-main-image"
-              class="border border-gray-300 bg-gray-50 w-full aspect-square flex items-center justify-center text-gray-400 text-xl"
-            >
-              placeholder
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-12">
+
+            <!-- LEFT SIDE IMAGES -->
+            <div class="space-y-6">
+
+                <!-- Main Image -->
+                <div id="product-main-image"
+                class="border border-gray-300 bg-gray-100 w-full aspect-square rounded-lg flex items-center justify-center text-gray-400 text-xl">
+                </div>
+
+                <!-- Small Images Row -->
+                <div class="grid grid-cols-2 gap-4">
+
+                <div class="w-full aspect-square border border-gray-300 bg-gray-100 rounded-md
+                            shadow-sm"></div>
+
+                <div class="w-full aspect-square border border-gray-300 bg-gray-100 rounded-md
+                            shadow-sm"></div>
+
+                </div>
+
             </div>
 
-            <!-- Product Details -->
+            <!-- RIGHT SIDE DETAILS -->
             <div>
-              <h2 id="product-title" class="text-2xl mb-2"></h2>
-              <p id="product-price" class="text-lg text-gray-600 mb-4"></p>
 
-              <p
-                id="product-description"
-                class="text-sm text-gray-600 mb-6"
-              ></p>
+                <h2 id="product-title" class="text-3xl font-light mb-2"></h2>
+                <p id="product-price" class="text-xl text-gray-600 mb-4"></p>
 
-              <!-- Add to cart -->
-              <button
-                id="add-to-cart-btn"
-                class="px-6 py-2 border border-gray-300 bg-white hover:bg-gray-100"
-              >
-                Add to Cart
-              </button>
+                <p id="product-description" class="text-sm text-gray-600 mb-6"></p>
+
+                <!-- Material -->
+                <div class="mb-6">
+                <h4 class="text-sm font-semibold tracking-wide mb-1 text-gray-700">Material</h4>
+                <p id="product-material" class="text-sm text-gray-600"></p>
+                </div>
+
+                <!-- Sizes -->
+                <div class="mb-6">
+                <h4 class="text-sm font-semibold tracking-wide mb-2 text-gray-700">Sizes</h4>
+                <div id="product-sizes" class="flex flex-wrap gap-2"></div>
+                </div>
+
+                <!-- Colors -->
+                <div class="mb-6">
+                <h4 class="text-sm font-semibold tracking-wide mb-2 text-gray-700">Colors</h4>
+                <div id="product-colors" class="flex items-center gap-3"></div>
+                </div>
+
+                <!-- Quantity -->
+                <div class="mb-6">
+                <h4 class="text-sm font-semibold tracking-wide mb-2 text-gray-700">Quantity</h4>
+                <input id="product-qty" type="number" min="1" value="1"
+                        class="w-20 px-3 py-2 border border-gray-300 rounded-md text-sm" />
+                </div>
+
+                <!-- Add to Cart -->
+                <button id="add-to-cart-btn"
+                class="w-full py-3 bg-black text-white text-xs uppercase tracking-wider rounded-md
+                        hover:bg-gray-800 transition-colors">
+                + Add to Cart
+                </button>
+
             </div>
-          </div>
+            </div>
 
-          <!-- Related Products -->
-          <div class="mt-12">
-            <h3 class="text-lg mb-4">Related Items</h3>
-            <div
-              id="related-products-grid"
-              class="grid grid-cols-2 md:grid-cols-4 gap-6"
-            ></div>
-          </div>
+            <!-- Related Products -->
+            <div class="mt-16">
+            <h3 class="text-lg font-light mb-4">Related Items</h3>
+            <div id="related-products-grid"
+                class="grid grid-cols-2 md:grid-cols-4 gap-6"></div>
+            </div>
+
         </div>
-      </article>
+    </article>
+
 
       <!-- Cart View -->
       <article id="cart-view" class="hidden px-6 py-12 max-w-7xl mx-auto">
