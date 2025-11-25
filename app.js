@@ -10,11 +10,13 @@ let COLOR_MAP = {}; // global map for colorName → hex
 // -------------------------------
 let cart = [];
 
+// loadCart: main function block
 function loadCart() {
   const saved = localStorage.getItem("cart");
   cart = saved ? JSON.parse(saved) : [];
 }
 
+// updateBagCount: main function block
 function updateBagCount() {
   const badge = document.querySelector("#bag-count");
   const totalQty = cart.reduce((sum, item) => sum + item.qty, 0);
@@ -27,6 +29,7 @@ function updateBagCount() {
   }
 }
 
+// showToast: main function block
 function showToast(message) {
   const toast = document.querySelector("#toast");
   toast.querySelector("p").textContent = message;
@@ -40,20 +43,18 @@ function showToast(message) {
   }, 1500);
 }
 
-
+// saveCart: main function block
 function saveCart() {
   localStorage.setItem("cart", JSON.stringify(cart));
 }
 
-
 loadCart();
 updateBagCount();
-
-
 
 /************************************************************
  * DOM READY
  ************************************************************/
+// DOMContentLoaded: initial setup
 document.addEventListener("DOMContentLoaded", () => {
   /******************** NAVIGATION ********************/
   const menuToggle = document.querySelector("#mobile-menu-toggle");
@@ -90,6 +91,12 @@ document.addEventListener("DOMContentLoaded", () => {
 
       buildColorMap(allProducts);
       buildDynamicFilters(allProducts);
+      
+      // Add event listeners to gender checkboxes (they're static in HTML)
+      document.querySelectorAll(".gender-checkbox").forEach((cb) => {
+        cb.addEventListener("change", applyBrowseFilters);
+      });
+      
       applyBrowseFilters();
       initCollapsibleFilters(); // <--- NEW interactive filters
     })
@@ -168,31 +175,34 @@ document.addEventListener("DOMContentLoaded", () => {
     });
   });
 
-   document.querySelector("#shipping-type").addEventListener("change", renderCart);
-   document.querySelector("#shipping-destination").addEventListener("change", renderCart);
+  document
+    .querySelector("#shipping-type")
+    .addEventListener("change", renderCart);
+  document
+    .querySelector("#shipping-destination")
+    .addEventListener("change", renderCart);
 
-     
-   document.querySelector("#checkout-btn").onclick = () => {
-  const shipType = document.querySelector("#shipping-type").value;
-  const shipDest = document.querySelector("#shipping-destination").value;
+ document.querySelector("#checkout-btn").addEventListener("click", () => {
+    const shipType = document.querySelector("#shipping-type").value;
+    const shipDest = document.querySelector("#shipping-destination").value;
 
-  // Validate shipping
-  if (!shipType || !shipDest) {
-    showToast("Please select shipping type and destination");
-    return;
-  }
+    // Validate shipping
+    if (!shipType || !shipDest) {
+      showToast("Please select shipping type and destination");
+      return;
+    }
 
-  showToast("Order placed!");
+    // Show success message
+    showToast("Order placed successfully!");
 
-  cart = [];
-  saveCart();
-  updateBagCount();
-  renderCart();
-
-  switchView("home-view");
-};
-
-});
+    // Clear cart after a small delay to let toast show
+    setTimeout(() => {
+      cart = [];
+      saveCart();
+      updateBagCount();
+      switchView("home-view");
+    }, 300);
+  });
 
 /************************************************************
  * VIEW SWITCHING
@@ -211,6 +221,7 @@ function switchView(id) {
   if (id === "cart-view") renderCart();
 }
 
+// closeMobileMenu: main function block
 function closeMobileMenu(menu, a, b, c) {
   menu.classList.add("hidden");
   a.style.transform = "none";
@@ -369,7 +380,8 @@ function addToCart(productId, qty, size, colorHex) {
   qty = Number(qty);
 
   const existing = cart.find(
-    (item) => item.id === productId && item.size === size && item.color === colorHex
+    (item) =>
+      item.id === productId && item.size === size && item.color === colorHex
   );
 
   if (existing) {
@@ -379,16 +391,14 @@ function addToCart(productId, qty, size, colorHex) {
       id: productId,
       qty: qty,
       size: size,
-      color: colorHex
+      color: colorHex,
     });
   }
 
   saveCart();
   updateBagCount();
   showToast("Added to bag");
-
 }
-
 
 /************************************************************
  * FILTER CHIPS
@@ -520,19 +530,19 @@ function displayProducts(products) {
     // Add to Bag button
     const bagBtn = document.createElement("button");
     bagBtn.innerText = "Add to Bag";
-    bagBtn.className = "mt-2 w-full py-1.5 text-sm border border-gray-300 rounded-md hover:bg-gray-100 transition";
+    bagBtn.className =
+      "mt-2 w-full py-1.5 text-sm border border-gray-300 rounded-md hover:bg-gray-100 transition";
     bagBtn.addEventListener("click", (e) => {
-    e.stopPropagation(); // prevent opening product page
+      e.stopPropagation(); // prevent opening product page
 
-    // Default add-to-cart settings
-    const qty = 1;
-    const size = product.sizes[0]; // first available size
-    const colorHex = product.color[0].hex; // first color
+      // Default add-to-cart settings
+      const qty = 1;
+      const size = product.sizes[0]; // first available size
+      const colorHex = product.color[0].hex; // first color
 
-    addToCart(product.id, qty, size, colorHex);
-    showToast("Added to bag");
+      addToCart(product.id, qty, size, colorHex);
+      showToast("Added to bag");
     });
-
 
     infoDiv.appendChild(name);
     infoDiv.appendChild(category);
@@ -542,18 +552,16 @@ function displayProducts(products) {
     card.appendChild(infoDiv);
     card.appendChild(bagBtn);
 
-    // ⭐ FIX — make product card clickable again
     card.addEventListener("click", () => showProduct(product.id));
 
     resultsGrid.appendChild(card);
   });
 }
 
-
-
 /************************************************************
  * PRODUCT VIEW
  ************************************************************/
+// showProduct: main function block
 function showProduct(productId) {
   const product = allProducts.find((p) => p.id == productId);
   if (!product) return;
@@ -678,7 +686,6 @@ function showProduct(productId) {
     };
   };
 
-
   // Load related products
   showRelatedProducts(product);
 
@@ -686,10 +693,10 @@ function showProduct(productId) {
   switchView("product-view");
 }
 
-
 /************************************************************
  * RELATED PRODUCTS
  ************************************************************/
+// showRelatedProducts: main function block
 function showRelatedProducts(currentProduct) {
   const grid = document.querySelector("#related-products-grid");
   grid.innerHTML = "";
@@ -773,6 +780,7 @@ function showRelatedProducts(currentProduct) {
 // CART RENDERER
 // ------------------------------------
 
+// renderCart: main function block
 function renderCart() {
   const container = document.querySelector("#cart-items-container");
   const emptyMsg = document.querySelector("#empty-cart-msg");
@@ -810,9 +818,11 @@ function renderCart() {
     const row = document.createElement("div");
     row.className = "flex items-center justify-between border-b py-4";
 
-      row.innerHTML = `
+    row.innerHTML = `
         <div class="flex items-center gap-4 flex-1">
-            <div class="w-16 h-16 rounded border" style="background:${item.color}"></div>
+            <div class="w-16 h-16 rounded border" style="background:${
+              item.color
+            }"></div>
             <div>
             <p class="font-medium text-sm">${product.name}</p>
             <p class="text-xs text-gray-500">Size: ${item.size}</p>
@@ -828,7 +838,6 @@ function renderCart() {
         </div>
     `;
 
-
     container.appendChild(row);
   });
 
@@ -837,12 +846,17 @@ function renderCart() {
   let shippingCost = 0;
 
   if (shipDest.value && shipType.value) {
-    const shipTable = {
-      CA: { standard: 10, express: 25, priority: 35 },
-      US: { standard: 15, express: 25, priority: 50 },
-      INT: { standard: 20, express: 30, priority: 50 },
-    };
-    shippingCost = shipTable[shipDest.value][shipType.value];
+    // Free shipping if merchandise total is over $500
+    if (merchandiseTotal > 500) {
+      shippingCost = 0;
+    } else {
+      const shipTable = {
+        CA: { standard: 10, express: 25, priority: 35 },
+        US: { standard: 15, express: 25, priority: 50 },
+        INT: { standard: 20, express: 30, priority: 50 },
+      };
+      shippingCost = shipTable[shipDest.value][shipType.value];
+    }
   }
 
   const tax = shipDest.value === "CA" ? merchandiseTotal * 0.05 : 0;
@@ -853,7 +867,7 @@ function renderCart() {
   sumTotal.textContent =
     "$" + (merchandiseTotal + shippingCost + tax).toFixed(2);
 
-  // REMOVE BUTTONS (safe version)
+  // REMOVE BUTTONS 
   document.querySelectorAll("[data-remove]").forEach((btn) => {
     btn.addEventListener("click", () => {
       const index = Number(btn.dataset.remove);
@@ -872,10 +886,10 @@ function renderCart() {
   });
 }
 
-
 /************************************************************
  * CATEGORY TILE → AUTO FILTER
  ************************************************************/
+// openBrowseWithFilters: main function block
 function openBrowseWithFilters(gender, category) {
   switchView("browse-view");
 
@@ -896,8 +910,9 @@ function openBrowseWithFilters(gender, category) {
 }
 
 /************************************************************
- * COLLAPSIBLE FILTER PANEL (NEW)
+ * COLLAPSIBLE FILTER PANEL 
  ************************************************************/
+// initCollapsibleFilters: main function block
 function initCollapsibleFilters() {
   document.querySelectorAll(".filter-toggle").forEach((btn) => {
     btn.addEventListener("click", () => {
@@ -915,3 +930,4 @@ function initCollapsibleFilters() {
     });
   });
 }
+})
