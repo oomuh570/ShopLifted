@@ -1,1135 +1,1325 @@
 <!DOCTYPE html>
 <html lang="en">
-    <head>
-        <meta charset="utf-8">
-        <title>ShopLifted</title>
-        <script src="https://cdn.tailwindcss.com"></script>
-        <script defer src="app.js"></script>
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    </head>
+  <head>
+    <meta charset="utf-8" />
+    <title>ShopLifted</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script defer src="app.js"></script>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  </head>
 
-<body class="min-h-screen flex flex-col bg-white">
-
+  <body class="min-h-screen flex flex-col bg-white">
     <!-- Toast Notification -->
-    <div id="toast" class="fixed top-20 right-6 bg-black text-white px-6 py-3 rounded-lg shadow-lg transform translate-x-full transition-transform duration-300 z-50">
-        <p class="text-sm font-light">Item added to bag</p>
+    <div
+      id="toast"
+      class="fixed top-20 right-6 bg-black text-white px-6 py-3 rounded-lg shadow-lg transform translate-x-full transition-transform duration-300 z-50"
+    >
+      <p class="text-sm font-light">Item added to bag</p>
     </div>
 
     <!-- Header-->
     <header class="sticky top-0 z-50 bg-white border-b border-gray-200">
-        <div class="max-w-7xl mx-auto px-6 py-5 flex items-center justify-between">
-            
-            <!-- Logo --> 
-            <div class="flex-1">
-                <h1 id="nav-logo" data-view="home-view"class="text-xl font-light tracking-widest cursor-pointer uppercase text-black flex items-center gap-3">
-                    <!--Genrated by Chatgpt-->
-                    <svg class="w-7 h-7" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg"> 
-                        <rect x="10" y="14" width="28" height="28" rx="2"
-                            stroke="#000000" stroke-width="1.5" fill="none"/>
-                        <path d="M16 14 C16 8, 32 8, 32 14" 
-                            stroke="#000000" stroke-width="1.5" fill="none" stroke-linecap="round"/>
-                        <path d="M24 30 L24 20" stroke="#000000" stroke-width="1.5" stroke-linecap="round"/>
-                        <path d="M18 24 L24 18 L30 24" 
-                            stroke="#000000" stroke-width="1.5" stroke-linecap="round" fill="none"/>
-                    </svg>
-                    ShopLifted
-                </h1>
-            </div>
-
-            <!-- Navigation Bar -->
-            <nav class="hidden md:flex space-x-10 text-xs font-light uppercase tracking-wider text-gray-700">
-                <!--Navigation Buttons-->
-                <button id="nav-home" data-view="home-view" class="hover:text-black transition-colors">HOME</button>
-                <button id="nav-men" data-view="men-view" class="hover:text-black  transition-colors">MEN</button>
-                <button id="nav-women" data-view="women-view" class="hover:text-black transition-colors">WOMEN</button>
-                <button id="nav-browse" data-view="browse-view" class="hover:text-black transition-colors">BROWSE</button>
-                <button id="nav-about" class="hover:text-black transition-colors">ABOUT</button>
-            </nav>
-
-            <!-- Cart & Mobile Menu -->
-            <div class="flex-1 flex justify-end items-center space-x-6">
-                <button id="nav-cart" data-view="cart-view" class="relative text-xs font-light uppercase tracking-wider text-gray-700 hover:text-black transition-colors">
-                    Bag
-                    <span id="cart-count" class="ml-2 text-xs font-light">
-                        (0)
-                    </span>
-                </button>
-                
-                <!-- Hamburger -->
-                <button id="mobile-menu-toggle" class="md:hidden text-black">
-                    <span class="hamburger-line top-line block w-5 h-px bg-current transition-all duration-300 mb-1"></span>
-                    <span class="hamburger-line middle-line block w-5 h-px bg-current transition-all duration-300 mb-1"></span>
-                    <span class="hamburger-line bottom-line block w-5 h-px bg-current transition-all duration-300"></span>
-                </button>
-            </div>
+      <div
+        class="max-w-7xl mx-auto px-6 py-5 flex items-center justify-between"
+      >
+        <!-- Logo -->
+        <div class="flex-1">
+          <h1
+            id="nav-logo"
+            data-view="home-view"
+            class="text-xl font-light tracking-widest cursor-pointer uppercase text-black flex items-center gap-3"
+          >
+            <!--Genrated by Chatgpt-->
+            <svg
+              class="w-7 h-7"
+              viewBox="0 0 48 48"
+              fill="none"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <rect
+                x="10"
+                y="14"
+                width="28"
+                height="28"
+                rx="2"
+                stroke="#000000"
+                stroke-width="1.5"
+                fill="none"
+              />
+              <path
+                d="M16 14 C16 8, 32 8, 32 14"
+                stroke="#000000"
+                stroke-width="1.5"
+                fill="none"
+                stroke-linecap="round"
+              />
+              <path
+                d="M24 30 L24 20"
+                stroke="#000000"
+                stroke-width="1.5"
+                stroke-linecap="round"
+              />
+              <path
+                d="M18 24 L24 18 L30 24"
+                stroke="#000000"
+                stroke-width="1.5"
+                stroke-linecap="round"
+                fill="none"
+              />
+            </svg>
+            ShopLifted
+          </h1>
         </div>
 
-        <!-- Mobile Navigation -->
-        <nav id="mobile-menu" class="md:hidden bg-white border-t border-gray-200 hidden">
-            <div class="px-6 py-4 space-y-3">
-                <button id="mobile-nav-home" data-view="home-view" class="block w-full text-left py-2 text-sm uppercase tracking-wider text-gray-700 hover:text-black">Home</button>
-                <button id="mobile-nav-men" data-view="men-view" class="block w-full text-left py-2 text-sm uppercase tracking-wider text-gray-700 hover:text-black">Men</button>
-                <button id="mobile-nav-women" data-view="women-view" class="block w-full text-left py-2 text-sm uppercase tracking-wider text-gray-700 hover:text-black">Women</button>
-                <button id="mobile-nav-browse" data-view="browse-view" class="block w-full text-left py-2 text-sm uppercase tracking-wider text-gray-700 hover:text-black">Browse</button>
-                <button id="mobile-nav-about" class="block w-full text-left py-2 text-sm uppercase tracking-wider text-gray-700 hover:text-black">About</button>
-            </div>
+        <!-- Navigation Bar -->
+        <nav
+          class="hidden md:flex space-x-10 text-xs font-light uppercase tracking-wider text-gray-700"
+        >
+          <!--Navigation Buttons-->
+          <button
+            id="nav-home"
+            data-view="home-view"
+            class="hover:text-black transition-colors">
+            HOME
+          </button>
+          <button
+            id="nav-men"
+            data-view="men-view"
+            class="hover:text-black transition-colors">
+            MEN
+          </button>
+          <button
+            id="nav-women"
+            data-view="women-view"
+            class="hover:text-black transition-colors">
+            WOMEN
+          </button>
+          <button
+            id="nav-browse"
+            data-view="browse-view"
+            class="hover:text-black transition-colors">
+            BROWSE
+          </button>
+          <button id="nav-about" class="hover:text-black transition-colors">
+            ABOUT
+          </button>
         </nav>
+
+        <!-- Cart & Mobile Menu -->
+        <div class="flex-1 flex justify-end items-center space-x-6">
+          <button
+            id="nav-cart"
+            data-view="cart-view"
+            class="relative text-xs font-light uppercase tracking-wider text-gray-700 hover:text-black transition-colors"
+          >
+            Bag
+            <span id="cart-count" class="ml-2 text-xs font-light"> (0) </span>
+          </button>
+
+          <!-- Hamburger -->
+          <button id="mobile-menu-toggle" class="md:hidden text-black">
+            <span
+              class="hamburger-line top-line block w-5 h-px bg-current transition-all duration-300 mb-1"
+            ></span>
+            <span
+              class="hamburger-line middle-line block w-5 h-px bg-current transition-all duration-300 mb-1"
+            ></span>
+            <span
+              class="hamburger-line bottom-line block w-5 h-px bg-current transition-all duration-300"
+            ></span>
+          </button>
+        </div>
+      </div>
+
+      <!-- Mobile Navigation -->
+      <nav
+        id="mobile-menu"
+        class="md:hidden bg-white border-t border-gray-200 hidden"
+      >
+        <div class="px-6 py-4 space-y-3">
+          <button
+            id="mobile-nav-home"
+            data-view="home-view"
+            class="block w-full text-left py-2 text-sm uppercase tracking-wider text-gray-700 hover:text-black"
+          >
+            Home
+          </button>
+          <button
+            id="mobile-nav-men"
+            data-view="men-view"
+            class="block w-full text-left py-2 text-sm uppercase tracking-wider text-gray-700 hover:text-black"
+          >
+            Men
+          </button>
+          <button
+            id="mobile-nav-women"
+            data-view="women-view"
+            class="block w-full text-left py-2 text-sm uppercase tracking-wider text-gray-700 hover:text-black"
+          >
+            Women
+          </button>
+          <button
+            id="mobile-nav-browse"
+            data-view="browse-view"
+            class="block w-full text-left py-2 text-sm uppercase tracking-wider text-gray-700 hover:text-black"
+          >
+            Browse
+          </button>
+          <button
+            id="mobile-nav-about"
+            class="block w-full text-left py-2 text-sm uppercase tracking-wider text-gray-700 hover:text-black"
+          >
+            About
+          </button>
+        </div>
+      </nav>
     </header>
 
     <!-- Main Content -->
     <main id="main-content" class="flex-grow">
-        
-        <!-- Home View -->
-        <article id="home-view">
-            <!-- Hero Section -->
-            <section class="relative h-screen max-h-[800px] flex items-center justify-center bg-gray-50">
-                <div class="absolute inset-0 bg-cover bg-center" 
-                     style="background-image: url('https://images.unsplash.com/photo-1490578474895-699cd4e2cf59?w=1600&q=80'); filter: brightness(0.95);"> <!-- Photo generated by Gemini-->
-                </div>
-                
-                <div class="absolute inset-0 bg-black/10"></div>
-                
-                <div class="relative z-10 text-center text-white px-6 max-w-2xl mx-auto">
-                    <h1 class="text-5xl md:text-7xl font-light mb-6 tracking-tight">
-                        Elevated By Design
-                    </h1>
-                    <p class="text-sm md:text-base font-light tracking-wide mb-10 uppercase">
-                        A Curated Selection for the Discerning Individual
-                    </p>
-                    <button data-view="browse-view" class="px-10 py-3 bg-white text-black text-xs uppercase tracking-widest font-light border border-white hover:bg-transparent hover:text-white transition-all duration-300">
-                        Discover
-                    </button>
-                </div>
-            </section>
+      <!-- Home View -->
+      <article id="home-view">
+        <!-- Hero Section -->
+        <section
+          class="relative h-screen max-h-[800px] flex items-center justify-center bg-gray-50"
+        >
+          <div
+            class="absolute inset-0 bg-cover bg-center"
+            style="
+              background-image: url('https://images.unsplash.com/photo-1490578474895-699cd4e2cf59?w=1600&q=80');
+              filter: brightness(0.95);
+            "
+          >
+            <!-- Photo generated by Gemini-->
+          </div>
 
-            <!-- Categories Section -->
-            <section class="max-w-7xl mx-auto px-6 py-24">
-                <div class="text-center mb-16">
-                    <h2 class="text-3xl md:text-4xl font-light tracking-tight mb-3 text-black">
-                        Shop by Category
-                    </h2>
-                </div>
-                
-                <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-                    <!-- Men's Category -->
-                    <div id="category-men" data-view="men-view" class="relative group overflow-hidden cursor-pointer aspect-[3/4]"
-                        style="background-image: url('https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=800&q=80'); background-size: cover; background-position: center;">
-                        <div class="absolute inset-0 bg-black/20 group-hover:bg-black/30 transition-all duration-500"></div>
-                        <div class="absolute inset-0 flex flex-col items-center justify-end pb-12">
-                            <h3 class="text-4xl md:text-5xl font-light text-white mb-4 tracking-wide">Men</h3>
-                        </div>
-                    </div>
+          <div class="absolute inset-0 bg-black/10"></div>
 
-                    <!-- Women's Category -->
-                    <div id="category-women" data-view="women-view" class="relative group overflow-hidden cursor-pointer aspect-[3/4]"
-                        style="background-image: url('https://images.unsplash.com/photo-1531123897727-8f129e1688ce?w=800&q=80'); background-size: cover; background-position: center;">
-                        <div class="absolute inset-0 bg-black/20 group-hover:bg-black/30 transition-all duration-500"></div>
-                        <div class="absolute inset-0 flex flex-col items-center justify-end pb-12">
-                            <h3 class="text-4xl md:text-5xl font-light text-white mb-4 tracking-wide">Women</h3>
-                        </div>
-                    </div>
-                </div>
-            </section>
-        </article>
+          <div
+            class="relative z-10 text-center text-white px-6 max-w-2xl mx-auto"
+          >
+            <h1 class="text-5xl md:text-7xl font-light mb-6 tracking-tight">
+              Elevated By Design
+            </h1>
+            <p
+              class="text-sm md:text-base font-light tracking-wide mb-10 uppercase"
+            >
+              A Curated Selection for the Discerning Individual
+            </p>
+            <button
+              data-view="browse-view"
+              class="px-10 py-3 bg-white text-black text-xs uppercase tracking-widest font-light border border-white hover:bg-transparent hover:text-white transition-all duration-300"
+            >
+              Discover
+            </button>
+          </div>
+        </section>
 
-         <!-- Browse View -->
-        <article id="browse-view" class="hidden">
-            <section class="max-w-7xl mx-auto px-6 py-12">
+        <!-- Categories Section -->
+        <section class="max-w-7xl mx-auto px-6 py-24">
+          <div class="text-center mb-16">
+            <h2
+              class="text-3xl md:text-4xl font-light tracking-tight mb-3 text-black"
+            >
+              Shop by Category
+            </h2>
+          </div>
 
-                <!-- Title -->
-                <h1 class="text-3xl font-light tracking-tight mb-6">Browse</h1>
-
-                <!-- Filters -->
-                <div class="grid grid-cols-1 md:grid-cols-4 gap-6">
-
-                <!-- Gender Filter -->
-                <div>
-                    <p class="text-xs uppercase tracking-wider text-gray-500 mb-2">Gender</p>
-                    <select id="filter-gender" class="w-full border border-gray-300 px-3 py-2 text-sm">
-                    <option value="">All</option>
-                    <option value="mens">Men</option>
-                    <option value="womens">Women</option>
-                    </select>
-                </div>
-
-                <!-- Category Filter -->
-                <div>
-                    <p class="text-xs uppercase tracking-wider text-gray-500 mb-2">Category</p>
-                    <select id="filter-category" class="w-full border border-gray-300 px-3 py-2 text-sm">
-                    <option value="">All</option>
-                    <option value="Tops">Tops</option>
-                    <option value="Dresses">Dresses</option>
-                    <option value="Outerwear">Outerwear</option>
-                    <option value="Bottoms">Bottoms</option>
-                    <option value="Shoes">Shoes</option>
-                    </select>
-                </div>
-
-                <!-- Color Filter -->
-                <div>
-                    <p class="text-xs uppercase tracking-wider text-gray-500 mb-2">Color</p>
-                    <select id="filter-color" class="w-full border border-gray-300 px-3 py-2 text-sm">
-                    <option value="">All</option>
-                    <option value="Black">Black</option>
-                    <option value="White">White</option>
-                    <option value="Blue">Blue</option>
-                    <option value="Beige">Beige</option>
-                    </select>
-                </div>
-
-                <!-- Sort Options -->
-                <div>
-                    <p class="text-xs uppercase tracking-wider text-gray-500 mb-2">Sort</p>
-                    <select id="sort" class="w-full border border-gray-300 px-3 py-2 text-sm">
-                    <option value="az">A → Z</option>
-                    <option value="priceLow">Price: Low to High</option>
-                    <option value="priceHigh">Price: High to Low</option>
-                    </select>
-                </div>
-
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+            <!-- Men's Category -->
+            <div
+              id="category-men"
+              data-view="men-view"
+              class="relative group overflow-hidden cursor-pointer aspect-[3/4]"
+              style="
+                background-image: url('https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=800&q=80');
+                background-size: cover;
+                background-position: center;
+              "
+            >
+              <div
+                class="absolute inset-0 bg-black/20 group-hover:bg-black/30 transition-all duration-500"
+              ></div>
+              <div
+                class="absolute inset-0 flex flex-col items-center justify-end pb-12"
+              >
+                <h3
+                  class="text-4xl md:text-5xl font-light text-white mb-4 tracking-wide"
+                >
+                  Men
+                </h3>
+              </div>
             </div>
 
-        <!-- Results Grid -->
-            <div id="browse-results" class="grid grid-cols-2 md:grid-cols-4 gap-6 mt-10"></div>
+            <!-- Women's Category -->
+            <div
+              id="category-women"
+              data-view="women-view"
+              class="relative group overflow-hidden cursor-pointer aspect-[3/4]"
+              style="
+                background-image: url('https://images.unsplash.com/photo-1531123897727-8f129e1688ce?w=800&q=80');
+                background-size: cover;
+                background-position: center;
+              "
+            >
+              <div
+                class="absolute inset-0 bg-black/20 group-hover:bg-black/30 transition-all duration-500"
+              ></div>
+              <div
+                class="absolute inset-0 flex flex-col items-center justify-end pb-12"
+              >
+                <h3
+                  class="text-4xl md:text-5xl font-light text-white mb-4 tracking-wide"
+                >
+                  Women
+                </h3>
+              </div>
+            </div>
+          </div>
+        </section>
+      </article>
 
-            <!-- No Results -->
-            <p id="browse-empty" class="hidden text-gray-500 text-center mt-10">
-            No products match your filters.
-            </p>
+      <!-- Browse View -->
+      <article id="browse-view" class="hidden">
+        <div class="max-w-7xl mx-auto px-6 py-12">
+          <!-- Title -->
+          <h1 class="text-3xl font-light tracking-tight mb-10 text-center">Browse</h1>
 
+          <!-- Grid Layout -->
+          <div class="grid grid-cols-1 md:grid-cols-4 gap-12">
+           <!-- LEFT FILTER PANEL (Interactive Sections) -->
+            <aside class="md:col-span-1 space-y-10">
+
+                <!-- Title -->
+                <h2 class="text-xs font-semibold tracking-widest text-gray-500 mb-4">
+                    DEPARTMENTS
+                </h2>
+
+                <!-- GENDER -->
+                <div class="filter-section">
+                    <button class="flex items-center justify-between w-full mb-3 filter-toggle">
+                        <span class="text-sm font-semibold">Gender</span>
+                        <span class="toggle-icon text-xs text-gray-500">▼</span>
+                    </button>
+
+                    <div class="filter-content space-y-2 transition-all duration-200" id="filter-gender">
+                        <label class="flex items-center gap-2">
+                            <input type="checkbox" value="womens" class="gender-checkbox">
+                            <span>Female</span>
+                        </label>
+
+                        <label class="flex items-center gap-2">
+                            <input type="checkbox" value="mens" class="gender-checkbox">
+                            <span>Male</span>
+                        </label>
+                    </div>
+                </div>
+
+                <!-- CATEGORY -->
+                <div class="filter-section">
+                    <button class="flex items-center justify-between w-full mb-3 filter-toggle">
+                        <span class="text-sm font-semibold">Category</span>
+                        <span class="toggle-icon text-xs text-gray-500">▼</span>
+                    </button>
+
+                    <div class="filter-content space-y-2" id="filter-category"></div>
+                </div>
+
+                <!-- SIZES -->
+                <div class="filter-section">
+                    <button class="flex items-center justify-between w-full mb-3 filter-toggle">
+                        <span class="text-sm font-semibold">Sizes</span>
+                        <span class="toggle-icon text-xs text-gray-500">▼</span>
+                    </button>
+
+                    <div class="filter-content space-y-2" id="filter-size"></div>
+                </div>
+
+                <!-- COLORS -->
+                <div class="filter-section">
+                    <button class="flex items-center justify-between w-full mb-3 filter-toggle">
+                        <span class="text-sm font-semibold">Colors</span>
+                        <span class="toggle-icon text-xs text-gray-500">▼</span>
+                    </button>
+
+                    <div class="filter-content space-y-2" id="filter-color"></div>
+                </div>
+
+            </aside>
+
+        
+
+            <!-- RIGHT SIDE -->
+            <section class="md:col-span-3">
+              <!-- SORT BAR -->
+              <div class="flex items-center justify-end mb-4">
+                <span
+                  class="text-xs uppercase tracking-wider text-gray-600 mr-2"
+                >
+                  Sort
+                </span>
+
+                <select
+                  id="sort"
+                  class="border border-gray-300 px-3 py-2 text-xs bg-white"
+                >
+                  <option value="nameAZ">Product Name (A–Z)</option>
+                  <option value="nameZA">Product Name (Z–A)</option>
+                  <option value="priceLow">Price: Low to High</option>
+                  <option value="priceHigh">Price: High to Low</option>
+                  <option value="category">Category (A–Z)</option>
+                </select>
+              </div>
+
+              <!-- ACTIVE FILTERS -->
+              <div class="mb-4 flex items-center flex-wrap gap-2">
+                <span class="text-xs uppercase tracking-wider">Results</span>
+                <div
+                  id="active-filters-container"
+                  class="flex flex-wrap gap-2 ml-4"
+                ></div>
+
+                <button
+                  id="clear-all-btn"
+                  class="ml-4 text-xs px-2 py-1 border rounded hover:bg-gray-100"
+                >
+                  X Clear All
+                </button>
+              </div>
+
+              <!-- RESULTS GRID -->
+              <div
+                id="browse-results"
+                class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-8"
+              ></div>
+
+              <!-- NO RESULTS -->
+              <p
+                id="browse-empty"
+                class="hidden text-gray-500 text-center mt-10"
+              >
+                No products match your filters.
+              </p>
             </section>
-        </article>
+          </div>
+        </div>
+      </article>
 
-         <!-- Product View -->
-        <article id="product-view" class="hidden">
-            <!-- Breadcrumb -->
-            <div class="max-w-7xl mx-auto px-6 py-6">
-                <nav class="text-xs uppercase tracking-wider text-gray-500">
-                    <span id="breadcrumb-home" class="hover:text-black cursor-pointer">Home</span>
-                    <span class="mx-2">></span>
-                    <span id="breadcrumb-gender" class="hover:text-black cursor-pointer">Gender</span>
-                    <span class="mx-2">></span>
-                    <span id="breadcrumb-category" class="hover:text-black cursor-pointer">Category</span>
-                    <span class="mx-2">></span>
-                    <span id="breadcrumb-product" class="text-black">Product</span>
-                </nav>
+      <!-- Single Product View -->
+      <article id="product-view" class="hidden">
+        <div class="max-w-4xl mx-auto px-6 py-12">
+          <!-- Breadcrumbs -->
+          <nav class="text-sm text-gray-500 mb-6">
+            <span id="breadcrumb-home" class="cursor-pointer hover:underline"
+              >Home</span
+            >
+            /
+            <span
+              id="breadcrumb-gender"
+              class="cursor-pointer hover:underline"
+            ></span>
+            /
+            <span
+              id="breadcrumb-category"
+              class="cursor-pointer hover:underline"
+            ></span>
+            /
+            <span id="breadcrumb-product" class="text-gray-700"></span>
+          </nav>
+
+          <!-- Main Layout -->
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-10">
+            <!-- Image -->
+            <div id="product-main-image"
+              class="border border-gray-300 bg-gray-50 w-full aspect-square flex items-center justify-center text-gray-400 text-xl"
+            >
+              placeholder
             </div>
 
             <!-- Product Details -->
-            <section class="max-w-7xl mx-auto px-6 py-8">
-                <div class="grid grid-cols-1 md:grid-cols-2 gap-12">
-                    <!-- Images -->
-                    <div>
-                        <div class="aspect-square bg-gray-100 mb-4">
-                            <img id="product-main-image" src="https://via.placeholder.com/800x800" alt="Product" class="w-full h-full object-cover">
-                        </div>
-                        <div class="grid grid-cols-3 gap-4">
-                            <div class="aspect-square bg-gray-100 cursor-pointer product-thumb">
-                                <img src="https://via.placeholder.com/300x300" alt="Thumbnail" class="w-full h-full object-cover">
-                            </div>
-                            <div class="aspect-square bg-gray-100 cursor-pointer product-thumb">
-                                <img src="https://via.placeholder.com/300x300" alt="Thumbnail" class="w-full h-full object-cover">
-                            </div>
-                            <div class="aspect-square bg-gray-100 cursor-pointer product-thumb">
-                                <img src="https://via.placeholder.com/300x300" alt="Thumbnail" class="w-full h-full object-cover">
-                            </div>
-                        </div>
-                    </div>
+            <div>
+              <h2 id="product-title" class="text-2xl mb-2"></h2>
+              <p id="product-price" class="text-lg text-gray-600 mb-4"></p>
 
-                    <!-- Details -->
-                    <div>
-                        <h1 id="product-title" class="text-3xl font-light tracking-tight mb-4">Premium Jacket</h1>
-                        <p id="product-price" class="text-2xl font-light mb-6">$299.00</p>
-                        <p id="product-description" class="text-sm font-light text-gray-600 mb-6 leading-relaxed">
-                            Crafted from premium materials with meticulous attention to detail. This piece combines timeless elegance with modern sophistication.
-                        </p>
-                        
-                        <div class="mb-6">
-                            <p class="text-xs uppercase tracking-wider text-gray-500 mb-2">Material</p>
-                            <p id="product-material" class="text-sm font-light">100% Premium Cotton</p>
-                        </div>
+              <p
+                id="product-description"
+                class="text-sm text-gray-600 mb-6"
+              ></p>
 
-                        <div class="mb-6">
-                            <p class="text-xs uppercase tracking-wider text-gray-500 mb-3">Size</p>
-                            <div class="flex gap-3">
-                                <button class="size-btn w-12 h-12 border border-gray-300 text-sm font-light hover:border-black transition-colors" data-size="XS">XS</button>
-                                <button class="size-btn w-12 h-12 border border-gray-300 text-sm font-light hover:border-black transition-colors" data-size="S">S</button>
-                                <button class="size-btn w-12 h-12 border border-gray-300 text-sm font-light hover:border-black transition-colors" data-size="M">M</button>
-                                <button class="size-btn w-12 h-12 border border-gray-300 text-sm font-light hover:border-black transition-colors" data-size="L">L</button>
-                                <button class="size-btn w-12 h-12 border border-gray-300 text-sm font-light hover:border-black transition-colors" data-size="XL">XL</button>
-                            </div>
-                        </div>
+              <!-- Add to cart -->
+              <button
+                id="add-to-cart-btn"
+                class="px-6 py-2 border border-gray-300 bg-white hover:bg-gray-100"
+              >
+                Add to Cart
+              </button>
+            </div>
+          </div>
 
-                        <div class="mb-6">
-                            <p class="text-xs uppercase tracking-wider text-gray-500 mb-3">Color</p>
-                            <div class="flex gap-3">
-                                <button class="color-btn w-12 h-12 bg-gray-800 border-2 border-transparent hover:border-black transition-colors" data-color="Black"></button>
-                                <button class="color-btn w-12 h-12 bg-white border-2 border-gray-300 hover:border-black transition-colors" data-color="White"></button>
-                                <button class="color-btn w-12 h-12 bg-blue-600 border-2 border-transparent hover:border-black transition-colors" data-color="Blue"></button>
-                            </div>
-                        </div>
+          <!-- Related Products -->
+          <div class="mt-12">
+            <h3 class="text-lg mb-4">Related Items</h3>
+            <div
+              id="related-products-grid"
+              class="grid grid-cols-2 md:grid-cols-4 gap-6"
+            ></div>
+          </div>
+        </div>
+      </article>
 
-                        <div class="mb-8">
-                            <p class="text-xs uppercase tracking-wider text-gray-500 mb-3">Quantity</p>
-                            <input type="number" id="product-quantity" value="1" min="1" class="w-24 px-4 py-2 border border-gray-300 text-sm font-light">
-                        </div>
+      <!-- Cart View -->
+      <article id="cart-view" class="hidden px-6 py-12 max-w-7xl mx-auto">
+        <h1 class="text-3xl font-light mb-8 text-center">Shopping Cart</h1>
 
-                        <button id="add-to-cart-btn" class="w-full py-4 bg-black text-white text-xs uppercase tracking-widest font-light hover:bg-gray-800 transition-colors">
-                            + Add to Bag
-                        </button>
-                    </div>
-                </div>
+        <!-- Cart Items -->
+        <div id="cart-items-container" class="mb-6"></div>
 
-                <!-- Related Products -->
-                <div class="mt-20">
-                    <h2 class="text-2xl font-light tracking-tight mb-8 text-center">You May Also Like</h2>
-                    <div id="related-products-grid" class="grid grid-cols-2 md:grid-cols-4 gap-6">
-                        <!-- Related products will be dynamically inserted here -->
-                    </div>
-                </div>
-            </section>
-        </article>
+        <!-- Empty Cart Message -->
+        <p id="empty-cart-msg" class="text-gray-600 text-sm text-center hidden">
+          Your bag is currently empty.
+        </p>
 
+        <!-- Shipping + Summary -->
+        <div
+          id="shipping-section"
+          class="mt-10 grid grid-cols-1 md:grid-cols-2 gap-12 hidden"
+        >
+          <!-- Shipping Options -->
+          <div>
+            <h2 class="text-lg font-light mb-4">Shipping</h2>
 
-         <!-- Cart View -->
-        <article id="cart-view" class="hidden px-6 py-12 max-w-7xl mx-auto">
-            <h1 class="text-3xl font-light mb-8 text-center">Shopping Cart</h1>
+            <label
+              class="block text-xs uppercase tracking-wider text-gray-500 mb-2"
+              >Method</label
+            >
+            <select
+              id="shipping-type"
+              class="border border-gray-300 px-3 py-2 w-full text-sm mb-4"
+            >
+              <option value="">Select Shipping</option>
+              <option value="standard">Standard</option>
+              <option value="express">Express</option>
+              <option value="priority">Priority</option>
+            </select>
 
-            <!-- Cart Items -->
-            <div id="cart-items-container" class="mb-6"></div>
+            <label
+              class="block text-xs uppercase tracking-wider text-gray-500 mb-2"
+              >Destination</label
+            >
+            <select
+              id="shipping-destination"
+              class="border border-gray-300 px-3 py-2 w-full text-sm"
+            >
+              <option value="">Select Destination</option>
+              <option value="CA">Canada</option>
+              <option value="US">United States</option>
+              <option value="INT">International</option>
+            </select>
+          </div>
 
-            <!-- Empty Cart Message -->
-            <p id="empty-cart-msg" class="text-gray-600 text-sm text-center hidden">
-                Your bag is currently empty.
+          <!-- Summary -->
+          <div>
+            <h2 class="text-lg font-light mb-4">Summary</h2>
+
+            <div class="border border-gray-200 p-6 text-sm space-y-3">
+              <div class="flex justify-between">
+                <span>Merchandise</span>
+                <span id="summary-merch">$0.00</span>
+              </div>
+
+              <div class="flex justify-between">
+                <span>Shipping</span>
+                <span id="summary-shipping">$0.00</span>
+              </div>
+
+              <div class="flex justify-between">
+                <span>Tax</span>
+                <span id="summary-tax">$0.00</span>
+              </div>
+
+              <hr />
+
+              <div class="flex justify-between font-medium text-lg">
+                <span>Total</span>
+                <span id="summary-total">$0.00</span>
+              </div>
+            </div>
+
+            <button
+              id="checkout-btn"
+              class="mt-6 w-full py-3 bg-black text-white uppercase tracking-wider text-xs hover:bg-gray-800 transition-colors"
+            >
+              Checkout
+            </button>
+          </div>
+        </div>
+      </article>
+
+      <!-- Men's View -->
+      <article id="men-view" class="hidden">
+        <section class="relative h-96 md:h-[500px] bg-gray-50">
+          <div
+            class="absolute inset-0 bg-cover bg-center"
+            style="
+              background-image: url('https://images.unsplash.com/photo-1617127365659-c47fa864d8bc?w=1600&q=80');
+            "
+          ></div>
+          <div class="absolute inset-0 bg-black/30"></div>
+          <div class="relative z-10 flex items-center justify-center h-full">
+            <h1
+              class="text-5xl md:text-6xl font-light text-white tracking-tight"
+            >
+              Men
+            </h1>
+          </div>
+        </section>
+
+        <section class="max-w-7xl mx-auto px-6 py-20">
+          <div class="grid grid-cols-2 md:grid-cols-4 gap-6">
+            <div
+              class="group cursor-pointer product-card"
+              data-product="mens-outerwear"
+            >
+              <div class="aspect-square bg-gray-100 mb-4 overflow-hidden">
+                <img
+                  src="https://images.unsplash.com/photo-1551028719-00167b16eac5?w=400&q=80"
+                  alt="Outerwear"
+                  class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+                />
+              </div>
+              <h3
+                class="text-sm uppercase tracking-wider text-center font-light"
+              >
+                Outerwear
+              </h3>
+            </div>
+
+            <div
+              class="group cursor-pointer product-card"
+              data-product="mens-tops"
+            >
+              <div class="aspect-square bg-gray-100 mb-4 overflow-hidden">
+                <img
+                  src="https://images.unsplash.com/photo-1618354691373-d851c5c3a990?w=400&q=80"
+                  alt="Tops"
+                  class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+                />
+              </div>
+              <h3
+                class="text-sm uppercase tracking-wider text-center font-light"
+              >
+                Tops
+              </h3>
+            </div>
+
+            <div
+              class="group cursor-pointer product-card"
+              data-product="mens-bottoms"
+            >
+              <div class="aspect-square bg-gray-100 mb-4 overflow-hidden">
+                <img
+                  src="https://images.unsplash.com/photo-1624378439575-d8705ad7ae80?w=400&q=80"
+                  alt="Bottoms"
+                  class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+                />
+              </div>
+              <h3
+                class="text-sm uppercase tracking-wider text-center font-light"
+              >
+                Bottoms
+              </h3>
+            </div>
+
+            <div
+              class="group cursor-pointer product-card"
+              data-product="mens-shoes"
+            >
+              <div class="aspect-square bg-gray-100 mb-4 overflow-hidden">
+                <img
+                  src="https://images.unsplash.com/photo-1549298916-b41d501d3772?w=400&q=80"
+                  alt="Shoes"
+                  class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+                />
+              </div>
+              <h3
+                class="text-sm uppercase tracking-wider text-center font-light"
+              >
+                Shoes
+              </h3>
+            </div>
+
+            <div
+              class="group cursor-pointer product-card"
+              data-product="mens-accessories"
+            >
+              <div class="aspect-square bg-gray-100 mb-4 overflow-hidden">
+                <img
+                  src="https://images.unsplash.com/photo-1609587312208-cea54be969e7?w=400&q=80"
+                  alt="Accessories"
+                  class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+                />
+              </div>
+              <h3
+                class="text-sm uppercase tracking-wider text-center font-light"
+              >
+                Accessories
+              </h3>
+            </div>
+
+            <div
+              class="group cursor-pointer product-card"
+              data-product="mens-loungewear"
+            >
+              <div class="aspect-square bg-gray-100 mb-4 overflow-hidden">
+                <!--Photo from Gemini-->
+                <img
+                  src="images/mens_loungewear.png"
+                  alt="Loungewear"
+                  class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+                />
+              </div>
+              <h3
+                class="text-sm uppercase tracking-wider text-center font-light"
+              >
+                Loungewear
+              </h3>
+            </div>
+
+            <div
+              class="group cursor-pointer product-card"
+              data-product="mens-sweaters"
+            >
+              <div class="aspect-square bg-gray-100 mb-4 overflow-hidden">
+                <img
+                  src="https://images.unsplash.com/photo-1620799140408-edc6dcb6d633?q=80&w=1672&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
+                  alt="Sweaters"
+                  class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+                />
+              </div>
+              <h3
+                class="text-sm uppercase tracking-wider text-center font-light"
+              >
+                Sweaters
+              </h3>
+            </div>
+
+            <div
+              class="group cursor-pointer product-card"
+              data-product="mens-jumpsuits"
+            >
+              <div class="aspect-square bg-gray-100 mb-4 overflow-hidden">
+                <!--Photo by ebay-->
+                <img
+                  src="https://i.ebayimg.com/images/g/G7wAAOSwqsZk79Io/s-l1600.webp"
+                  alt="Jumpsuits"
+                  class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+                />
+              </div>
+              <h3
+                class="text-sm uppercase tracking-wider text-center font-light"
+              >
+                Jumpsuits
+              </h3>
+            </div>
+          </div>
+        </section>
+      </article>
+
+      <!-- Women's View -->
+      <article id="women-view" class="hidden">
+        <section class="relative h-96 md:h-[500px] bg-gray-50">
+          <div
+            class="absolute inset-0 bg-cover bg-center"
+            style="
+              background-image: url('https://images.unsplash.com/photo-1483985988355-763728e1935b?w=1600&q=80');
+            "
+          ></div>
+          <div class="absolute inset-0 bg-rose-900/30"></div>
+          <div class="relative z-10 flex items-center justify-center h-full">
+            <h1
+              class="text-5xl md:text-6xl font-light text-white tracking-tight"
+            >
+              Women
+            </h1>
+          </div>
+        </section>
+
+        <section class="max-w-7xl mx-auto px-6 py-20 bg-rose-50/30">
+          <div class="grid grid-cols-2 md:grid-cols-4 gap-6">
+            <div
+              class="group cursor-pointer product-card"
+              data-product="womens-dresses"
+            >
+              <div
+                class="aspect-square bg-rose-100/50 mb-4 overflow-hidden border border-rose-200"
+              >
+                <img
+                  src="https://images.unsplash.com/photo-1595777457583-95e059d581b8?w=400&q=80"
+                  alt="Dresses"
+                  class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+                />
+              </div>
+              <h3
+                class="text-sm uppercase tracking-wider text-center font-light text-rose-900"
+              >
+                Dresses
+              </h3>
+            </div>
+
+            <div
+              class="group cursor-pointer product-card"
+              data-product="womens-tops"
+            >
+              <div
+                class="aspect-square bg-rose-100/50 mb-4 overflow-hidden border border-rose-200"
+              >
+                <img
+                  src="https://images.unsplash.com/photo-1434389677669-e08b4cac3105?w=400&q=80"
+                  alt="Tops"
+                  class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+                />
+              </div>
+              <h3
+                class="text-sm uppercase tracking-wider text-center font-light text-rose-900"
+              >
+                Tops
+              </h3>
+            </div>
+
+            <div
+              class="group cursor-pointer product-card"
+              data-product="womens-bottoms"
+            >
+              <div
+                class="aspect-square bg-rose-100/50 mb-4 overflow-hidden border border-rose-200"
+              >
+                <img
+                  src="https://images.unsplash.com/photo-1541099649105-f69ad21f3246?w=400&q=80"
+                  alt="Bottoms"
+                  class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+                />
+              </div>
+              <h3
+                class="text-sm uppercase tracking-wider text-center font-light text-rose-900"
+              >
+                Bottoms
+              </h3>
+            </div>
+
+            <div
+              class="group cursor-pointer product-card"
+              data-product="womens-shoes"
+            >
+              <div
+                class="aspect-square bg-rose-100/50 mb-4 overflow-hidden border border-rose-200"
+              >
+                <img
+                  src="https://images.unsplash.com/photo-1543163521-1bf539c55dd2?w=400&q=80"
+                  alt="Shoes"
+                  class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+                />
+              </div>
+              <h3
+                class="text-sm uppercase tracking-wider text-center font-light text-rose-900"
+              >
+                Shoes
+              </h3>
+            </div>
+
+            <div
+              class="group cursor-pointer product-card"
+              data-product="womens-accessories"
+            >
+              <div
+                class="aspect-square bg-rose-100/50 mb-4 overflow-hidden border border-rose-200"
+              >
+                <img
+                  src="https://images.unsplash.com/photo-1611652022419-a9419f74343d?w=400&q=80"
+                  alt="Accessories"
+                  class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+                />
+              </div>
+              <h3
+                class="text-sm uppercase tracking-wider text-center font-light text-rose-900"
+              >
+                Accessories
+              </h3>
+            </div>
+
+            <div
+              class="group cursor-pointer product-card"
+              data-product="womens-outerwear"
+            >
+              <div
+                class="aspect-square bg-rose-100/50 mb-4 overflow-hidden border border-rose-200"
+              >
+                <img
+                  src="https://images.unsplash.com/photo-1539533018447-63fcce2678e3?w=400&q=80"
+                  alt="Outerwear"
+                  class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+                />
+              </div>
+              <h3
+                class="text-sm uppercase tracking-wider text-center font-light text-rose-900"
+              >
+                Outerwear
+              </h3>
+            </div>
+
+            <div
+              class="group cursor-pointer product-card"
+              data-product="womens-swimwear"
+            >
+              <div
+                class="aspect-square bg-rose-100/50 mb-4 overflow-hidden border border-rose-200"
+              >
+                <img
+                  src="https://images.unsplash.com/photo-1727028437041-c73754bb6c48?q=80&w=1992&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
+                  alt="Swimwear"
+                  class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+                />
+              </div>
+              <h3
+                class="text-sm uppercase tracking-wider text-center font-light text-rose-900"
+              >
+                Swimwear
+              </h3>
+            </div>
+
+            <div
+              class="group cursor-pointer product-card"
+              data-product="womens-intimates"
+            >
+              <div
+                class="aspect-square bg-rose-100/50 mb-4 overflow-hidden border border-rose-200"
+              >
+                <img
+                  src="https://images.unsplash.com/photo-1568441556126-f36ae0900180?q=80&w=2068&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
+                  alt="Intimates"
+                  class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+                />
+              </div>
+              <h3
+                class="text-sm uppercase tracking-wider text-center font-light text-rose-900"
+              >
+                Intimates
+              </h3>
+            </div>
+
+            <div
+              class="group cursor-pointer product-card"
+              data-product="womens-loungewear"
+            >
+              <div
+                class="aspect-square bg-rose-100/50 mb-4 overflow-hidden border border-rose-200"
+              >
+                <!--Photo generated by Gemini-->
+                <img
+                  src="images/womens_loungewear.png"
+                  alt="Loungewear"
+                  class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+                />
+              </div>
+              <h3
+                class="text-sm uppercase tracking-wider text-center font-light text-rose-900"
+              >
+                Loungewear
+              </h3>
+            </div>
+
+            <div
+              class="group cursor-pointer product-card"
+              data-product="womens-jumpsuits"
+            >
+              <div
+                class="aspect-square bg-rose-100/50 mb-4 overflow-hidden border border-rose-200"
+              >
+                <img
+                  src="https://images.unsplash.com/photo-1762327162521-09981cd40874?q=80&w=987&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
+                  alt="Jumpsuits"
+                  class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+                />
+              </div>
+              <h3
+                class="text-sm uppercase tracking-wider text-center font-light text-rose-900"
+              >
+                Jumpsuits
+              </h3>
+            </div>
+
+            <div
+              class="group cursor-pointer product-card"
+              data-product="womens-sweaters"
+            >
+              <div
+                class="aspect-square bg-rose-100/50 mb-4 overflow-hidden border border-rose-200"
+              >
+                <img
+                  src="https://images.unsplash.com/photo-1631541909061-71e349d1f203?q=80&w=2010&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
+                  alt="Sweaters"
+                  class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+                />
+              </div>
+              <h3
+                class="text-sm uppercase tracking-wider text-center font-light text-rose-900"
+              >
+                Sweaters
+              </h3>
+            </div>
+          </div>
+        </section>
+      </article>
+
+      <!-- About Dialog -->
+      <dialog
+        id="about-dialog"
+        class="backdrop:bg-black/50 backdrop:backdrop-blur-sm rounded-none shadow-2xl max-w-2xl w-full p-0 border border-gray-200"
+      >
+        <!-- Dialog Header -->
+        <div
+          class="flex items-center justify-between px-8 py-6 border-b border-gray-200"
+        >
+          <h2 class="text-2xl font-light tracking-wider uppercase">
+            About ShopLifted
+          </h2>
+          <button
+            id="close-dialog"
+            class="text-gray-400 hover:text-black transition-colors text-2xl leading-none"
+          >
+            x
+          </button>
+        </div>
+
+        <!-- Dialog Content -->
+        <div class="px-8 py-8 space-y-6">
+          <!-- Project Description -->
+          <section>
+            <h3
+              class="text-lg font-light tracking-wide uppercase mb-3 text-black"
+            >
+              Project Overview
+            </h3>
+            <p class="text-gray-600 leading-relaxed">
+              ShopLifted is an e-commerce website showcasing our ability to work
+              with JavaScript. This was built as part of our COMP 3612
+              Assignment 2, where we were tasked to build a Single-Page
+              Application to view products. This website demonstrates responsive
+              design, dynamic content rendering, and seamless navigation.
             </p>
+          </section>
 
-            <!-- Shipping + Summary -->
-            <div id="shipping-section" class="mt-10 grid grid-cols-1 md:grid-cols-2 gap-12 hidden">
-                <!-- Shipping Options -->
-                <div>
-                    <h2 class="text-lg font-light mb-4">Shipping</h2>
-
-                    <label class="block text-xs uppercase tracking-wider text-gray-500 mb-2">Method</label>
-                    <select id="shipping-type" class="border border-gray-300 px-3 py-2 w-full text-sm mb-4">
-                        <option value="">Select Shipping</option>
-                        <option value="standard">Standard</option>
-                        <option value="express">Express</option>
-                        <option value="priority">Priority</option>
-                    </select>
-
-                    <label class="block text-xs uppercase tracking-wider text-gray-500 mb-2">Destination</label>
-                    <select id="shipping-destination" class="border border-gray-300 px-3 py-2 w-full text-sm">
-                        <option value="">Select Destination</option>
-                        <option value="CA">Canada</option>
-                        <option value="US">United States</option>
-                        <option value="INT">International</option>
-                    </select>
-                </div>
-
-                <!-- Summary -->
-                <div>
-                    <h2 class="text-lg font-light mb-4">Summary</h2>
-
-                    <div class="border border-gray-200 p-6 text-sm space-y-3">
-                        <div class="flex justify-between">
-                            <span>Merchandise</span>
-                            <span id="summary-merch">$0.00</span>
-                        </div>
-
-                        <div class="flex justify-between">
-                            <span>Shipping</span>
-                            <span id="summary-shipping">$0.00</span>
-                        </div>
-
-                        <div class="flex justify-between">
-                            <span>Tax</span>
-                            <span id="summary-tax">$0.00</span>
-                        </div>
-
-                        <hr>
-
-                        <div class="flex justify-between font-medium text-lg">
-                            <span>Total</span>
-                            <span id="summary-total">$0.00</span>
-                        </div>
-                    </div>
-
-                    <button id="checkout-btn" class="mt-6 w-full py-3 bg-black text-white uppercase tracking-wider text-xs hover:bg-gray-800 transition-colors">
-                        Checkout
-                    </button>
-                </div>
+          <!-- Technologies Used -->
+          <section>
+            <h3
+              class="text-lg font-light tracking-wide uppercase mb-3 text-black"
+            >
+              Technologies
+            </h3>
+            <div class="flex flex-wrap gap-3">
+              <span
+                class="px-4 py-2 bg-gray-100 text-gray-700 text-sm uppercase tracking-wider"
+                >HTML5</span
+              >
+              <span
+                class="px-4 py-2 bg-gray-100 text-gray-700 text-sm uppercase tracking-wider"
+                >Tailwind CSS</span
+              >
+              <span
+                class="px-4 py-2 bg-gray-100 text-gray-700 text-sm uppercase tracking-wider"
+                >JavaScript</span
+              >
+              <span
+                class="px-4 py-2 bg-gray-100 text-gray-700 text-sm uppercase tracking-wider"
+                >JSON</span
+              >
+              <span
+                class="px-4 py-2 bg-gray-100 text-gray-700 text-sm uppercase tracking-wider"
+                >localStorage API</span
+              >
+              <span
+                class="px-4 py-2 bg-gray-100 text-gray-700 text-sm uppercase tracking-wider"
+                >GitHub Pages</span
+              >
             </div>
-        </article>
+          </section>
 
+          <!-- Team Members -->
+          <section>
+            <h3
+              class="text-lg font-light tracking-wide uppercase mb-3 text-black"
+            >
+              Team
+            </h3>
+            <div class="space-y-2">
+              <div class="flex items-center">
+                <p class="text-gray-600">Ochihai Omuha</p>
+                <a
+                  href="https://github.com/oomuh570"
+                  target="_blank"
+                  class="text-gray-600 hover:text-black transition-colors pl-2"
+                >
+                  <!-- From: https://simpleicons.org/?q=github -->
+                  <svg
+                    class="w-5 h-5"
+                    fill="currentColor"
+                    role="img"
+                    viewBox="0 0 24 24"
+                    xmlns="http://www.w3.org/2000/svg"
+                  >
+                    <title>GitHub</title>
+                    <path
+                      d="M12 .297c-6.63 0-12 5.373-12 12 0 5.303 3.438 9.8 8.205 11.385.6.113.82-.258.82-.577 0-.285-.01-1.04-.015-2.04-3.338.724-4.042-1.61-4.042-1.61C4.422 18.07 3.633 17.7 3.633 17.7c-1.087-.744.084-.729.084-.729 1.205.084 1.838 1.236 1.838 1.236 1.07 1.835 2.809 1.305 3.495.998.108-.776.417-1.305.76-1.605-2.665-.3-5.466-1.332-5.466-5.93 0-1.31.465-2.38 1.235-3.22-.135-.303-.54-1.523.105-3.176 0 0 1.005-.322 3.3 1.23.96-.267 1.98-.399 3-.405 1.02.006 2.04.138 3 .405 2.28-1.552 3.285-1.23 3.285-1.23.645 1.653.24 2.873.12 3.176.765.84 1.23 1.91 1.23 3.22 0 4.61-2.805 5.625-5.475 5.92.42.36.81 1.096.81 2.22 0 1.606-.015 2.896-.015 3.286 0 .315.21.69.825.57C20.565 22.092 24 17.592 24 12.297c0-6.627-5.373-12-12-12"
+                    />
+                  </svg>
+                </a>
+              </div>
 
-
-
-        <!-- Men's View -->
-        <article id="men-view" class="hidden">
-            <section class="relative h-96 md:h-[500px] bg-gray-50">
-                <div class="absolute inset-0 bg-cover bg-center" 
-                     style="background-image: url('https://images.unsplash.com/photo-1617127365659-c47fa864d8bc?w=1600&q=80');">
-                </div>
-                <div class="absolute inset-0 bg-black/30"></div>
-                <div class="relative z-10 flex items-center justify-center h-full">
-                    <h1 class="text-5xl md:text-6xl font-light text-white tracking-tight">Men</h1>
-                </div>
-            </section>
-
-            <section class="max-w-7xl mx-auto px-6 py-20">
-                <div class="grid grid-cols-2 md:grid-cols-4 gap-6">
-                    <div class="group cursor-pointer product-card" data-product="mens-outerwear">
-                        <div class="aspect-square bg-gray-100 mb-4 overflow-hidden">
-                            <img src="https://images.unsplash.com/photo-1551028719-00167b16eac5?w=400&q=80" alt="Outerwear" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
-                        </div>
-                        <h3 class="text-sm uppercase tracking-wider text-center font-light">Outerwear</h3>
-                    </div>
-
-                    <div class="group cursor-pointer product-card" data-product="mens-tops">
-                        <div class="aspect-square bg-gray-100 mb-4 overflow-hidden">
-                            <img src="https://images.unsplash.com/photo-1618354691373-d851c5c3a990?w=400&q=80" alt="Tops" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
-                        </div>
-                        <h3 class="text-sm uppercase tracking-wider text-center font-light">Tops</h3>
-                    </div>
-
-                    <div class="group cursor-pointer product-card" data-product="mens-bottoms">
-                        <div class="aspect-square bg-gray-100 mb-4 overflow-hidden">
-                            <img src="https://images.unsplash.com/photo-1624378439575-d8705ad7ae80?w=400&q=80" alt="Bottoms" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
-                        </div>
-                        <h3 class="text-sm uppercase tracking-wider text-center font-light">Bottoms</h3>
-                    </div>
-
-                    <div class="group cursor-pointer product-card" data-product="mens-shoes">
-                        <div class="aspect-square bg-gray-100 mb-4 overflow-hidden">
-                            <img src="https://images.unsplash.com/photo-1549298916-b41d501d3772?w=400&q=80" alt="Shoes" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
-                        </div>
-                        <h3 class="text-sm uppercase tracking-wider text-center font-light">Shoes</h3>
-                    </div>
-
-                    <div class="group cursor-pointer product-card" data-product="mens-accessories">
-                        <div class="aspect-square bg-gray-100 mb-4 overflow-hidden">
-                            <img src="https://images.unsplash.com/photo-1609587312208-cea54be969e7?w=400&q=80" alt="Accessories" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
-                        </div>
-                        <h3 class="text-sm uppercase tracking-wider text-center font-light">Accessories</h3>
-                    </div>
-
-                    <div class="group cursor-pointer product-card" data-product="mens-loungewear">
-                        <div class="aspect-square bg-gray-100 mb-4 overflow-hidden">
-                            <!--Photo from Gemini-->
-                            <img src="images/mens_loungewear.png" alt="Loungewear" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
-                        </div>
-                        <h3 class="text-sm uppercase tracking-wider text-center font-light">Loungewear</h3>
-                    </div>
-
-                    <div class="group cursor-pointer product-card" data-product="mens-sweaters">
-                        <div class="aspect-square bg-gray-100 mb-4 overflow-hidden">
-                            <img src="https://images.unsplash.com/photo-1620799140408-edc6dcb6d633?q=80&w=1672&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" alt="Sweaters" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
-                        </div>
-                        <h3 class="text-sm uppercase tracking-wider text-center font-light">Sweaters</h3>
-                    </div>
-
-                    <div class="group cursor-pointer product-card" data-product="mens-jumpsuits">
-                        <div class="aspect-square bg-gray-100 mb-4 overflow-hidden">
-                            <!--Photo by ebay-->
-                            <img src="https://i.ebayimg.com/images/g/G7wAAOSwqsZk79Io/s-l1600.webp" alt="Jumpsuits" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
-                        </div>
-                        <h3 class="text-sm uppercase tracking-wider text-center font-light">Jumpsuits</h3>
-                    </div>
-                </div>
-            </section>
-        </article>
-
-            <!-- Women's View -->
-        <article id="women-view" class="hidden">
-            <section class="relative h-96 md:h-[500px] bg-gray-50">
-                <div class="absolute inset-0 bg-cover bg-center" 
-                    style="background-image: url('https://images.unsplash.com/photo-1483985988355-763728e1935b?w=1600&q=80');">
-                </div>
-                <div class="absolute inset-0 bg-rose-900/30"></div>
-                <div class="relative z-10 flex items-center justify-center h-full">
-                    <h1 class="text-5xl md:text-6xl font-light text-white tracking-tight">Women</h1>
-                </div>
-            </section>
-
-            <section class="max-w-7xl mx-auto px-6 py-20 bg-rose-50/30">
-                <div class="grid grid-cols-2 md:grid-cols-4 gap-6">
-                    <div class="group cursor-pointer product-card" data-product="womens-dresses">
-                        <div class="aspect-square bg-rose-100/50 mb-4 overflow-hidden border border-rose-200">
-                            <img src="https://images.unsplash.com/photo-1595777457583-95e059d581b8?w=400&q=80" alt="Dresses" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
-                        </div>
-                        <h3 class="text-sm uppercase tracking-wider text-center font-light text-rose-900">Dresses</h3>
-                    </div>
-
-                    <div class="group cursor-pointer product-card" data-product="womens-tops">
-                        <div class="aspect-square bg-rose-100/50 mb-4 overflow-hidden border border-rose-200">
-                            <img src="https://images.unsplash.com/photo-1434389677669-e08b4cac3105?w=400&q=80" alt="Tops" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
-                        </div>
-                        <h3 class="text-sm uppercase tracking-wider text-center font-light text-rose-900">Tops</h3>
-                    </div>
-
-                    <div class="group cursor-pointer product-card" data-product="womens-bottoms">
-                        <div class="aspect-square bg-rose-100/50 mb-4 overflow-hidden border border-rose-200">
-                            <img src="https://images.unsplash.com/photo-1541099649105-f69ad21f3246?w=400&q=80" alt="Bottoms" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
-                        </div>
-                        <h3 class="text-sm uppercase tracking-wider text-center font-light text-rose-900">Bottoms</h3>
-                    </div>
-
-                    <div class="group cursor-pointer product-card" data-product="womens-shoes">
-                        <div class="aspect-square bg-rose-100/50 mb-4 overflow-hidden border border-rose-200">
-                            <img src="https://images.unsplash.com/photo-1543163521-1bf539c55dd2?w=400&q=80" alt="Shoes" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
-                        </div>
-                        <h3 class="text-sm uppercase tracking-wider text-center font-light text-rose-900">Shoes</h3>
-                    </div>
-
-                    <div class="group cursor-pointer product-card" data-product="womens-accessories">
-                        <div class="aspect-square bg-rose-100/50 mb-4 overflow-hidden border border-rose-200">
-                            <img src="https://images.unsplash.com/photo-1611652022419-a9419f74343d?w=400&q=80" alt="Accessories" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
-                        </div>
-                        <h3 class="text-sm uppercase tracking-wider text-center font-light text-rose-900">Accessories</h3>
-                    </div>
-
-                    <div class="group cursor-pointer product-card" data-product="womens-outerwear">
-                        <div class="aspect-square bg-rose-100/50 mb-4 overflow-hidden border border-rose-200">
-                            <img src="https://images.unsplash.com/photo-1539533018447-63fcce2678e3?w=400&q=80" alt="Outerwear" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
-                        </div>
-                        <h3 class="text-sm uppercase tracking-wider text-center font-light text-rose-900">Outerwear</h3>
-                    </div>
-
-                    <div class="group cursor-pointer product-card" data-product="womens-swimwear">
-                        <div class="aspect-square bg-rose-100/50 mb-4 overflow-hidden border border-rose-200">
-                            <img src="https://images.unsplash.com/photo-1727028437041-c73754bb6c48?q=80&w=1992&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" alt="Swimwear" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
-                        </div>
-                        <h3 class="text-sm uppercase tracking-wider text-center font-light text-rose-900">Swimwear</h3>
-                    </div>
-
-                    <div class="group cursor-pointer product-card" data-product="womens-intimates">
-                        <div class="aspect-square bg-rose-100/50 mb-4 overflow-hidden border border-rose-200">
-                            <img src="https://images.unsplash.com/photo-1568441556126-f36ae0900180?q=80&w=2068&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" alt="Intimates" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
-                        </div>
-                        <h3 class="text-sm uppercase tracking-wider text-center font-light text-rose-900">Intimates</h3>
-                    </div>
-
-                    <div class="group cursor-pointer product-card" data-product="womens-loungewear">
-                        <div class="aspect-square bg-rose-100/50 mb-4 overflow-hidden border border-rose-200">
-                            <!--Photo generated by Gemini-->
-                            <img src="images/womens_loungewear.png" alt="Loungewear" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
-                        </div>
-                        <h3 class="text-sm uppercase tracking-wider text-center font-light text-rose-900">Loungewear</h3>
-                    </div>
-
-                    <div class="group cursor-pointer product-card" data-product="womens-jumpsuits">
-                        <div class="aspect-square bg-rose-100/50 mb-4 overflow-hidden border border-rose-200">
-                            <img src="https://images.unsplash.com/photo-1762327162521-09981cd40874?q=80&w=987&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" alt="Jumpsuits" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
-                        </div>
-                        <h3 class="text-sm uppercase tracking-wider text-center font-light text-rose-900">Jumpsuits</h3>
-                    </div>
-
-                    <div class="group cursor-pointer product-card" data-product="womens-sweaters">
-                        <div class="aspect-square bg-rose-100/50 mb-4 overflow-hidden border border-rose-200">
-                            <img src="https://images.unsplash.com/photo-1631541909061-71e349d1f203?q=80&w=2010&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" alt="Sweaters" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
-                        </div>
-                        <h3 class="text-sm uppercase tracking-wider text-center font-light text-rose-900">Sweaters</h3>
-                    </div>
-                </div>
-            </section>
-        </article>
-
-        <!-- About Dialog -->
-        <dialog id="about-dialog" class="backdrop:bg-black/50 backdrop:backdrop-blur-sm rounded-none shadow-2xl max-w-2xl w-full p-0 border border-gray-200">
-            <!-- Dialog Header -->
-            <div class="flex items-center justify-between px-8 py-6 border-b border-gray-200">
-                <h2 class="text-2xl font-light tracking-wider uppercase">About ShopLifted</h2>
-                <button id="close-dialog" class="text-gray-400 hover:text-black transition-colors text-2xl leading-none">
-                    x
-                </button>
+              <div class="flex items-center">
+                <p class="text-gray-600">Tarun Jaswal</p>
+                <a
+                  href="https://github.com/tjasw549"
+                  target="_blank"
+                  class="text-gray-600 hover:text-black transition-colors pl-2"
+                >
+                  <!-- From: https://simpleicons.org/?q=github -->
+                  <svg
+                    class="w-5 h-5"
+                    fill="currentColor"
+                    role="img"
+                    viewBox="0 0 24 24"
+                    xmlns="http://www.w3.org/2000/svg"
+                  >
+                    <title>GitHub</title>
+                    <path
+                      d="M12 .297c-6.63 0-12 5.373-12 12 0 5.303 3.438 9.8 8.205 11.385.6.113.82-.258.82-.577 0-.285-.01-1.04-.015-2.04-3.338.724-4.042-1.61-4.042-1.61C4.422 18.07 3.633 17.7 3.633 17.7c-1.087-.744.084-.729.084-.729 1.205.084 1.838 1.236 1.838 1.236 1.07 1.835 2.809 1.305 3.495.998.108-.776.417-1.305.76-1.605-2.665-.3-5.466-1.332-5.466-5.93 0-1.31.465-2.38 1.235-3.22-.135-.303-.54-1.523.105-3.176 0 0 1.005-.322 3.3 1.23.96-.267 1.98-.399 3-.405 1.02.006 2.04.138 3 .405 2.28-1.552 3.285-1.23 3.285-1.23.645 1.653.24 2.873.12 3.176.765.84 1.23 1.91 1.23 3.22 0 4.61-2.805 5.625-5.475 5.92.42.36.81 1.096.81 2.22 0 1.606-.015 2.896-.015 3.286 0 .315.21.69.825.57C20.565 22.092 24 17.592 24 12.297c0-6.627-5.373-12-12-12"
+                    />
+                  </svg>
+                </a>
+              </div>
             </div>
-        
-            <!-- Dialog Content -->
-            <div class="px-8 py-8 space-y-6">
-                <!-- Project Description -->
-                <section>
-                    <h3 class="text-lg font-light tracking-wide uppercase mb-3 text-black">Project Overview</h3>
-                    <p class="text-gray-600 leading-relaxed">
-                        ShopLifted is an e-commerce website showcasing our ability to work with JavaScript. 
-                        This was built as part of our COMP 3612 Assignment 2, where we were tasked to build a 
-                        Single-Page Application to view products. This website demonstrates responsive design, 
-                        dynamic content rendering, and seamless navigation.
-                    </p>
-                </section>
+          </section>
 
-                <!-- Technologies Used -->
-                <section>
-                    <h3 class="text-lg font-light tracking-wide uppercase mb-3 text-black">Technologies</h3>
-                    <div class="flex flex-wrap gap-3">
-                        <span class="px-4 py-2 bg-gray-100 text-gray-700 text-sm uppercase tracking-wider">HTML5</span>
-                        <span class="px-4 py-2 bg-gray-100 text-gray-700 text-sm uppercase tracking-wider">Tailwind CSS</span>
-                        <span class="px-4 py-2 bg-gray-100 text-gray-700 text-sm uppercase tracking-wider">JavaScript</span>
-                        <span class="px-4 py-2 bg-gray-100 text-gray-700 text-sm uppercase tracking-wider">JSON</span>
-                        <span class="px-4 py-2 bg-gray-100 text-gray-700 text-sm uppercase tracking-wider">localStorage API</span>
-                        <span class="px-4 py-2 bg-gray-100 text-gray-700 text-sm uppercase tracking-wider">GitHub Pages</span>
-                    </div>
-                </section>
+          <!-- GitHub Repo -->
+          <section>
+            <h3
+              class="text-lg font-light tracking-wide uppercase mb-3 text-black"
+            >
+              Repository
+            </h3>
+            <a
+              href="https://github.com/oomuh570/Tailwind_Threads.git"
+              target="_blank"
+              class="inline-flex items-center gap-2 text-gray-600 hover:text-black transition-colors"
+            >
+              <!-- From: https://simpleicons.org/?q=github -->
+              <svg
+                class="w-5 h-5"
+                fill="currentColor"
+                role="img"
+                viewBox="0 0 24 24"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <title>GitHub</title>
+                <path
+                  d="M12 .297c-6.63 0-12 5.373-12 12 0 5.303 3.438 9.8 8.205 11.385.6.113.82-.258.82-.577 0-.285-.01-1.04-.015-2.04-3.338.724-4.042-1.61-4.042-1.61C4.422 18.07 3.633 17.7 3.633 17.7c-1.087-.744.084-.729.084-.729 1.205.084 1.838 1.236 1.838 1.236 1.07 1.835 2.809 1.305 3.495.998.108-.776.417-1.305.76-1.605-2.665-.3-5.466-1.332-5.466-5.93 0-1.31.465-2.38 1.235-3.22-.135-.303-.54-1.523.105-3.176 0 0 1.005-.322 3.3 1.23.96-.267 1.98-.399 3-.405 1.02.006 2.04.138 3 .405 2.28-1.552 3.285-1.23 3.285-1.23.645 1.653.24 2.873.12 3.176.765.84 1.23 1.91 1.23 3.22 0 4.61-2.805 5.625-5.475 5.92.42.36.81 1.096.81 2.22 0 1.606-.015 2.896-.015 3.286 0 .315.21.69.825.57C20.565 22.092 24 17.592 24 12.297c0-6.627-5.373-12-12-12"
+                />
+              </svg>
+              View on GitHub
+            </a>
+          </section>
+        </div>
 
-                <!-- Team Members -->
-                <section>
-                    <h3 class="text-lg font-light tracking-wide uppercase mb-3 text-black">Team</h3>
-                    <div class="space-y-2">
-                        <div class="flex items-center">
-                            <p class="text-gray-600">Ochihai Omuha</p>
-                            <a href="https://github.com/oomuh570" 
-                            target="_blank"
-                            class="text-gray-600 hover:text-black transition-colors pl-2">
-                                <!-- From: https://simpleicons.org/?q=github -->
-                                <svg class="w-5 h-5" fill="currentColor" role="img" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                                    <title>GitHub</title>
-                                    <path d="M12 .297c-6.63 0-12 5.373-12 12 0 5.303 3.438 9.8 8.205 11.385.6.113.82-.258.82-.577 0-.285-.01-1.04-.015-2.04-3.338.724-4.042-1.61-4.042-1.61C4.422 18.07 3.633 17.7 3.633 17.7c-1.087-.744.084-.729.084-.729 1.205.084 1.838 1.236 1.838 1.236 1.07 1.835 2.809 1.305 3.495.998.108-.776.417-1.305.76-1.605-2.665-.3-5.466-1.332-5.466-5.93 0-1.31.465-2.38 1.235-3.22-.135-.303-.54-1.523.105-3.176 0 0 1.005-.322 3.3 1.23.96-.267 1.98-.399 3-.405 1.02.006 2.04.138 3 .405 2.28-1.552 3.285-1.23 3.285-1.23.645 1.653.24 2.873.12 3.176.765.84 1.23 1.91 1.23 3.22 0 4.61-2.805 5.625-5.475 5.92.42.36.81 1.096.81 2.22 0 1.606-.015 2.896-.015 3.286 0 .315.21.69.825.57C20.565 22.092 24 17.592 24 12.297c0-6.627-5.373-12-12-12"/>
-                                </svg>
-                            </a>
-                        </div>
-        
-                        <div class="flex items-center">
-                            <p class="text-gray-600">Tarun Jaswal</p>
-                            <a href="https://github.com/tjasw549" 
-                            target="_blank"
-                            class="text-gray-600 hover:text-black transition-colors pl-2">
-                                <!-- From: https://simpleicons.org/?q=github -->
-                                <svg class="w-5 h-5" fill="currentColor" role="img" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                                    <title>GitHub</title>
-                                    <path d="M12 .297c-6.63 0-12 5.373-12 12 0 5.303 3.438 9.8 8.205 11.385.6.113.82-.258.82-.577 0-.285-.01-1.04-.015-2.04-3.338.724-4.042-1.61-4.042-1.61C4.422 18.07 3.633 17.7 3.633 17.7c-1.087-.744.084-.729.084-.729 1.205.084 1.838 1.236 1.838 1.236 1.07 1.835 2.809 1.305 3.495.998.108-.776.417-1.305.76-1.605-2.665-.3-5.466-1.332-5.466-5.93 0-1.31.465-2.38 1.235-3.22-.135-.303-.54-1.523.105-3.176 0 0 1.005-.322 3.3 1.23.96-.267 1.98-.399 3-.405 1.02.006 2.04.138 3 .405 2.28-1.552 3.285-1.23 3.285-1.23.645 1.653.24 2.873.12 3.176.765.84 1.23 1.91 1.23 3.22 0 4.61-2.805 5.625-5.475 5.92.42.36.81 1.096.81 2.22 0 1.606-.015 2.896-.015 3.286 0 .315.21.69.825.57C20.565 22.092 24 17.592 24 12.297c0-6.627-5.373-12-12-12"/>
-                                </svg>
-                            </a>
-                        </div>
-                    </div>
-                </section>
-
-                <!-- GitHub Repo -->
-                <section>
-                    <h3 class="text-lg font-light tracking-wide uppercase mb-3 text-black">Repository</h3>
-                    <a href="https://github.com/oomuh570/Tailwind_Threads.git" 
-                    target="_blank"
-                    class="inline-flex items-center gap-2 text-gray-600 hover:text-black transition-colors">
-                        <!-- From: https://simpleicons.org/?q=github -->
-                        <svg class="w-5 h-5" fill="currentColor" role="img" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                            <title>GitHub</title>
-                            <path d="M12 .297c-6.63 0-12 5.373-12 12 0 5.303 3.438 9.8 8.205 11.385.6.113.82-.258.82-.577 0-.285-.01-1.04-.015-2.04-3.338.724-4.042-1.61-4.042-1.61C4.422 18.07 3.633 17.7 3.633 17.7c-1.087-.744.084-.729.084-.729 1.205.084 1.838 1.236 1.838 1.236 1.07 1.835 2.809 1.305 3.495.998.108-.776.417-1.305.76-1.605-2.665-.3-5.466-1.332-5.466-5.93 0-1.31.465-2.38 1.235-3.22-.135-.303-.54-1.523.105-3.176 0 0 1.005-.322 3.3 1.23.96-.267 1.98-.399 3-.405 1.02.006 2.04.138 3 .405 2.28-1.552 3.285-1.23 3.285-1.23.645 1.653.24 2.873.12 3.176.765.84 1.23 1.91 1.23 3.22 0 4.61-2.805 5.625-5.475 5.92.42.36.81 1.096.81 2.22 0 1.606-.015 2.896-.015 3.286 0 .315.21.69.825.57C20.565 22.092 24 17.592 24 12.297c0-6.627-5.373-12-12-12"/>
-                        </svg>
-                        View on GitHub
-                    </a>
-                </section>
-            </div>
-
-            <!-- Close Button -->
-            <div class="pt-4">
-                <button id="close-dialog-btn" class="w-full px-6 py-3 bg-black text-white text-xs uppercase tracking-widest font-light hover:bg-gray-800 transition-colors">
-                    Close
-                </button>
-            </div>       
-        </dialog>
-
+        <!-- Close Button -->
+        <div class="pt-4">
+          <button
+            id="close-dialog-btn"
+            class="w-full px-6 py-3 bg-black text-white text-xs uppercase tracking-widest font-light hover:bg-gray-800 transition-colors"
+          >
+            Close
+          </button>
+        </div>
+      </dialog>
     </main>
 
-   <!-- Footer -->
+    <!-- Footer -->
     <footer class="bg-gray-100 border-t border-gray-200">
-        <!-- All Footer Content -->
-        <div class="max-w-7xl mx-auto px-6 py-8">
-            <!-- Footer Columns -->
-            <section class="grid grid-cols-1 md:grid-cols-3 gap-8 mb-6">
-            
-                <!-- Quick Links -->
-                <div>
-                    <h3 class="text-sm font-light uppercase tracking-wider mb-5 text-black text-center">Quick Links</h3>
-                    <ul class="space-y-2 text-xs text-gray-600 text-center">
-                        <li><button data-view="home-view" class="hover:text-black transition-colors">Home</button></li>
-                        <li><button data-view="men-view" class="hover:text-black transition-colors">Men</button></li>
-                        <li><button data-view="women-view" class="hover:text-black transition-colors">Women</button></li>
-                        <li><a href="#" class="hover:text-black transition-colors">Browse</a></li>
-                        <li><button id="footer-about" class="hover:text-black transition-colors">About</button></li>
-                    </ul>
-                </div>
+      <!-- All Footer Content -->
+      <div class="max-w-7xl mx-auto px-6 py-8">
+        <!-- Footer Columns -->
+        <section class="grid grid-cols-1 md:grid-cols-3 gap-8 mb-6">
+          <!-- Quick Links -->
+          <div>
+            <h3
+              class="text-sm font-light uppercase tracking-wider mb-5 text-black text-center"
+            >
+              Quick Links
+            </h3>
+            <ul class="space-y-2 text-xs text-gray-600 text-center">
+              <li>
+                <button
+                  data-view="home-view"
+                  class="hover:text-black transition-colors"
+                >
+                  Home
+                </button>
+              </li>
+              <li>
+                <button
+                  data-view="men-view"
+                  class="hover:text-black transition-colors"
+                >
+                  Men
+                </button>
+              </li>
+              <li>
+                <button
+                  data-view="women-view"
+                  class="hover:text-black transition-colors"
+                >
+                  Women
+                </button>
+              </li>
+              <li>
+                <a href="#" class="hover:text-black transition-colors"
+                  >Browse</a
+                >
+              </li>
+              <li>
+                <button
+                  id="footer-about"
+                  class="hover:text-black transition-colors"
+                >
+                  About
+                </button>
+              </li>
+            </ul>
+          </div>
 
-                <!-- Customer Service -->
-                <div>
-                    <h3 class="text-sm font-light uppercase tracking-wider mb-5 text-black text-center">Customer Service</h3>
-                    <ul class="space-y-2 text-xs text-gray-600 text-center">
-                        <li><a href="#" class="hover:text-black transition-colors">Shipping & Returns</a></li>
-                        <li><a href="#" class="hover:text-black transition-colors">Size Guide</a></li>
-                        <li><a href="#" class="hover:text-black transition-colors">FAQ</a></li>
-                        <li><a href="#" class="hover:text-black transition-colors">Contact Us</a></li>
-                        <li><a href="#" class="hover:text-black transition-colors">Track Order</a></li>
-                    </ul>
-                </div>
+          <!-- Customer Service -->
+          <div>
+            <h3
+              class="text-sm font-light uppercase tracking-wider mb-5 text-black text-center"
+            >
+              Customer Service
+            </h3>
+            <ul class="space-y-2 text-xs text-gray-600 text-center">
+              <li>
+                <a href="#" class="hover:text-black transition-colors"
+                  >Shipping & Returns</a
+                >
+              </li>
+              <li>
+                <a href="#" class="hover:text-black transition-colors"
+                  >Size Guide</a
+                >
+              </li>
+              <li>
+                <a href="#" class="hover:text-black transition-colors">FAQ</a>
+              </li>
+              <li>
+                <a href="#" class="hover:text-black transition-colors"
+                  >Contact Us</a
+                >
+              </li>
+              <li>
+                <a href="#" class="hover:text-black transition-colors"
+                  >Track Order</a
+                >
+              </li>
+            </ul>
+          </div>
 
-                  <!-- Our Team Column + Repo -->
-                <div>
-                    <h3 class="text-sm font-light uppercase tracking-wider mb-5 text-black text-center">Our Team</h3>
-                    <div class="space-y-3 text-xs text-gray-600">
+          <!-- Our Team Column + Repo -->
+          <div>
+            <h3
+              class="text-sm font-light uppercase tracking-wider mb-5 text-black text-center"
+            >
+              Our Team
+            </h3>
+            <div class="space-y-3 text-xs text-gray-600">
+              <div class="flex items-center justify-center gap-2">
+                <span>Ochihai Omuha</span>
+                <a
+                  href="https://github.com/oomuh570"
+                  target="_blank"
+                  class="text-gray-600 hover:text-black transition-colors"
+                >
+                  <!-- From: https://simpleicons.org/?q=github -->
+                  <svg
+                    class="w-5 h-5"
+                    fill="currentColor"
+                    role="img"
+                    viewBox="0 0 24 24"
+                    xmlns="http://www.w3.org/2000/svg"
+                  >
+                    <title>GitHub</title>
+                    <path
+                      d="M12 .297c-6.63 0-12 5.373-12 12 0 5.303 3.438 9.8 8.205 11.385.6.113.82-.258.82-.577 0-.285-.01-1.04-.015-2.04-3.338.724-4.042-1.61-4.042-1.61C4.422 18.07 3.633 17.7 3.633 17.7c-1.087-.744.084-.729.084-.729 1.205.084 1.838 1.236 1.838 1.236 1.07 1.835 2.809 1.305 3.495.998.108-.776.417-1.305.76-1.605-2.665-.3-5.466-1.332-5.466-5.93 0-1.31.465-2.38 1.235-3.22-.135-.303-.54-1.523.105-3.176 0 0 1.005-.322 3.3 1.23.96-.267 1.98-.399 3-.405 1.02.006 2.04.138 3 .405 2.28-1.552 3.285-1.23 3.285-1.23.645 1.653.24 2.873.12 3.176.765.84 1.23 1.91 1.23 3.22 0 4.61-2.805 5.625-5.475 5.92.42.36.81 1.096.81 2.22 0 1.606-.015 2.896-.015 3.286 0 .315.21.69.825.57C20.565 22.092 24 17.592 24 12.297c0-6.627-5.373-12-12-12"
+                    />
+                  </svg>
+                </a>
+              </div>
 
-                        <div class="flex items-center justify-center gap-2">
-                            <span>Ochihai Omuha</span>
-                            <a href="https://github.com/oomuh570" 
-                            target="_blank"
-                            class="text-gray-600 hover:text-black transition-colors">
-                                <!-- From: https://simpleicons.org/?q=github -->
-                                <svg class="w-5 h-5" fill="currentColor" role="img" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                                    <title>GitHub</title>
-                                    <path d="M12 .297c-6.63 0-12 5.373-12 12 0 5.303 3.438 9.8 8.205 11.385.6.113.82-.258.82-.577 0-.285-.01-1.04-.015-2.04-3.338.724-4.042-1.61-4.042-1.61C4.422 18.07 3.633 17.7 3.633 17.7c-1.087-.744.084-.729.084-.729 1.205.084 1.838 1.236 1.838 1.236 1.07 1.835 2.809 1.305 3.495.998.108-.776.417-1.305.76-1.605-2.665-.3-5.466-1.332-5.466-5.93 0-1.31.465-2.38 1.235-3.22-.135-.303-.54-1.523.105-3.176 0 0 1.005-.322 3.3 1.23.96-.267 1.98-.399 3-.405 1.02.006 2.04.138 3 .405 2.28-1.552 3.285-1.23 3.285-1.23.645 1.653.24 2.873.12 3.176.765.84 1.23 1.91 1.23 3.22 0 4.61-2.805 5.625-5.475 5.92.42.36.81 1.096.81 2.22 0 1.606-.015 2.896-.015 3.286 0 .315.21.69.825.57C20.565 22.092 24 17.592 24 12.297c0-6.627-5.373-12-12-12"/>
-                                </svg>
-                            </a>
-                        </div>
+              <div class="flex items-center justify-center gap-2">
+                <span>Tarun Jaswal</span>
+                <a
+                  href="https://github.com/tjasw549"
+                  target="_blank"
+                  class="text-gray-600 hover:text-black transition-colors"
+                >
+                  <!-- From: https://simpleicons.org/?q=github -->
+                  <svg
+                    class="w-5 h-5"
+                    fill="currentColor"
+                    role="img"
+                    viewBox="0 0 24 24"
+                    xmlns="http://www.w3.org/2000/svg"
+                  >
+                    <title>GitHub</title>
+                    <path
+                      d="M12 .297c-6.63 0-12 5.373-12 12 0 5.303 3.438 9.8 8.205 11.385.6.113.82-.258.82-.577 0-.285-.01-1.04-.015-2.04-3.338.724-4.042-1.61-4.042-1.61C4.422 18.07 3.633 17.7 3.633 17.7c-1.087-.744.084-.729.084-.729 1.205.084 1.838 1.236 1.838 1.236 1.07 1.835 2.809 1.305 3.495.998.108-.776.417-1.305.76-1.605-2.665-.3-5.466-1.332-5.466-5.93 0-1.31.465-2.38 1.235-3.22-.135-.303-.54-1.523.105-3.176 0 0 1.005-.322 3.3 1.23.96-.267 1.98-.399 3-.405 1.02.006 2.04.138 3 .405 2.28-1.552 3.285-1.23 3.285-1.23.645 1.653.24 2.873.12 3.176.765.84 1.23 1.91 1.23 3.22 0 4.61-2.805 5.625-5.475 5.92.42.36.81 1.096.81 2.22 0 1.606-.015 2.896-.015 3.286 0 .315.21.69.825.57C20.565 22.092 24 17.592 24 12.297c0-6.627-5.373-12-12-12"
+                    />
+                  </svg>
+                </a>
+              </div>
 
-                        <div class="flex items-center justify-center gap-2">
-                            <span>Tarun Jaswal</span>
-                            <a href="https://github.com/tjasw549" 
-                            target="_blank"
-                            class="text-gray-600 hover:text-black transition-colors">
-                                <!-- From: https://simpleicons.org/?q=github -->
-                                <svg class="w-5 h-5" fill="currentColor" role="img" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                                    <title>GitHub</title>
-                                    <path d="M12 .297c-6.63 0-12 5.373-12 12 0 5.303 3.438 9.8 8.205 11.385.6.113.82-.258.82-.577 0-.285-.01-1.04-.015-2.04-3.338.724-4.042-1.61-4.042-1.61C4.422 18.07 3.633 17.7 3.633 17.7c-1.087-.744.084-.729.084-.729 1.205.084 1.838 1.236 1.838 1.236 1.07 1.835 2.809 1.305 3.495.998.108-.776.417-1.305.76-1.605-2.665-.3-5.466-1.332-5.466-5.93 0-1.31.465-2.38 1.235-3.22-.135-.303-.54-1.523.105-3.176 0 0 1.005-.322 3.3 1.23.96-.267 1.98-.399 3-.405 1.02.006 2.04.138 3 .405 2.28-1.552 3.285-1.23 3.285-1.23.645 1.653.24 2.873.12 3.176.765.84 1.23 1.91 1.23 3.22 0 4.61-2.805 5.625-5.475 5.92.42.36.81 1.096.81 2.22 0 1.606-.015 2.896-.015 3.286 0 .315.21.69.825.57C20.565 22.092 24 17.592 24 12.297c0-6.627-5.373-12-12-12"/>
-                                </svg>
-                            </a>
-                        </div>
+              <!-- Project Repository -->
+              <div class="pt-3 flex justify-center">
+                <div class="w-32 border-t border-gray-300 mb-2"></div>
+              </div>
+              <div class="text-center">
+                <a
+                  href="https://github.com/oomuh570/Tailwind_Threads.git"
+                  target="_blank"
+                  class="inline-flex items-center gap-2 text-gray-600 hover:text-black transition-colors"
+                >
+                  <!-- From: https://simpleicons.org/?q=github -->
+                  <svg
+                    class="w-5 h-5"
+                    fill="currentColor"
+                    role="img"
+                    viewBox="0 0 24 24"
+                    xmlns="http://www.w3.org/2000/svg"
+                  >
+                    <title>GitHub</title>
+                    <path
+                      d="M12 .297c-6.63 0-12 5.373-12 12 0 5.303 3.438 9.8 8.205 11.385.6.113.82-.258.82-.577 0-.285-.01-1.04-.015-2.04-3.338.724-4.042-1.61-4.042-1.61C4.422 18.07 3.633 17.7 3.633 17.7c-1.087-.744.084-.729.084-.729 1.205.084 1.838 1.236 1.838 1.236 1.07 1.835 2.809 1.305 3.495.998.108-.776.417-1.305.76-1.605-2.665-.3-5.466-1.332-5.466-5.93 0-1.31.465-2.38 1.235-3.22-.135-.303-.54-1.523.105-3.176 0 0 1.005-.322 3.3 1.23.96-.267 1.98-.399 3-.405 1.02.006 2.04.138 3 .405 2.28-1.552 3.285-1.23 3.285-1.23.645 1.653.24 2.873.12 3.176.765.84 1.23 1.91 1.23 3.22 0 4.61-2.805 5.625-5.475 5.92.42.36.81 1.096.81 2.22 0 1.606-.015 2.896-.015 3.286 0 .315.21.69.825.57C20.565 22.092 24 17.592 24 12.297c0-6.627-5.373-12-12-12"
+                    />
+                  </svg>
+                  Project Repository
+                </a>
+              </div>
+            </div>
+          </div>
+        </section>
 
-                        <!-- Project Repository -->
-                        <div class="pt-3 flex justify-center">
-                            <div class="w-32 border-t border-gray-300 mb-2"></div>
-                        </div>
-                        <div class="text-center">
-                            <a href="https://github.com/oomuh570/Tailwind_Threads.git" 
-                            target="_blank"
-                            class="inline-flex items-center gap-2 text-gray-600 hover:text-black transition-colors">
-                                <!-- From: https://simpleicons.org/?q=github -->
-                                <svg class="w-5 h-5" fill="currentColor" role="img" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                                    <title>GitHub</title>
-                                    <path d="M12 .297c-6.63 0-12 5.373-12 12 0 5.303 3.438 9.8 8.205 11.385.6.113.82-.258.82-.577 0-.285-.01-1.04-.015-2.04-3.338.724-4.042-1.61-4.042-1.61C4.422 18.07 3.633 17.7 3.633 17.7c-1.087-.744.084-.729.084-.729 1.205.084 1.838 1.236 1.838 1.236 1.07 1.835 2.809 1.305 3.495.998.108-.776.417-1.305.76-1.605-2.665-.3-5.466-1.332-5.466-5.93 0-1.31.465-2.38 1.235-3.22-.135-.303-.54-1.523.105-3.176 0 0 1.005-.322 3.3 1.23.96-.267 1.98-.399 3-.405 1.02.006 2.04.138 3 .405 2.28-1.552 3.285-1.23 3.285-1.23.645 1.653.24 2.873.12 3.176.765.84 1.23 1.91 1.23 3.22 0 4.61-2.805 5.625-5.475 5.92.42.36.81 1.096.81 2.22 0 1.606-.015 2.896-.015 3.286 0 .315.21.69.825.57C20.565 22.092 24 17.592 24 12.297c0-6.627-5.373-12-12-12"/>
-                                </svg>
-                                Project Repository
-                            </a>
-                        </div>
-                    </div>
-                </div>
-
-            </section>
-
-              <!-- Copyright Bar -->
-            <section class="pt-6 border-t border-gray-300 text-center">
-                <p class="text-xs text-gray-500">
-                    &copy; 2025 ShopLifted - Built for COMP 3612 Assignment 2
-                </p>
-            </section>
-        </div>
+        <!-- Copyright Bar -->
+        <section class="pt-6 border-t border-gray-300 text-center">
+          <p class="text-xs text-gray-500">
+            &copy; 2025 ShopLifted - Built for COMP 3612 Assignment 2
+          </p>
+        </section>
+      </div>
     </footer>
-
-</body>
+  </body>
 </html>
-       <!-- JavaScript -->
-   <!-- <script>
-        // Cart & view state
-        let cart = JSON.parse(localStorage.getItem("cart")) || [];
-        let currentView = 'home-view';
-        let currentGender = '';
-        let selectedSize = '';
-        let selectedColor = '';
-        let currentProductId = null;
-
-        // Browse filters
-        let browseFilters = {
-            gender: [],
-            category: [],
-            size: [],
-            color: []
-        };
-
-
-        // Related products object omitted here to save space; 
-        // you can keep the same relatedProducts object you had before
-        // or remove that feature if not required.
-
-        const relatedProducts = {}; // keep empty if you don’t need “You may also like”
-
-        function money(v) { return `$${v.toFixed(2)}`; }
-
-        // ---------- VIEW / NAV HELPERS ----------
-
-        function showView(viewId) {
-            document.querySelectorAll('#main-content > div').forEach(view => {
-                view.classList.add('hidden');
-            });
-            document.getElementById(viewId).classList.remove('hidden');
-            currentView = viewId;
-            window.scrollTo(0, 0);
-        }
-
-        function updateCartCount() {
-            const count = cart.reduce((sum, item) => sum + item.qty, 0);
-            document.getElementById('cart-count').textContent = `(${count})`;
-        }
-
-        // ---------- PRODUCT LOADING ----------
-
-        function loadProduct(productId) {
-            const product = products[productId];
-            if (!product) return;
-
-            currentProductId = productId;
-
-            document.getElementById('product-title').textContent = product.title;
-            document.getElementById('product-price').textContent = product.price;
-            document.getElementById('product-description').textContent = product.description;
-            document.getElementById('product-material').textContent = product.material;
-            document.getElementById('product-main-image').src = product.image;
-
-            document.getElementById('breadcrumb-gender').textContent = product.gender;
-            document.getElementById('breadcrumb-category').textContent = product.category;
-            document.getElementById('breadcrumb-product').textContent = product.title;
-
-            currentGender = product.gender.toLowerCase();
-
-            // reset selections
-            document.querySelectorAll('.size-btn').forEach(b => b.classList.remove('bg-black', 'text-white'));
-            document.querySelectorAll('.color-btn').forEach(b => b.classList.remove('ring-2', 'ring-offset-2', 'ring-black'));
-            selectedSize = '';
-            selectedColor = '';
-            document.getElementById('product-quantity').value = 1;
-
-            showView('product-view');
-        }
-
-        // ---------- CART LOGIC ----------
-
-        function addToCart(productId, size, color, quantity) {
-            const product = products[productId];
-            if (!product) return;
-
-            const priceNumber = parseFloat(product.price.replace('$', ''));
-
-            const existingIndex = cart.findIndex(
-                item => item.id === productId && item.size === size && item.color === color
-            );
-
-            if (existingIndex >= 0) {
-                cart[existingIndex].qty += quantity;
-            } else {
-                cart.push({
-                    id: productId,
-                    title: product.title,
-                    price: priceNumber,
-                    size,
-                    color,
-                    qty: quantity,
-                    image: product.image
-                });
-            }
-
-            localStorage.setItem("cart", JSON.stringify(cart));
-            updateCartCount();
-        }
-
-        function renderCart() {
-            const container = document.getElementById('cart-items-container');
-            const emptyMsg = document.getElementById('empty-cart-msg');
-            const shippingSection = document.getElementById('shipping-section');
-            const checkoutBtn = document.getElementById('checkout-btn');
-
-            cart = JSON.parse(localStorage.getItem("cart")) || [];
-            container.innerHTML = "";
-
-            if (cart.length === 0) {
-                emptyMsg.classList.remove("hidden");
-                shippingSection.classList.add("hidden");
-                checkoutBtn.disabled = true;
-                document.getElementById('summary-merch').textContent = "$0.00";
-                document.getElementById('summary-shipping').textContent = "$0.00";
-                document.getElementById('summary-tax').textContent = "$0.00";
-                document.getElementById('summary-total').textContent = "$0.00";
-                return;
-            }
-
-            emptyMsg.classList.add("hidden");
-            shippingSection.classList.remove("hidden");
-            checkoutBtn.disabled = false;
-
-            const header = document.createElement('div');
-            header.className = "grid grid-cols-8 gap-4 pb-3 border-b text-xs uppercase tracking-wider text-gray-500";
-            header.innerHTML = `
-                <span class="col-span-2">Items</span>
-                <span>Color</span>
-                <span>Size</span>
-                <span>Price</span>
-                <span>Qty</span>
-                <span>Subtotal</span>
-                <span></span>
-            `;
-            container.appendChild(header);
-
-            cart.forEach((item, index) => {
-                const row = document.createElement('div');
-                row.className = "grid grid-cols-8 gap-4 py-4 border-b items-center text-sm";
-                row.innerHTML = `
-                    <div class="col-span-2 flex items-center gap-4">
-                        <div class="w-16 h-16 bg-gray-100 overflow-hidden">
-                            <img src="${item.image}" class="w-full h-full object-cover" alt="${item.title}">
-                        </div>
-                        <div><p class="font-light">${item.title}</p></div>
-                    </div>
-                    <span>${item.color}</span>
-                    <span>${item.size || '-'}</span>
-                    <span>${money(item.price)}</span>
-                    <span>${item.qty}</span>
-                    <span>${money(item.price * item.qty)}</span>
-                    <button onclick="removeCartItem(${index})" class="justify-self-start text-xs px-2 py-1 border border-gray-300 hover:bg-gray-100">-</button>
-                `;
-                container.appendChild(row);
-            });
-
-            calculateSummary();
-        }
-
-        function removeCartItem(index) {
-            cart.splice(index, 1);
-            localStorage.setItem("cart", JSON.stringify(cart));
-            updateCartCount();
-            renderCart();
-        }
-
-        function calculateSummary() {
-            if (cart.length === 0) return;
-
-            const merch = cart.reduce((sum, item) => sum + item.price * item.qty, 0);
-
-            const shippingType = document.getElementById('shipping-type').value;
-            const dest = document.getElementById('shipping-destination').value;
-
-            let shipping = 0;
-            let tax = 0;
-
-            if (merch > 500) {
-                shipping = 0;
-            } else {
-                const shippingCosts = {
-                    standard: { CA: 10, US: 15, INT: 20 },
-                    express:  { CA: 25, US: 25, INT: 30 },
-                    priority: { CA: 35, US: 50, INT: 50 }
-                };
-
-                if (shippingType && dest) {
-                    shipping = shippingCosts[shippingType][dest];
-                }
-            }
-
-            if (dest === "CA") {
-                tax = merch * 0.05;
-            }
-
-            document.getElementById('summary-merch').textContent = money(merch);
-            document.getElementById('summary-shipping').textContent = money(shipping);
-            document.getElementById('summary-tax').textContent = money(tax);
-            document.getElementById('summary-total').textContent = money(merch + shipping + tax);
-        }
-
-        // ---------- BROWSE FILTERS ----------
-
-        function hasOverlap(arr, selected) {
-            if (!arr || arr.length === 0 || selected.length === 0) return true;
-            return selected.some(v => arr.includes(v));
-        }
-
-        function renderBrowseResults() {
-            const resultsContainer = document.getElementById('browse-results');
-            const noResults = document.getElementById('browse-no-results');
-
-            let items = Object.entries(products).map(([id, p]) => ({id, ...p}));
-
-            items = items.filter(p => {
-                return (
-                    (browseFilters.gender.length === 0 || browseFilters.gender.includes(p.gender)) &&
-                    (browseFilters.category.length === 0 || browseFilters.category.includes(p.category)) &&
-                    hasOverlap(p.sizes, browseFilters.size) &&
-                    hasOverlap(p.colors, browseFilters.color)
-                );
-            });
-
-            const sortType = document.getElementById('browse-sort').value;
-
-            if (sortType === 'name') {
-                items.sort((a,b) => a.title.localeCompare(b.title));
-            } else if (sortType === 'price') {
-                items.sort((a,b) => parseFloat(a.price.slice(1)) - parseFloat(b.price.slice(1)));
-            } else if (sortType === 'category') {
-                items.sort((a,b) => a.category.localeCompare(b.category));
-            }
-
-            resultsContainer.innerHTML = '';
-
-            if (items.length === 0) {
-                noResults.classList.remove('hidden');
-                return;
-            } else {
-                noResults.classList.add('hidden');
-            }
-
-            items.forEach(item => {
-                resultsContainer.innerHTML += `
-                    <div class="group cursor-pointer text-sm">
-                        <div onclick="loadProduct('${item.id}')" class="aspect-square bg-gray-100 mb-3 overflow-hidden">
-                            <img src="${item.image}" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
-                        </div>
-                        <p class="font-light">${item.title}</p>
-                        <p class="text-gray-600 mb-2">${item.price}</p>
-                        <button onclick="addToCart('${item.id}','M','Black',1); showToast('Item added to bag');" class="px-2 py-1 bg-black text-white text-xs">
-                            +
-                        </button>
-                    </div>
-                `;
-            });
-        }
-
-        function updateActiveFilters() {
-            const container = document.getElementById('active-filters');
-            container.innerHTML = '';
-
-            Object.entries(browseFilters).forEach(([type, values]) => {
-                values.forEach(value => {
-                    container.innerHTML += `
-                        <span class="px-2 py-1 bg-gray-200 text-xs flex items-center gap-1 rounded">
-                            ${value}
-                            <button class="font-bold" onclick="removeFilter('${type}','${value}')">x</button>
-                        </span>
-                    `;
-                });
-            });
-
-            if (Object.values(browseFilters).flat().length > 0) {
-                container.innerHTML += `
-                    <button onclick="clearAllFilters()" class="text-xs text-blue-600 underline ml-2">
-                        Clear All
-                    </button>
-                `;
-            }
-        }
-
-        function removeFilter(type, value) {
-            browseFilters[type] = browseFilters[type].filter(v => v !== value);
-            const cb = document.querySelector(`.browse-filter[data-type="${type}"][value="${value}"]`);
-            if (cb) cb.checked = false;
-            updateActiveFilters();
-            renderBrowseResults();
-        }
-
-        function clearAllFilters() {
-            browseFilters = { gender: [], category: [], size: [], color: [] };
-            document.querySelectorAll('.browse-filter').forEach(cb => cb.checked = false);
-            updateActiveFilters();
-            renderBrowseResults();
-        }
-
-       
-
-        // ---------- NAV LISTENERS ----------
-
-        document.getElementById('nav-logo').addEventListener('click', () => showView('home-view'));
-        document.getElementById('nav-home').addEventListener('click', () => showView('home-view'));
-        document.getElementById('nav-men').addEventListener('click', () => showView('men-view'));
-        document.getElementById('nav-women').addEventListener('click', () => showView('women-view'));
-        document.getElementById('nav-browse').addEventListener('click', () => {
-            showView('browse-view');
-            renderBrowseResults();
-        });
-
-        document.getElementById('nav-cart').addEventListener('click', () => {
-            showView('cart-view');
-            renderCart();
-        });
-
-       
-        // Category cards
-        document.getElementById('category-men').addEventListener('click', () => showView('men-view'));
-        document.getElementById('category-women').addEventListener('click', () => showView('women-view'));
-
-        // Product cards
-        document.addEventListener('DOMContentLoaded', () => {
-            document.querySelectorAll('.product-card').forEach(card => {
-                card.addEventListener('click', () => {
-                    const productId = card.dataset.product;
-                    loadProduct(productId);
-                });
-            });
-            updateCartCount();
-            renderBrowseResults();
-        });
-
-        // Size / color buttons
-        document.querySelectorAll('.size-btn').forEach(btn => {
-            btn.addEventListener('click', () => {
-                document.querySelectorAll('.size-btn').forEach(b => b.classList.remove('bg-black','text-white'));
-                btn.classList.add('bg-black','text-white');
-                selectedSize = btn.dataset.size;
-            });
-        });
-
-        document.querySelectorAll('.color-btn').forEach(btn => {
-            btn.addEventListener('click', () => {
-                document.querySelectorAll('.color-btn').forEach(b => b.classList.remove('ring-2','ring-offset-2','ring-black'));
-                btn.classList.add('ring-2','ring-offset-2','ring-black');
-                selectedColor = btn.dataset.color;
-            });
-        });
-
-        // Add to cart button (single product view)
-        document.getElementById('add-to-cart-btn').addEventListener('click', () => {
-            if (!currentProductId) return;
-            if (!selectedSize || !selectedColor) {
-                alert("Please select size and color.");
-                return;
-            }
-            const qty = parseInt(document.getElementById('product-quantity').value, 10) || 1;
-            addToCart(currentProductId, selectedSize, selectedColor, qty);
-            showToast('Item added to bag');
-        });
-
-       
-        // Breadcrumbs
-        document.getElementById('breadcrumb-home').addEventListener('click', () => showView('home-view'));
-        document.getElementById('breadcrumb-gender').addEventListener('click', () => {
-            if (currentGender === 'men') showView('men-view');
-            else if (currentGender === 'women') showView('women-view');
-        });
-
-        // Shipping events
-        document.getElementById('shipping-type').addEventListener('change', calculateSummary);
-        document.getElementById('shipping-destination').addEventListener('change', calculateSummary);
-
-        // Checkout
-        document.getElementById('checkout-btn').addEventListener('click', () => {
-            if (cart.length === 0) return;
-            showToast('Order placed. Thank you!');
-            cart = [];
-            localStorage.removeItem("cart");
-            updateCartCount();
-            renderCart();
-            setTimeout(() => showView('home-view'), 700);
-        });
-
-        // Browse filter checkbox listeners
-        document.querySelectorAll('.browse-filter').forEach(cb => {
-            cb.addEventListener('change', () => {
-                const type = cb.dataset.type;
-                if (cb.checked) {
-                    if (!browseFilters[type].includes(cb.value)) {
-                        browseFilters[type].push(cb.value);
-                    }
-                } else {
-                    browseFilters[type] = browseFilters[type].filter(v => v !== cb.value);
-                }
-                updateActiveFilters();
-                renderBrowseResults();
-            });
-        });
-
-        // Sort change
-        document.getElementById('browse-sort').addEventListener('change', renderBrowseResults);
-    </script> --> 
-
-</body>
-</html>
-
