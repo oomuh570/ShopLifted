@@ -775,28 +775,64 @@ function renderCart() {
     const subtotal = product.price * item.qty;
     merchandiseTotal += subtotal;
 
+    // Row container
     const row = document.createElement("div");
-    row.className = "flex items-center justify-between border-b py-4";
+    row.classList.add("flex", "items-center", "justify-between", "border-b", "py-4");
 
-    row.innerHTML = `
-        <div class="flex items-center gap-4 flex-1">
-            <div class="w-16 h-16 rounded border" style="background:${
-              item.color
-            }"></div>
-            <div>
-            <p class="font-medium text-sm">${product.name}</p>
-            <p class="text-xs text-gray-500">Size: ${item.size}</p>
-            <p class="text-xs text-gray-500">Qty: ${item.qty}</p>
-            </div>
-        </div>
+    // Image + info wrapper
+    const left = document.createElement("div");
+    left.classList.add("flex", "items-center", "gap-4", "flex-1");
 
-        <div class="flex flex-col items-end gap-2 w-28">
-            <p class="text-sm font-medium">$${subtotal.toFixed(2)}</p>
-            <button class="px-3 py-1 border rounded hover:bg-gray-200" data-remove="${index}">
-            Remove
-            </button>
-        </div>
-    `;
+    // Color box
+    const colorBox = document.createElement("div");
+    colorBox.classList.add("w-16", "h-16", "rounded", "border");
+    colorBox.style.background = item.color;
+
+    // Info stack
+    const info = document.createElement("div");
+
+    // Product name
+    const name = document.createElement("p");
+    name.classList.add("font-medium", "text-sm");
+    name.textContent = product.name;
+
+    // Size
+    const size = document.createElement("p");
+    size.classList.add("text-xs", "text-gray-500");
+    size.textContent = `Size: ${item.size}`;
+
+    // Quantity
+    const qty = document.createElement("p");
+    qty.classList.add("text-xs", "text-gray-500");
+    qty.textContent = `Qty: ${item.qty}`;
+
+    info.appendChild(name);
+    info.appendChild(size);
+    info.appendChild(qty);
+
+    left.appendChild(colorBox);
+    left.appendChild(info);
+
+    // Subtotal + remove button
+    const right = document.createElement("div");
+    right.classList.add("flex", "flex-col", "items-end", "gap-2", "w-28");
+
+    // Subtotal
+    const subtotalElem = document.createElement("p");
+    subtotalElem.classList.add("text-sm", "font-medium");
+    subtotalElem.textContent = `$${subtotal.toFixed(2)}`;
+
+    // Remove button
+    const removeBtn = document.createElement("button");
+    removeBtn.classList.add("px-3", "py-1", "border", "rounded", "hover:bg-gray-200");
+    removeBtn.dataset.remove = index;
+    removeBtn.textContent = "Remove";
+
+    right.appendChild(subtotalElem);
+    right.appendChild(removeBtn);
+
+    row.appendChild(left);
+    row.appendChild(right);
 
     container.appendChild(row);
   });
